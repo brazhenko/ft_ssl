@@ -144,24 +144,32 @@ reg32		ROUND(reg32 a, reg32 b, reg32 c, reg32 d,
 	return (b + ((tmp << s) | (tmp >> (32 - s))));
 }
 
-void		*md5(const char *str)
+void		*md5(const char *str, int *flags)
 {
 
 	size_t		orig_len;
 	reg32		*new;
-	reg32		copy[16];
+	reg32		buffer[16];
 
-	orig_len = strlen(str);	
+	orig_len = strlen(str);
 	new = (reg32 *)memory_append(str, orig_len);
 	new = (reg32 *)cat_padding((byte *)new, orig_len);
 	new = (reg32 *)cat_length((byte *)new, orig_len);
 	init_buffer(&hsh);
 
+/*
+	while (fill_buffer())
+	{
+
+	}
+*/
+
+
 	for (size_t i = 0; i < clcl_new_len(orig_len) / 64; ++i)
 	{
 		for (size_t j = 0; j < 16; ++j)
 		{
-			copy[j] = new[i * 16 + j];
+			buffer[j] = new[i * 16 + j];
 		}
 
 		hsh.aa = hsh.a;
@@ -171,79 +179,79 @@ void		*md5(const char *str)
 
 		/* _________1_________ */
 
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, f1, copy, 0, 7, 1);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, f1, copy, 1, 12, 2);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, f1, copy, 2, 17, 3);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, f1, copy, 3, 22, 4);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, f1, copy, 4, 7, 5);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, f1, copy, 5, 12, 6);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, f1, copy, 6, 17, 7);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, f1, copy, 7, 22, 8);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, f1, copy, 8, 7, 9);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, f1, copy, 9, 12, 10);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, f1, copy, 10, 17, 11);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, f1, copy, 11, 22, 12);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, f1, copy, 12, 7, 13);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, f1, copy, 13, 12, 14);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, f1, copy, 14, 17, 15);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, f1, copy, 15, 22, 16);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, f1, buffer, 0, 7, 1);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, f1, buffer, 1, 12, 2);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, f1, buffer, 2, 17, 3);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, f1, buffer, 3, 22, 4);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, f1, buffer, 4, 7, 5);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, f1, buffer, 5, 12, 6);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, f1, buffer, 6, 17, 7);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, f1, buffer, 7, 22, 8);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, f1, buffer, 8, 7, 9);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, f1, buffer, 9, 12, 10);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, f1, buffer, 10, 17, 11);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, f1, buffer, 11, 22, 12);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, f1, buffer, 12, 7, 13);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, f1, buffer, 13, 12, 14);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, f1, buffer, 14, 17, 15);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, f1, buffer, 15, 22, 16);
 
 		/* ________2_________ */
 		
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, g1, copy, 1, 5, 17);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, g1, copy, 6, 9, 18);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, g1, copy, 11, 14, 19);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, g1, copy, 0, 20, 20);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, g1, copy, 5, 5, 21);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, g1, copy, 10, 9, 22);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, g1, copy, 15, 14, 23);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, g1, copy, 4, 20, 24);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, g1, copy, 9, 5, 25);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, g1, copy, 14, 9, 26);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, g1, copy, 3, 14, 27);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, g1, copy, 8, 20, 28);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, g1, copy, 13, 5, 29);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, g1, copy, 2, 9, 30);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, g1, copy, 7, 14, 31);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, g1, copy, 12, 20, 32);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, g1, buffer, 1, 5, 17);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, g1, buffer, 6, 9, 18);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, g1, buffer, 11, 14, 19);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, g1, buffer, 0, 20, 20);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, g1, buffer, 5, 5, 21);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, g1, buffer, 10, 9, 22);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, g1, buffer, 15, 14, 23);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, g1, buffer, 4, 20, 24);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, g1, buffer, 9, 5, 25);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, g1, buffer, 14, 9, 26);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, g1, buffer, 3, 14, 27);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, g1, buffer, 8, 20, 28);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, g1, buffer, 13, 5, 29);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, g1, buffer, 2, 9, 30);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, g1, buffer, 7, 14, 31);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, g1, buffer, 12, 20, 32);
 
 		/* ________3_________ */
 
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, h1, copy, 5, 4, 33);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, h1, copy, 8, 11, 34);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, h1, copy, 11, 16, 35);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, h1, copy, 14, 23, 36);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, h1, copy, 1, 4, 37);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, h1, copy, 4, 11, 38);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, h1, copy, 7, 16, 39);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, h1, copy, 10, 23, 40);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, h1, copy, 13, 4, 41);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, h1, copy, 0, 11, 42);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, h1, copy, 3, 16, 43);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, h1, copy, 6, 23, 44);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, h1, copy, 9, 4, 45);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, h1, copy, 12, 11, 46);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, h1, copy, 15, 16, 47);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, h1, copy, 2, 23, 48);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, h1, buffer, 5, 4, 33);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, h1, buffer, 8, 11, 34);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, h1, buffer, 11, 16, 35);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, h1, buffer, 14, 23, 36);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, h1, buffer, 1, 4, 37);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, h1, buffer, 4, 11, 38);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, h1, buffer, 7, 16, 39);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, h1, buffer, 10, 23, 40);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, h1, buffer, 13, 4, 41);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, h1, buffer, 0, 11, 42);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, h1, buffer, 3, 16, 43);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, h1, buffer, 6, 23, 44);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, h1, buffer, 9, 4, 45);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, h1, buffer, 12, 11, 46);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, h1, buffer, 15, 16, 47);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, h1, buffer, 2, 23, 48);
 
 		/* ________4_________ */
 
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, i1, copy, 0, 6, 49);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, i1, copy, 7, 10, 50);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, i1, copy, 14, 15, 51);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, i1, copy, 5, 21, 52);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, i1, copy, 12, 6, 53);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, i1, copy, 3, 10, 54);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, i1, copy, 10, 15, 55);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, i1, copy, 1, 21, 56);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, i1, copy, 8, 6, 57);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, i1, copy, 15, 10, 58);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, i1, copy, 6, 15, 59);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, i1, copy, 13, 21, 60);
-		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, i1, copy, 4, 6, 61);
-		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, i1, copy, 11, 10, 62);
-		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, i1, copy, 2, 15, 63);
-		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, i1, copy, 9, 21, 64);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, i1, buffer, 0, 6, 49);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, i1, buffer, 7, 10, 50);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, i1, buffer, 14, 15, 51);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, i1, buffer, 5, 21, 52);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, i1, buffer, 12, 6, 53);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, i1, buffer, 3, 10, 54);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, i1, buffer, 10, 15, 55);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, i1, buffer, 1, 21, 56);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, i1, buffer, 8, 6, 57);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, i1, buffer, 15, 10, 58);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, i1, buffer, 6, 15, 59);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, i1, buffer, 13, 21, 60);
+		hsh.a = ROUND(hsh.a, hsh.b, hsh.c, hsh.d, i1, buffer, 4, 6, 61);
+		hsh.d = ROUND(hsh.d, hsh.a, hsh.b, hsh.c, i1, buffer, 11, 10, 62);
+		hsh.c = ROUND(hsh.c, hsh.d, hsh.a, hsh.b, i1, buffer, 2, 15, 63);
+		hsh.b = ROUND(hsh.b, hsh.c, hsh.d, hsh.a, i1, buffer, 9, 21, 64);
 
 		hsh.a += hsh.aa;
 		hsh.b += hsh.bb;
@@ -269,7 +277,7 @@ void		*md5(const char *str)
 	printf("%02x", hsh.d >> 0 & A);
 	printf("%02x", hsh.d >> 8 & A);
 	printf("%02x", hsh.d >> 16 & A);
-	printf("%02x\n", hsh.d >> 24 & A);
+	printf("%02x", hsh.d >> 24 & A);
 
 	return (NULL);
 }
