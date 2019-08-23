@@ -9,5 +9,6 @@ static const char 		hex_arr[] = {
 };
 
 char	*nstrjoin(int n, ...);
+int		is_flag(const char *str);
 
 #endif

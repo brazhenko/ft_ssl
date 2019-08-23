@@ -15,7 +15,8 @@
 # define FLAG_Q 0b10
 # define FLAG_S 0b100
 # define FLAG_P 0b1000
-# define RESET_FLAG_PS 0b1111111111110011
+# define FLAG_FILEERROR 0b10000000
+# define RESET_FLAG 0b1111111101110011
 
 typedef uint32_t 		reg32;
 typedef unsigned char	byte;

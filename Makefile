@@ -1,7 +1,7 @@
 PROJECT		= ft_ssl
 FLAGS		= -Wall -Wextra -Werror -pedantic
 CC			= clang
-FT_MD5_SRC	= ft_md5/md5.c utilities/nstrjoin.c exec_manager.c main.c
+FT_MD5_SRC	= ft_md5/md5.c utilities/nstrjoin.c utilities/is_flag.c exec_manager.c main.c
 INC			= include
 
 all :
