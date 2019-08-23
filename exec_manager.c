@@ -1,7 +1,5 @@
 #include "ft_ssl.h"
 
-
-
 int			is_flag(const char *str)
 {
 	if (str && str[0] == '-' && str[1] != '\0')
@@ -24,7 +22,7 @@ int			handle_flag(char *str, int *flags)
 	{
 		if (*flags & FLAG_S)
 		{
-			handle_arg(str, flags);
+			md5(str, *flags);
 			*flags -= FLAG_S;
 			return 1;
 		}
@@ -36,7 +34,9 @@ int			handle_flag(char *str, int *flags)
 			*flags = *flags | FLAG_S;
 		else if (*str == 'p')
 		{
-			// TODO stdin hashing
+			*flags = *flags | FLAG_P;
+			md5(NULL, *flags);
+			*flags = *flags - FLAG_P;
 		}
 		else
 			illegal_option_exit(*str);
@@ -45,43 +45,7 @@ int			handle_flag(char *str, int *flags)
 	return (0);
 }
 
-int			handle_arg(char *str, int *flags)
-{
-	if (*flags & FLAG_Q)
-	{
-		if (*flags & FLAG_S)
-			md5(str, flags);
-		else
-			md5(str, flags);
-		fflush(stdout);
-		write(1, "\n", 1);
-	}
-	else
-	{
-		if (*flags & FLAG_R)
-		{
-			md5(str, flags);
-			fflush(stdout);
-			write(1, " \"", 2);
-			write(1, str, strlen(str));
-			write(1, "\"", 1);
-			write(1, "\n", 1);
-		}
-		else
-		{
-			write(1, "MD5 (\"", 6);
-			write(1, str, strlen(str));
-			write(1, "\"", 1);
-			write(1, ") = ", 4);
-			md5(str, flags);
-			fflush(stdout);
-			write(1, "\n", 1);
-		}
-	}
-		return (0);
-}
-
-int			hash_executor(int ac, char *av[], void *(*algo)(const char *, int *))
+int			hash_executor(int ac, char *av[], void *(*algo)(char *, int))
 {
 	int		i;
 	int		flags;
@@ -95,23 +59,22 @@ int			hash_executor(int ac, char *av[], void *(*algo)(const char *, int *))
 			if (is_flag(av[i]))
 				handle_flag(av[i], &flags);
 			else
-				handle_arg(av[i], &flags);
+			{
+				algo(av[i], flags);
+				flags &= RESET_FLAG_PS;
+			}
 			++i;
 		}
 	}
 	else
-	{
-		read(1, NULL, 1);
-	}
+		algo(NULL, FLAG_P);
 	return (0);
 }
 
 int			command_executor(int ac, char *av[])
 {
 	if (strcmp(av[0], "md5") == 0)
-	{
 		hash_executor(ac - 1, av + 1, md5);
-	}
 	else if (strcmp(av[0], "sha256") == 0)
 	{
 		write(2, "sha256 is not available now\n", 28);
