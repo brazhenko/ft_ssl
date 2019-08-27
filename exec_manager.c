@@ -83,3 +83,7 @@ int			command_executor(int ac, char *av[])
 	}
 	return (0);
 }
+
+// TODO -s -s after that ONLY files nothing more
+// TODO from pipe (or stdin) with -p forward the input to the output
+// TODO handle when zero arguments (stdin reading must be started)
