@@ -1,6 +1,7 @@
 #include "ft_ssl.h"
 
-reg32		buffer[16];
+// TODO decide the arcitecture of buffer
+reg32		buffer[17];
 
 # define A 0b11111111
 # define B 0b1111
@@ -206,6 +207,7 @@ size_t	fill_buffer_from_stream(int fd, char *buffer)
 int 	fill_buffer(char *str, char *buffer, int flags)
 {
 	static int	file_fd = 0;
+	size_t		ret;
 
 	if (flags & FLAG_S)
 	{
@@ -213,7 +215,9 @@ int 	fill_buffer(char *str, char *buffer, int flags)
 	}
 	else if (flags & FLAG_P)
 	{
-		return (fill_buffer_from_stream(0, buffer));
+		ret = fill_buffer_from_stream(0, buffer);
+		write(1, buffer, strlen(buffer));
+		return (ret);
 	}
 	else
 	{

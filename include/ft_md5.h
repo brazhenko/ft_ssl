@@ -1,7 +1,7 @@
 #ifndef FT_MD5_H
 # define FT_MD5_H
 
-# define MD5_BUFFER_SIZE 64
+# define MD5_BUFFER_SIZE 512
 
 # define FUNC_F(x, y, z) ((x & y) | ((~x) & z))
 # define FUNC_G(x, y, z) ((x & z) | (~z & y))
