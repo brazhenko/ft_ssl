@@ -59,9 +59,10 @@ void		print_md5(t_hash hsh, char *str, int flags)
 
 	if (flags & FLAG_FILEERROR)
 	{
-		out = nstrjoin(3, "md5: ", str,
-				": No such file or directory or it is directory\n");
-		write(1, out, strlen(out));
+		nstrprint(
+				3, "md5: ", str,
+				": No such file or directory or it is directory\n"
+				);
 	}
 	else if (flags & FLAG_Q || flags & FLAG_P)
 	{
@@ -73,21 +74,20 @@ void		print_md5(t_hash hsh, char *str, int flags)
 		if (flags & FLAG_R)
 		{
 			raw_md5(hsh);
-			out = nstrjoin(4, raw_md5(hsh),
+			nstrprint(4,
+					raw_md5(hsh),
 					flags & FLAG_S ? " \"" : " ",
 					str,
 					flags & FLAG_S ? "\"\n" : "\n");
-			write(1, out, strlen(out));
 		}
 		else
 		{
 			raw_md5(hsh);
-			out = nstrjoin(5,
+			nstrprint(5,
 					flags & FLAG_S ? "MD5 (\"" : "MD5 (",
 					str,
 					flags & FLAG_S ? "\") = " : ") = ",
 					raw_md5(hsh), "\n");
-			write(1, out, strlen(out));
 		}
 	}
 }

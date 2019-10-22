@@ -73,17 +73,16 @@ int			command_executor(int ac, char *av[])
 	else if (strcmp(av[0], "sha256") == 0)
 	{
 		write(2, "sha256 is not available now\n", 28);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		ptr = nstrjoin(3, "ft_ssl: Error: \'", av[0], "\' is an invalid command.\n");
-		write(1, ptr, strlen(ptr));
+		nstrprint(3, "ft_ssl: Error: \'", av[0], "\' is an invalid command.\n");
 		// TODO add the list of available commands
-		free(ptr);
 	}
 	return (0);
 }
 
-// TODO -s -s after that ONLY files nothing more
+// TODO -s after that ONLY files nothing more
 // TODO from pipe (or stdin) with -p forward the input to the output
 // TODO handle when zero arguments (stdin reading must be started)

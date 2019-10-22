@@ -1,5 +1,5 @@
 #ifndef UTILITIES_H
-#define UTILITIES_H
+# define UTILITIES_H
 
 static const char 		hex_arr[] = {
 		'0', '1', '2', '3',
@@ -9,6 +9,7 @@ static const char 		hex_arr[] = {
 };
 
 char	*nstrjoin(int n, ...);
+int		nstrprint(int n, ...);
 int		is_flag(const char *str);
 
 #endif
