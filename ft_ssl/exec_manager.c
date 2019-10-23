@@ -77,8 +77,15 @@ int			command_executor(int ac, char *av[])
 	}
 	else
 	{
-		nstrprint(3, "ft_ssl: Error: \'", av[0], "\' is an invalid command.\n");
-		// TODO add the list of available commands
+		nstrprint(11, "ft_ssl: Error: \'", av[0], "\' is an invalid command.\n",
+				"Standard commands\n",
+				"\n"
+				"Message Digest commands\n",
+				"md5\n", "sha256 - under development\n",
+				"sha384 - under development\n",
+				"\n",
+				"Cipher commands\n", "\n"
+				);
 	}
 	return (0);
 }
