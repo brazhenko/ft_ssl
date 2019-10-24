@@ -7,15 +7,15 @@
 */
 
 # define SHA256_RSHIFT(x, n) ((x) >> (n)) | (((x) << (32 - (n))))
-# define SHA256_RROTATION(x, n) ((x) >> (n)))
+# define SHA256_RROTATION(x, n) ((x) >> (n))
 # define SHA256_CH(x, y, z) (((x) & (y)) ^ ((~(x)) & (z)))
 # define SHA256_MAJ(x, y, z) (((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
-# define SHA256_S0(x) ((SHA256_RSHIFT((x), 2)) ^ (SHA256_RSHIFT((x), 13)) ^ (SHA256_RSHIFT((x), 22)))
+# define SHA256_S0(x) ( (SHA256_RSHIFT((x), 2)) ^ (SHA256_RSHIFT((x), 13)) ^ (SHA256_RSHIFT((x), 22)) )
 # define SHA256_S1(x) ((SHA256_RSHIFT((x), 6)) ^ (SHA256_RSHIFT((x), 11)) ^ (SHA256_RSHIFT((x), 25)))
 # define SHA256_S2(x) ((SHA256_RSHIFT((x), 7)) ^ (SHA256_RSHIFT((x), 18)) ^ (SHA256_RROTATION((x), 3)))
 # define SHA256_S3(x) ((SHA256_RSHIFT((x), 17)) ^ (SHA256_RSHIFT((x), 19)) ^ (SHA256_RROTATION((x), 10)))
 
-
+typedef unsigned int reg32;
 
 /*
 **	Array of SHA-256 algorithm constants
@@ -47,5 +47,6 @@ typedef struct	s_hash_sha256
 }				t_hash_sha256;
 
 
+void			*sha256(char *str, int flags);
 
 #endif

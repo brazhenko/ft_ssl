@@ -9,12 +9,14 @@
 #include <string.h>
 #include <fcntl.h>
 #include "ft_md5.h"
+#include "ft_sha256.h"
 #include "utilities.h"
 
-# define FLAG_R 0b1
-# define FLAG_Q 0b10
-# define FLAG_S 0b100
-# define FLAG_P 0b1000
+# define FLAG_R 		0b1
+# define FLAG_Q 		0b10
+# define FLAG_S 		0b100
+# define FLAG_P 		0b1000
+# define FLAG_STDIN 	0b10000
 # define FLAG_FILEERROR 0b10000000
 # define RESET_FLAG 0b1111111101110011
 
