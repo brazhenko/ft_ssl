@@ -6,14 +6,24 @@
 **	32-bit (8-byte) value.
 */
 
-# define SHA256_RSHIFT(x, n) ((x) >> (n)) | (((x) << (32 - (n))))
+# define SHA256_RSHIFT(x, n) (((x) >> (n)) | (((x) << (32 - (n)))))
 # define SHA256_RROTATION(x, n) ((x) >> (n))
 # define SHA256_CH(x, y, z) (((x) & (y)) ^ ((~(x)) & (z)))
 # define SHA256_MAJ(x, y, z) (((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
-# define SHA256_S0(x) ( (SHA256_RSHIFT((x), 2)) ^ (SHA256_RSHIFT((x), 13)) ^ (SHA256_RSHIFT((x), 22)) )
+
+# define SHA256_S0(x) ((SHA256_RSHIFT((x), 2)) ^ (SHA256_RSHIFT((x), 13)) ^ (SHA256_RSHIFT((x), 22)))
 # define SHA256_S1(x) ((SHA256_RSHIFT((x), 6)) ^ (SHA256_RSHIFT((x), 11)) ^ (SHA256_RSHIFT((x), 25)))
 # define SHA256_S2(x) ((SHA256_RSHIFT((x), 7)) ^ (SHA256_RSHIFT((x), 18)) ^ (SHA256_RROTATION((x), 3)))
 # define SHA256_S3(x) ((SHA256_RSHIFT((x), 17)) ^ (SHA256_RSHIFT((x), 19)) ^ (SHA256_RROTATION((x), 10)))
+
+
+
+# define ROTATE(x, n) (((x) >> (n)) | (((x) << (32 - (n)))))
+# define Sigma0(x)       (ROTATE((x),30) ^ ROTATE((x),19) ^ ROTATE((x),10))
+# define Sigma1(x)       (ROTATE((x),26) ^ ROTATE((x),21) ^ ROTATE((x),7))
+# define sigma0(x)       (ROTATE((x),25) ^ ROTATE((x),14) ^ ((x)>>3))
+# define sigma1(x)       (ROTATE((x),15) ^ ROTATE((x),13) ^ ((x)>>10))
+# define Ch(x,y,z)       (((x) & (y)) ^ ((~(x)) & (z)))
 
 typedef unsigned int reg32;
 
