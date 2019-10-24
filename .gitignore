@@ -64,7 +64,6 @@ Temporary Items
 *.i*86
 *.x86_64
 *.hex
-ft_ssl
 ssl
 
 # Test Files

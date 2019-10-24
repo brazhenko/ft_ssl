@@ -1,5 +1,6 @@
 #include "ft_sha256.h"
 #include "ft_ssl.h"
+#include "utilities.h"
 #include <string.h>
 
 int				init_sha256_hash(t_hash_sha256 *hash)
@@ -21,7 +22,23 @@ void			print_sha256_hash(t_hash_sha256 hash)
 {
 	for (int i = 0; i < 8; i++)
 	{
-		printf("%08x", hash.hash[i]);
+	    putchar(hex_arr[(hash.hash[i] >> 28) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 26) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 24) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 22) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 20) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 18) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 16) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 14) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 12) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 10) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 8) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 6) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 4) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 2) & 0b1111]);
+        putchar(hex_arr[(hash.hash[i] >> 9) & 0b1111]);
+
+        //  printf("%08x", hash.hash[i]);
 	}
 	printf("\n");
 }
@@ -40,7 +57,7 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 {
 	size_t		i;
 	reg32		tmp[8];
-	reg32		T1, T2;
+	reg32		t1, t2;
 
 
 	//---------
@@ -56,10 +73,12 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 	}
 	for (int i = 16; i < 64; i++)
 	{
-		w[i] = 	w[i-16] + SHA256_S2(w[i-15]) + w[i-7] + SHA256_S3(w[i-2]);
+		w[i] = 	w[i - 16] +
+		        SHA256_S2(w[i - 15]) +
+		        w[i - 7] +
+		        SHA256_S3(w[i - 2]);
 	}
 	//---------
-
 
 	// TODO fix hardcode below
 	tmp[0] = hash->hash[0];
@@ -72,28 +91,26 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 	tmp[7] = hash->hash[7];
 	//-------
 
-
 	i = 0;
 	while (i < 64)
 	{
 		// Swapping elements
-		T1 = 	tmp[7] +
+		t1 = 	tmp[7] +
 				SHA256_S1(tmp[4]) +
 				SHA256_CH(tmp[4], tmp[5], tmp[6]) +
 				sha256_constants[i] +
 				w[i];
 
-		T2 = SHA256_S0(tmp[0]) + SHA256_MAJ(tmp[0], tmp[1], tmp[2]);
+		t2 = SHA256_S0(tmp[0]) + SHA256_MAJ(tmp[0], tmp[1], tmp[2]);
 		tmp[7] = tmp[6]; // h
 		tmp[6] = tmp[5]; // g
 		tmp[5] = tmp[4]; // f
-		tmp[4] = tmp[3] + T1; // e
+		tmp[4] = tmp[3] + t1; // e
 		tmp[3] = tmp[2]; // d
 		tmp[2] = tmp[1]; // c
 		tmp[1] = tmp[0]; // b
-		tmp[0] = T1 + T2; // a
+		tmp[0] = t1 + t2; // a
 		i++;
-
 	}
 
 	// TODO think how to optimise this increment

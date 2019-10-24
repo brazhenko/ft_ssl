@@ -1,6 +1,3 @@
-//
-// Created by Lommy greenhands Reznak mo reznak on 2019-10-24.
-//
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>

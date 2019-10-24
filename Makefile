@@ -1,6 +1,7 @@
 PROJECT		= ssl
 FLAGS		= -Wall -Wextra -Werror -pedantic -g
 CC			= clang
+BUILD_DIR   = build
 FT_MD5_SRC	= ft_md5/md5.c \
 				utilities/nstrjoin.c \
 				utilities/is_flag.c \
