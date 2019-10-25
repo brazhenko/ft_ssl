@@ -204,6 +204,7 @@ void			*sha256(char *str, int flags)
 	else
 	{
 		calculate_hash_from_file(str);
+		print_sha256_hash(hash);
 	}
 	return (NULL);
 }
