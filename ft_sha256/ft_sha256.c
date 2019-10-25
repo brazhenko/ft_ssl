@@ -22,23 +22,8 @@ void			print_sha256_hash(t_hash_sha256 hash)
 {
 	for (int i = 0; i < 8; i++)
 	{
-	    putchar(hex_arr[(hash.hash[i] >> 28) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 26) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 24) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 22) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 20) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 18) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 16) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 14) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 12) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 10) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 8) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 6) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 4) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 2) & 0b1111]);
-        putchar(hex_arr[(hash.hash[i] >> 9) & 0b1111]);
-
-        //  printf("%08x", hash.hash[i]);
+// 	    putchar(hex_arr[(hash.hash[i] >> 28) & 0b1111]);
+        printf("%08x", hash.hash[i]);
 	}
 	printf("\n");
 }
@@ -65,7 +50,7 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 	for (int i = 0 ;i < 16; i++)
 	{
 		w[i] = 0;
-		//TODO refactor this hardcode pizdec
+		// TODO refactor this hardcode pizdec
 		w[i] |=  (ptr[i] >> 24) & 0b11111111;
 		w[i] |=  (((ptr[i] >> 16) & 0b11111111) << 8);
 		w[i] |=  (((ptr[i] >> 8) & 0b11111111) << 16);
@@ -129,7 +114,12 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 
 // --------------------------
 
-size_t				calculate_padding(const char *str, char	**padded)
+/*
+**      According to the fact that minimum addressable piece is BYTE not BIT we
+**      user all parameters from sha documentation divided by 8.
+*/
+
+size_t				calculate_sha256_padding(const char *str, char	**padded)
 {
 	size_t		len;
 	size_t		mul8len;
@@ -150,14 +140,14 @@ size_t				calculate_padding(const char *str, char	**padded)
 	return (padded_len);
 }
 
-t_hash_sha256	calculate_hash_from_string(const char *str)
+t_hash_sha256	calculate_sha256_from_string(const char *str)
 {
 	t_hash_sha256		hash;
 	char				*padded;
 	size_t				padded_len;
 
 	init_sha256_hash(&hash);
-	padded_len = calculate_padding(str, &padded);
+	padded_len = calculate_sha256_padding(str, &padded);
 	while (padded_len)
 	{
 		calculate_sha256_block((reg32 *)padded, &hash);
@@ -168,7 +158,7 @@ t_hash_sha256	calculate_hash_from_string(const char *str)
 }
 // --------------------------
 
-t_hash_sha256	calculate_hash_from_file(const char *file_name)
+t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 {
 	t_hash_sha256		hash;
 
@@ -177,7 +167,7 @@ t_hash_sha256	calculate_hash_from_file(const char *file_name)
 	return (hash);
 }
 
-t_hash_sha256	calculate_hash_from_stdin(void)
+t_hash_sha256	calculate_sha256_from_stdin(void)
 {
 	t_hash_sha256		hash;
 
@@ -193,17 +183,17 @@ void			*sha256(char *str, int flags)
 
 	if (flags & FLAG_P || flags & FLAG_STDIN)
 	{
-		hash = calculate_hash_from_stdin();
+		hash = calculate_sha256_from_stdin();
 		print_sha256_hash(hash);
 	}
 	else if (flags & FLAG_S)
 	{
-		hash = calculate_hash_from_string(str);
+		hash = calculate_sha256_from_string(str);
 		print_sha256_hash(hash);
 	}
 	else
 	{
-		calculate_hash_from_file(str);
+		hash = calculate_sha256_from_file(str);
 		print_sha256_hash(hash);
 	}
 	return (NULL);
