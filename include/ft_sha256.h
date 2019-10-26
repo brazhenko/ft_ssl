@@ -6,15 +6,15 @@
 **	32-bit (8-byte) value.
 */
 
-# define SHA256_RSHIFT(x, n) (((x) >> (n)) | (((x) << (32 - (n)))))
-# define SHA256_RROTATION(x, n) ((x) >> (n))
+# define RSHIFT(x, n) (((x) >> (n)) | (((x) << (32 - (n)))))
+# define RROTATION(x, n) ((x) >> (n))
 # define SHA256_CH(x, y, z) (((x) & (y)) ^ ((~(x)) & (z)))
 # define SHA256_MAJ(x, y, z) (((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
 
-# define SHA256_S0(x) ((SHA256_RSHIFT((x), 2)) ^ (SHA256_RSHIFT((x), 13)) ^ (SHA256_RSHIFT((x), 22)))
-# define SHA256_S1(x) ((SHA256_RSHIFT((x), 6)) ^ (SHA256_RSHIFT((x), 11)) ^ (SHA256_RSHIFT((x), 25)))
-# define SHA256_S2(x) ((SHA256_RSHIFT((x), 7)) ^ (SHA256_RSHIFT((x), 18)) ^ (SHA256_RROTATION((x), 3)))
-# define SHA256_S3(x) ((SHA256_RSHIFT((x), 17)) ^ (SHA256_RSHIFT((x), 19)) ^ (SHA256_RROTATION((x), 10)))
+# define SHA256_S0(x) ((RSHIFT((x), 2)) ^ (RSHIFT((x), 13)) ^ (RSHIFT((x), 22)))
+# define SHA256_S1(x) ((RSHIFT((x), 6)) ^ (RSHIFT((x), 11)) ^ (RSHIFT((x), 25)))
+# define SHA256_S2(x) ((RSHIFT((x), 7)) ^ (RSHIFT((x), 18)) ^ (RROTATION((x), 3)))
+# define SHA256_S3(x) ((RSHIFT((x), 17)) ^ (RSHIFT((x), 19)) ^ (RROTATION((x), 10)))
 
 typedef unsigned int reg32;
 
@@ -52,6 +52,6 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash);
 t_hash_sha256	calculate_sha256_from_string(const char *str);
 t_hash_sha256	calculate_sha256_from_file(const char *file_name);
 t_hash_sha256	calculate_sha256_from_stdin(void);
-void			print_sha256_hash(t_hash_sha256 hash);
+void			print_sha256_hash(t_hash_sha256 hash, char *str, int flags);
 
 #endif

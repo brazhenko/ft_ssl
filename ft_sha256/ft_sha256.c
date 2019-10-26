@@ -3,8 +3,6 @@
 #include "utilities.h"
 #include <string.h>
 
-// TODO make honest hex printing
-
 int				init_sha256_hash(t_hash_sha256 *hash)
 {
 	hash->hash[0] = 0x6a09e667;
@@ -97,24 +95,17 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 **      user all parameters from sha documentation divided by 8.
 */
 
-
 void			*sha256(char *str, int flags)
 {
 	t_hash_sha256	hash;
 
 	if (flags & FLAG_P || flags & FLAG_STDIN)
-	{
 		hash = calculate_sha256_from_stdin();
-	}
 	else if (flags & FLAG_S)
-	{
 		hash = calculate_sha256_from_string(str);
-	}
 	else
-	{
 		hash = calculate_sha256_from_file(str);
-	}
 
-	print_sha256_hash(hash);
+	print_sha256_hash(hash, str, flags);
 	return (NULL);
 }

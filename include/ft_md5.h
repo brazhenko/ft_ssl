@@ -123,6 +123,10 @@ static const unsigned table[64] = {
 							4149444226, 3174756917, 718787259, 3951481745,
 };
 
+# define A 0b11111111
+# define B 0b1111
+
+
 void		*md5(char *str, int flags);
 
 #endif
