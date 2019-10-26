@@ -64,7 +64,6 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 				SHA256_CH(tmp[4], tmp[5], tmp[6]) +
 				sha256_constants[i] +
 				w[i];
-
 		t2 = SHA256_S0(tmp[0]) + SHA256_MAJ(tmp[0], tmp[1], tmp[2]);
 		tmp[7] = tmp[6];
 		tmp[6] = tmp[5];

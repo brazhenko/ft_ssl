@@ -143,26 +143,26 @@ int 	fill_buffer(char *str, char *buffer, int flags)
 
 void		*md5(char *str, int flags)
 {
-	t_hash		hsh;
+	t_hash		hash;
 	int			fb_return;
 
-	init_md5_hash(&hsh);
+	init_md5_hash(&hash);
 	bzero(buffer, 64);
 	while (1)
 	{
-		hsh.aa = hsh.a;
-		hsh.bb = hsh.b;
-		hsh.cc = hsh.c;
-		hsh.dd = hsh.d;
+		hash.aa = hash.a;
+		hash.bb = hash.b;
+		hash.cc = hash.c;
+		hash.dd = hash.d;
 		fb_return = fill_buffer(str, (char *)buffer, flags);
 		R1;
 		R2;
 		R3;
 		R4;
-		hsh.a += hsh.aa;
-		hsh.b += hsh.bb;
-		hsh.c += hsh.cc;
-		hsh.d += hsh.dd;
+		hash.a += hash.aa;
+		hash.b += hash.bb;
+		hash.c += hash.cc;
+		hash.d += hash.dd;
 		if (fb_return == 1)
 			break ;
 		else if (fb_return == -1)
@@ -171,6 +171,6 @@ void		*md5(char *str, int flags)
 			break ;
 		}
 	}
-	print_md5(hsh, str, flags);
+	print_md5(hash, str, flags);
 	return (NULL);
 }

@@ -20,7 +20,7 @@ size_t				calculate_sha256_buf_padding(
 	size_t		ret;
 
 	padded_len = len + 1;
-	if (padded_len % 64 < 60)
+	if (len % 64 < 60)
 	{
 		ret = 64 - len % 64;
 		padded_len = padded_len + (64 - padded_len % 64);
@@ -30,64 +30,46 @@ size_t				calculate_sha256_buf_padding(
 		ret = 64 + (64 - len % 64);
 		padded_len = padded_len + 64 + (64 - padded_len % 64);
 	}
-	// padded_len = padded_len + ((padded_len % 64) ? (64 - padded_len % 64) : 64);
 
 	padded[len % (BUFLEN + 64)] = 0x80;
 	padded[(padded_len - 4)  % (BUFLEN + 64)] = ((len * 8) >> 24) & 0b11111111;
 	padded[(padded_len - 3)  % (BUFLEN + 64)] = ((len * 8) >> 16) & 0b11111111;
 	padded[(padded_len - 2)  % (BUFLEN + 64)] = ((len * 8) >> 8) & 0b11111111;
 	padded[(padded_len - 1)  % (BUFLEN + 64)] = ((len * 8) >> 0) & 0b11111111;
-	printf("PADDED: %u , a:%u, b:%u\n",
+	printf("PADDED: %u , a:%u, b:%u len: %u\n",
 			ret,
 			(padded_len - 4)  % (BUFLEN + 64),
-			padded_len
+			padded_len,
+			len
 	);
+	print_bit_str("abc: ", padded, 128);
 	return (ret);
 }
 
-static int		get_buffer_from_fd(int fd, char **block)
+static int		get_block_from_fd(int fd, char **block)
 {
 	static char		buffer[BUFLEN + 64];
 	static size_t	len = 0;
 	static size_t	iter = 0;
 	static ssize_t	rd = 0;
+	int				padd1 = 0;
 
-	if (iter == rd)
+	if (!rd)
 	{
+		bzero(buffer, BUFLEN);
 		rd = read(fd, buffer, BUFLEN);
-		if (rd == -1)
-		{
-			printf("Говно, это сраная директория!\n");
-			return (-1);
-		}
-		else if (rd == 0)
-		{
-			rd = rd + calculate_sha256_buf_padding(buffer, len);
-			if (len % BUFLEN == 0)
-			{
-				// calculate padding
-			}
-			return (0);
-		}
-		else
-		{
-			len += rd;
-			iter = 0;
-			bzero(buffer, BUFLEN);
-		}
-
+		len += rd;
+		if (!fd)
+			; // padding
+			// TODO extra shedules
 	}
-	// else
+	while (rd >= 64)
 	{
-
-		if (rd - iter < 64)
-		{
-			rd = rd + calculate_sha256_buf_padding(buffer, len);
-		}
-
-		*block = &buffer[iter];
-		iter += 64;
+		*block = buffer[BUFLEN - rd];
+		rd -= 64;
+		return (1);
 	}
+
 
 	return (1);
 }
@@ -97,12 +79,13 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 	t_hash_sha256	hash;
 	ssize_t			fd;
 	char			*block_ptr;
+	int				ret;
 
 	fd = open(file_name, O_RDONLY);
 	init_sha256_hash(&hash);
 
-	int i =0;
-	while (get_buffer_from_fd(fd, &block_ptr))
+	int i = 0;
+	while ((ret = get_block_from_fd(fd, &block_ptr)))
 	{
 		calculate_sha256_block((reg32 *)block_ptr, &hash);
 
@@ -119,7 +102,7 @@ t_hash_sha256	calculate_sha256_from_stdin(void)
 
 	init_sha256_hash(&hash);
 	int i = 0;
-	while (get_buffer_from_fd(0, &block_ptr))
+	while (get_block_from_fd(0, &block_ptr))
 	{
 		calculate_sha256_block((reg32 *)block_ptr, &hash);
 
