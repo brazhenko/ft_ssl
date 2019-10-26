@@ -7,6 +7,9 @@ FT_MD5_SRC	= ft_md5/md5.c \
 				utilities/is_flag.c \
 				utilities/debug.c \
 				ft_sha256/ft_sha256.c \
+				ft_sha256/print_sha256.c \
+				ft_sha256/calc_sha256_from_string.c \
+				ft_sha256/calc_sha256_from_fd.c \
 				ft_ssl/exec_manager.c ft_ssl/main.c \
 
 INC			= include

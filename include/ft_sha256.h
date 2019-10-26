@@ -41,13 +41,17 @@ static const reg32 sha256_constants[64] = {
 								0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-
 typedef struct	s_hash_sha256
 {
 	reg32	hash[8];
 }				t_hash_sha256;
 
-
 void			*sha256(char *str, int flags);
+int				init_sha256_hash(t_hash_sha256 *hash);
+int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash);
+t_hash_sha256	calculate_sha256_from_string(const char *str);
+t_hash_sha256	calculate_sha256_from_file(const char *file_name);
+t_hash_sha256	calculate_sha256_from_stdin(void);
+void			print_sha256_hash(t_hash_sha256 hash);
 
 #endif
