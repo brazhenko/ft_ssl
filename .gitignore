@@ -64,7 +64,7 @@ Temporary Items
 *.i*86
 *.x86_64
 *.hex
-ssl
+ft_ssl
 
 # Test Files
 TorBrowser-8.5.4-osx64_ru.dmg

@@ -22,7 +22,6 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 	reg32		tmp[8];
 	reg32		t1, t2;
 
-
 	//---------
 	reg32		w[64];
 	for (int i = 0 ;i < 16; i++)
@@ -92,7 +91,7 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 
 /*
 **      According to the fact that minimum addressable piece is BYTE not BIT we
-**      user all parameters from sha documentation divided by 8.
+**      use all parameters from sha256 documentation divided by 8.
 */
 
 void			*sha256(char *str, int flags)
