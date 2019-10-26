@@ -97,15 +97,15 @@ int			command_executor(int ac, char *av[])
 	{
 		nstrprint(13,
 				"ft_ssl: Error: \'", av[0], "\' is an invalid command.\n",
-				"Standard commands\n",
+				"Standard commands:\n",
 				"\n"
-				"Message Digest commands\n",
-				"md5\n", "sha256 - under development\n",
+				"Message Digest commands:\n",
+				"md5\n", "sha256\n",
 				"sha384 - under development\n",
 				"sha512 - under development\n",
 				"Whirlpool - under development\n",
 				"\n",
-				"Cipher commands\n", "\n"
+				"Cipher commands:\n", "\n"
 				);
 	}
 	return (0);

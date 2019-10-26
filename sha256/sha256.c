@@ -16,18 +16,31 @@ int				init_sha256_hash(t_hash_sha256 *hash)
 	return (0);
 }
 
+void			update_sha256_block(t_hash_sha256 *hash, reg32 *tmp)
+{
+	hash->hash[0] += tmp[0];
+	hash->hash[1] += tmp[1];
+	hash->hash[2] += tmp[2];
+	hash->hash[3] += tmp[3];
+	hash->hash[4] += tmp[4];
+	hash->hash[5] += tmp[5];
+	hash->hash[6] += tmp[6];
+	hash->hash[7] += tmp[7];
+}
+
 int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 {
 	size_t		i;
 	reg32		tmp[8];
 	reg32		t1, t2;
-
-	//---------
 	reg32		w[64];
+
+
+	// TODO refactor this hardcode pizdec-------
 	for (int i = 0 ;i < 16; i++)
 	{
 		w[i] = 0;
-		// TODO refactor this hardcode pizdec
+
 		w[i] |=  (ptr[i] >> 24) & 0b11111111;
 		w[i] |=  (((ptr[i] >> 16) & 0b11111111) << 8);
 		w[i] |=  (((ptr[i] >> 8) & 0b11111111) << 16);
@@ -40,23 +53,12 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 		        w[i - 7] +
 		        SHA256_S3(w[i - 2]);
 	}
-	//---------
+	//-------------------------------------------
 
-	// TODO fix hardcode below
-	tmp[0] = hash->hash[0];
-	tmp[1] = hash->hash[1];
-	tmp[2] = hash->hash[2];
-	tmp[3] = hash->hash[3];
-	tmp[4] = hash->hash[4];
-	tmp[5] = hash->hash[5];
-	tmp[6] = hash->hash[6];
-	tmp[7] = hash->hash[7];
-	//-------
-
+	memcpy(tmp, hash->hash, 8 * sizeof(reg32));
 	i = 0;
 	while (i < 64)
 	{
-		// Swapping elements
 		t1 = 	tmp[7] +
 				SHA256_S1(tmp[4]) +
 				SHA256_CH(tmp[4], tmp[5], tmp[6]) +
@@ -74,18 +76,7 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 		tmp[0] = t1 + t2;
 		i++;
 	}
-
-	// TODO think how to optimise this increment
-	hash->hash[0] += tmp[0];
-	hash->hash[1] += tmp[1];
-	hash->hash[2] += tmp[2];
-	hash->hash[3] += tmp[3];
-	hash->hash[4] += tmp[4];
-	hash->hash[5] += tmp[5];
-	hash->hash[6] += tmp[6];
-	hash->hash[7] += tmp[7];
-	// -------
-
+	update_sha256_block(hash, tmp);
 	return (0);
 }
 

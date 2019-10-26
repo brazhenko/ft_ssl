@@ -7,7 +7,6 @@
 
 # define BUFLEN 5120
 
-
 /*
 ** 		Returns number of bytes ADDED, NOT the len of all buffer
 */
@@ -93,7 +92,6 @@ static int		get_buffer_from_fd(int fd, char **block)
 	return (1);
 }
 
-
 t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 {
 	t_hash_sha256	hash;
@@ -113,15 +111,20 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 	}
 	return (hash);
 }
-// ---------------
-
-
 
 t_hash_sha256	calculate_sha256_from_stdin(void)
 {
-	t_hash_sha256		hash;
+	t_hash_sha256	hash;
+	char			*block_ptr;
 
 	init_sha256_hash(&hash);
+	int i = 0;
+	while (get_buffer_from_fd(0, &block_ptr))
+	{
+		calculate_sha256_block((reg32 *)block_ptr, &hash);
 
+		i++;
+		if (i == 10) exit(0);
+	}
 	return (hash);
 }

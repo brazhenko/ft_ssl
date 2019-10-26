@@ -7,7 +7,7 @@ FT_MD5_SRC	= 	\
 				ssl/main.c \
 				md5/md5.c \
 				md5/print_md5.c \
-				sha256/ft_sha256.c \
+				sha256/sha256.c \
 				sha256/print_sha256.c \
 				sha256/calc_sha256_from_string.c \
 				sha256/calc_sha256_from_fd.c \

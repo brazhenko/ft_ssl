@@ -4,7 +4,7 @@
 #include "utilities.h"
 #include <string.h>
 
-size_t				calculate_sha256_str_padding(const char *str, char	**padded)
+size_t			calculate_sha256_str_padding(const char *str, char	**padded)
 {
 	size_t		len;
 	size_t		padded_len;
@@ -25,12 +25,10 @@ size_t				calculate_sha256_str_padding(const char *str, char	**padded)
 	bzero(*padded, padded_len);
 	memcpy(*padded, str, len);
 	(*padded)[len] = 0x80;
-	// ((reg32 *)(*padded))[padded_len / 4 - 1] = len;
 	(*padded)[padded_len - 4] = ((len * 8) >> 24) & 0b11111111;
 	(*padded)[padded_len - 3] = ((len * 8) >> 16) & 0b11111111;
 	(*padded)[padded_len - 2] = ((len * 8) >> 8) & 0b11111111;
 	(*padded)[padded_len - 1] = ((len * 8) >> 0) & 0b11111111;
-	// printf("padded string len: %lu\norig len: %lu\n", padded_len, len);
 	return (padded_len);
 }
 
