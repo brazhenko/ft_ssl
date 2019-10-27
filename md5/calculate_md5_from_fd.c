@@ -31,12 +31,6 @@ static size_t	calculate_md5_buf_padding(char *padded, size_t len)
 		ret = 64 - len % 64;
 		padded_len = ret + len;
 	}
-//	padded[(padded_len - 4)  % (BUFLEN)] = ((len * 8) >> 24) & 0b11111111;
-//	padded[(padded_len - 3)  % (BUFLEN)] = ((len * 8) >> 16) & 0b11111111;
-//	padded[(padded_len - 2)  % (BUFLEN)] = ((len * 8) >> 8) & 0b11111111;
-//	padded[(padded_len - 1)  % (BUFLEN)] = ((len * 8) >> 0) & 0b11111111;
-
-
 	padded[(padded_len - 8)  % (BUFLEN)] = (len * 8) >> (8 * 0) & A;
 	padded[(padded_len - 7)  % (BUFLEN)] = (len * 8) >> (8 * 1) & A;
 	padded[(padded_len - 6)  % (BUFLEN)] = (len * 8) >> (8 * 2) & A;
@@ -45,7 +39,6 @@ static size_t	calculate_md5_buf_padding(char *padded, size_t len)
 	padded[(padded_len - 3)  % (BUFLEN)] = (len * 8) >> (8 * 5) & A;
 	padded[(padded_len - 2)  % (BUFLEN)] = (len * 8) >> (8 * 6) & A;
 	padded[(padded_len - 1)  % (BUFLEN)] = (len * 8) >> (8 * 7) & A;
-	// printf("calc_padding() ret: %lu padded_len: %lu len: %lu\n", ret, padded_len, len);
 	return (ret);
 }
 

@@ -142,28 +142,6 @@ int 	fill_buffer(char *str, char *buffer, int flags)
 
 void		*md5(char *str, int flags)
 {
-	t_hash_md5		hash;
-	int			fb_return;
-	reg32		buffer[17];
-
-	init_md5_hash(&hash);
-	bzero(buffer, 64);
-	while (1)
-	{
-		fb_return = fill_buffer(str, (char *)buffer, flags);
-		calculate_md5_block(buffer, &hash);
-		if (fb_return == 1)
-			break ;
-		else if (fb_return == -1)
-		{
-			flags |= FLAG_FILEERROR;
-			break ;
-		}
-	}
-	print_md5(hash, str, flags);
-	print_md5(calculate_md5_from_file(str), str, flags);
-
-	/*
 
 	t_hash_md5		hash;
 
@@ -176,6 +154,5 @@ void		*md5(char *str, int flags)
 		hash = calculate_md5_from_file(str);
 	print_md5(hash, str, flags);
 
-	 */
 	return (NULL);
 }

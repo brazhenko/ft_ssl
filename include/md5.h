@@ -60,8 +60,11 @@ typedef struct			s_hash_md5
 	int		error;
 }						t_hash_md5;
 
-t_hash_md5			calculate_md5_from_string(const char *str);
-// int			calculate_md5_block(reg32 *ptr, t_hash *hash);
 void		*md5(char *str, int flags);
+int			init_md5_hash(t_hash_md5 *hash);
+t_hash_md5	calculate_md5_from_string(const char *str);
+t_hash_md5	calculate_md5_from_stdin(void);
+t_hash_md5	calculate_md5_from_file(const char *file_name);
+int			calculate_md5_block(reg32 *ptr, t_hash_md5 *hash);
 
 #endif
