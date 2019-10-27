@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
-#include "ft_md5.h"
-#include "ft_sha256.h"
+#include "md5.h"
+#include "sha256.h"
 #include "utilities.h"
 
 # define FLAG_R 		0b1

@@ -1,4 +1,4 @@
-#include "ft_sha256.h"
+#include "sha256.h"
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -33,7 +33,7 @@ size_t				calculate_sha256_buf_padding(char *padded, size_t len)
 	padded[(padded_len - 3)  % (BUFLEN)] = ((len * 8) >> 16) & 0b11111111;
 	padded[(padded_len - 2)  % (BUFLEN)] = ((len * 8) >> 8) & 0b11111111;
 	padded[(padded_len - 1)  % (BUFLEN)] = ((len * 8) >> 0) & 0b11111111;
-	printf("calc_padding() ret: %lu padded_len: %lu len: %lu\n", ret, padded_len, len);
+	// printf("calc_padding() ret: %lu padded_len: %lu len: %lu\n", ret, padded_len, len);
 	return (ret);
 }
 
@@ -47,30 +47,31 @@ static int		get_block_from_fd(int fd, char **block)
 
 	if (iter == rd)
 	{
-		bzero(buffer, BUFLEN);
+		bzero(buffer, BUFLEN + 64);
 		rd = read(fd, buffer, BUFLEN);
 		len += rd;
 		iter = 0;
-		printf("rd: %lu, padded: %d\n", rd, padded);
-		print_bit_str("test1: ", buffer, 64);
+		// printf("rd: %lu, padded: %d\n", rd, padded);
 		if (rd == 0 && padded == 1)
+		{
+			bzero(buffer, BUFLEN + 64);
+			iter = 0;
+			len = 0;
+			rd = 0;
+			padded = 0;
 			return (0);
+		}
 		if (rd < BUFLEN)
 		{
 			rd += calculate_sha256_buf_padding(buffer, len);
 			padded = 1;
-			print_bit_str("test: ", buffer, 64);
 		}
 	}
-	printf("status1: iter:%lu, rd:%lu, padded:%d\n", iter, rd, padded);
 	if (iter < rd)
 	{
 		*block = &buffer[iter];
 		iter += 64;
-		// rd -= 64;
 	}
-	print_bit_str("test: ", buffer, 64);
-	printf("status2: iter:%lu, rd:%lu, padded:%d\n", iter, rd, padded);
 	return (1);
 }
 

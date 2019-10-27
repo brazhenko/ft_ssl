@@ -1,6 +1,5 @@
-#include "ft_sha256.h"
-#include "ft_sha256.h"
-#include "ft_ssl.h"
+#include "sha256.h"
+#include "ssl.h"
 #include "utilities.h"
 #include <string.h>
 
@@ -11,7 +10,6 @@ size_t			calculate_sha256_str_padding(const char *str, char	**padded)
 
 	len = strlen(str);
 	padded_len = len + 1;
-
 	if (padded_len % 64 < 60)
 	{
 		padded_len = padded_len + (64 - padded_len % 64);
@@ -20,7 +18,6 @@ size_t			calculate_sha256_str_padding(const char *str, char	**padded)
 	{
 		padded_len = padded_len + 64 + (64 - padded_len % 64);
 	}
-
 	*padded = (char *)malloc(padded_len);
 	bzero(*padded, padded_len);
 	memcpy(*padded, str, len);

@@ -1,7 +1,12 @@
-#include "ft_sha256.h"
-#include "ft_ssl.h"
+#include "sha256.h"
+#include "ssl.h"
 #include "utilities.h"
 #include <string.h>
+
+/*
+**      According to the fact that minimum addressable piece is BYTE not BIT we
+**      use all parameters from sha256 documentation divided by 8.
+*/
 
 int				init_sha256_hash(t_hash_sha256 *hash)
 {
@@ -35,7 +40,6 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 	reg32		t1, t2;
 	reg32		w[64];
 
-
 	// TODO refactor this hardcode pizdec-------
 	for (int i = 0 ;i < 16; i++)
 	{
@@ -46,6 +50,7 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 		w[i] |=  (((ptr[i] >> 8) & 0b11111111) << 16);
 		w[i] |=  (((ptr[i] >> 0) & 0b11111111) << 24);
 	}
+	//-------------------------------------------
 	for (int i = 16; i < 64; i++)
 	{
 		w[i] = 	w[i - 16] +
@@ -53,7 +58,6 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 		        w[i - 7] +
 		        SHA256_S3(w[i - 2]);
 	}
-	//-------------------------------------------
 
 	memcpy(tmp, hash->hash, 8 * sizeof(reg32));
 	i = 0;
@@ -78,11 +82,6 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 	update_sha256_block(hash, tmp);
 	return (0);
 }
-
-/*
-**      According to the fact that minimum addressable piece is BYTE not BIT we
-**      use all parameters from sha256 documentation divided by 8.
-*/
 
 void			*sha256(char *str, int flags)
 {

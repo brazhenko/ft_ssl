@@ -1,5 +1,5 @@
-#include "ft_ssl.h"
-#include "ft_md5.h"
+#include "ssl.h"
+#include "md5.h"
 
 
 char*		raw_md5(t_hash hsh)

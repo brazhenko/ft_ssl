@@ -3,7 +3,7 @@ FLAGS		= -Wall -Wextra -Werror -pedantic -g
 CC			= clang
 BUILD_DIR   = build
 FT_MD5_SRC	= 	\
-				ssl/exec_manager.c \
+				ssl/command_executor.c \
 				ssl/main.c \
 				md5/md5.c \
 				md5/print_md5.c \
@@ -23,13 +23,13 @@ all :
 
 test256:
 	shasum -a tests/abc
-	./ssl sha256 tests/abc
+	./ft_ssl sha256 tests/abc
 	@echo "\n"
 	shasum -a tests/64l
-	./ssl sha256 tests/64l
+	./ft_ssl sha256 tests/64l
 	@echo "\n"
 	shasum -a tests/a
-	./ssl sha256 tests/a
+	./ft_ssl sha256 tests/a
 	@echo "\n"
 	shasum -a tests/a
-	./ssl sha256 tests/a
+	./ft_ssl sha256 tests/a

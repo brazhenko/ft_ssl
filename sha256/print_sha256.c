@@ -1,5 +1,5 @@
-#include "ft_sha256.h"
-#include "ft_ssl.h"
+#include "sha256.h"
+#include "ssl.h"
 #include <stdio.h>
 #include "utilities.h"
 
