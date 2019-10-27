@@ -1,4 +1,6 @@
-#include "sha256.h"
+#include "ssl.h"
+
+#include "md5.h"
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -11,7 +13,7 @@
 ** 		Returns number of bytes ADDED, NOT the len of all buffer
 */
 
-static size_t	calculate_sha256_buf_padding(char *padded, size_t len)
+static size_t	calculate_md5_buf_padding(char *padded, size_t len)
 {
 	size_t		padded_len;
 	size_t		ret;
@@ -29,10 +31,20 @@ static size_t	calculate_sha256_buf_padding(char *padded, size_t len)
 		ret = 64 - len % 64;
 		padded_len = ret + len;
 	}
-	padded[(padded_len - 4)  % (BUFLEN)] = ((len * 8) >> 24) & 0b11111111;
-	padded[(padded_len - 3)  % (BUFLEN)] = ((len * 8) >> 16) & 0b11111111;
-	padded[(padded_len - 2)  % (BUFLEN)] = ((len * 8) >> 8) & 0b11111111;
-	padded[(padded_len - 1)  % (BUFLEN)] = ((len * 8) >> 0) & 0b11111111;
+//	padded[(padded_len - 4)  % (BUFLEN)] = ((len * 8) >> 24) & 0b11111111;
+//	padded[(padded_len - 3)  % (BUFLEN)] = ((len * 8) >> 16) & 0b11111111;
+//	padded[(padded_len - 2)  % (BUFLEN)] = ((len * 8) >> 8) & 0b11111111;
+//	padded[(padded_len - 1)  % (BUFLEN)] = ((len * 8) >> 0) & 0b11111111;
+
+
+	padded[(padded_len - 8)  % (BUFLEN)] = (len * 8) >> (8 * 0) & A;
+	padded[(padded_len - 7)  % (BUFLEN)] = (len * 8) >> (8 * 1) & A;
+	padded[(padded_len - 6)  % (BUFLEN)] = (len * 8) >> (8 * 2) & A;
+	padded[(padded_len - 5)  % (BUFLEN)] = (len * 8) >> (8 * 3) & A;
+	padded[(padded_len - 4)  % (BUFLEN)] = (len * 8) >> (8 * 4) & A;
+	padded[(padded_len - 3)  % (BUFLEN)] = (len * 8) >> (8 * 5) & A;
+	padded[(padded_len - 2)  % (BUFLEN)] = (len * 8) >> (8 * 6) & A;
+	padded[(padded_len - 1)  % (BUFLEN)] = (len * 8) >> (8 * 7) & A;
 	// printf("calc_padding() ret: %lu padded_len: %lu len: %lu\n", ret, padded_len, len);
 	return (ret);
 }
@@ -64,7 +76,7 @@ static int		get_block_from_fd(int fd, char **block)
 		}
 		if (rd < BUFLEN)
 		{
-			rd += calculate_sha256_buf_padding(buffer, len);
+			rd += calculate_md5_buf_padding(buffer, len);
 			padded = 1;
 		}
 	}
@@ -76,14 +88,14 @@ static int		get_block_from_fd(int fd, char **block)
 	return (1);
 }
 
-t_hash_sha256	calculate_sha256_from_file(const char *file_name)
+t_hash_md5	calculate_md5_from_file(const char *file_name)
 {
-	t_hash_sha256	hash;
+	t_hash_md5	hash;
 	ssize_t			fd;
 	char			*block_ptr;
 	int				ret;
 
-	init_sha256_hash(&hash);
+	init_md5_hash(&hash);
 	fd = open(file_name, O_RDONLY);
 
 	int i = 0;
@@ -94,7 +106,7 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 			hash.error = 1;
 			return (hash);
 		}
-		calculate_sha256_block((reg32 *)block_ptr, &hash);
+		calculate_md5_block((reg32 *)block_ptr, &hash);
 		i++;
 		if (i == 1000000)
 		{
@@ -106,18 +118,18 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 }
 
 // TODO fix it
-t_hash_sha256	calculate_sha256_from_stdin(void)
+t_hash_md5	calculate_md5_from_stdin(void)
 {
-	t_hash_sha256	hash;
+	t_hash_md5	hash;
 	char			*block_ptr;
 
-	init_sha256_hash(&hash);
+	init_md5_hash(&hash);
 	int i = 0;
 	while (get_block_from_fd(0, &block_ptr))
 	{
 		printf("deb1\n");
 
-		calculate_sha256_block((reg32 *)block_ptr, &hash);
+		calculate_md5_block((reg32 *)block_ptr, &hash);
 		printf("deb2\n");
 		i++;
 		if (i == 100000) exit(0);

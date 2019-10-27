@@ -161,7 +161,7 @@ void		*md5(char *str, int flags)
 		}
 	}
 	print_md5(hash, str, flags);
-	print_md5(calculate_md5_from_string(str), str, flags);
+	print_md5(calculate_md5_from_file(str), str, flags);
 
 	/*
 
