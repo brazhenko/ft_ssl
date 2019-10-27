@@ -15,28 +15,25 @@ int			parse_hash_flags(char *str, int *flags, void *(*hash_algo)(char *, int))
 	{
 		if (*flags & FLAG_S)
 		{
-			md5(str, *flags);
+			hash_algo(str, *flags);
 			*flags -= FLAG_S;
-			return 1;
+			return (0);
 		}
-		if (*str == 'r')
+		else if (*str == 'r')
 			*flags = *flags | FLAG_R;
 		else if (*str == 'q')
 			*flags = *flags | FLAG_Q;
 		else if (*str == 's')
 		{
-			*flags = *flags | FLAG_S;
 			if (*(str + 1))
 			{
-				hash_algo(str + 1, *flags);
-				*flags = *flags - FLAG_S;
+				hash_algo(str + 1, *flags + FLAG_S);
 				return (0);
 			}
+			*flags = *flags | FLAG_S;
 		}
 		else if (*str == 'p')
-		{
-			hash_algo(NULL, *flags);
-		}
+			hash_algo(NULL, *flags + FLAG_P);
 		else
 			illegal_hash_option_exit(*str);
 		++str;
@@ -68,6 +65,7 @@ int			hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int))
 					else
 					{
 						write(1, "-s error\n", 9);
+						// TODO print usage
 						exit(EXIT_FAILURE);
 					}
 				}
@@ -81,7 +79,7 @@ int			hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int))
 		}
 	}
 	else
-		hash_algo(NULL, FLAG_P);
+		hash_algo(NULL, FLAG_STDIN);
 	return (0);
 }
 
@@ -113,4 +111,3 @@ int			command_executor(int ac, char *av[])
 
 // TODO -s after that ONLY files nothing more
 // TODO from pipe (or stdin) with -p forward the input to the output
-// TODO parse when zero arguments (stdin reading must be started)

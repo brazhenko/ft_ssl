@@ -44,6 +44,7 @@ static const reg32 sha256_constants[64] = {
 typedef struct	s_hash_sha256
 {
 	reg32	hash[8];
+	int		error;
 }				t_hash_sha256;
 
 void			*sha256(char *str, int flags);

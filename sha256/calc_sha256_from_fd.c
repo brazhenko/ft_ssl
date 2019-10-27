@@ -48,7 +48,8 @@ static int		get_block_from_fd(int fd, char **block)
 	if (iter == rd)
 	{
 		bzero(buffer, BUFLEN + 64);
-		rd = read(fd, buffer, BUFLEN);
+		if ((rd = read(fd, buffer, BUFLEN)) == -1)
+			return (-1);
 		len += rd;
 		iter = 0;
 		// printf("rd: %lu, padded: %d\n", rd, padded);
@@ -88,6 +89,11 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 	int i = 0;
 	while ((ret = get_block_from_fd(fd, &block_ptr)))
 	{
+		if (ret == -1)
+		{
+			hash.error = 1;
+			return (hash);
+		}
 		calculate_sha256_block((reg32 *)block_ptr, &hash);
 		i++;
 		if (i == 1000000)
@@ -99,6 +105,7 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 	return (hash);
 }
 
+// TODO fix it
 t_hash_sha256	calculate_sha256_from_stdin(void)
 {
 	t_hash_sha256	hash;
@@ -108,8 +115,10 @@ t_hash_sha256	calculate_sha256_from_stdin(void)
 	int i = 0;
 	while (get_block_from_fd(0, &block_ptr))
 	{
-		calculate_sha256_block((reg32 *)block_ptr, &hash);
+		printf("deb1\n");
 
+		calculate_sha256_block((reg32 *)block_ptr, &hash);
+		printf("deb2\n");
 		i++;
 		if (i == 100000) exit(0);
 	}

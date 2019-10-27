@@ -125,7 +125,7 @@ int 	fill_buffer(char *str, char *buffer, int flags)
 	{
 		return (fill_buffer_from_str(str, buffer));
 	}
-	else if (flags & FLAG_P)
+	else if (flags & FLAG_P || flags & FLAG_STDIN)
 	{
 		ret = fill_buffer_from_stream(0, buffer);
 		write(1, buffer, strlen(buffer));

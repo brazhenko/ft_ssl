@@ -36,10 +36,12 @@ void			print_sha256_hash(t_hash_sha256 hash, char *str, int flags)
 	char	*sha256_hash_string;
 
 	sha256_hash_string = sha256toa(hash);
-	if (flags & FLAG_P)
+	if (hash.error == 1)
+		nstrprint(3, "sha256: ", str, ": Is a directory\n");
+	else if (flags & FLAG_P)
 		nstrprint(1, str, sha256_hash_string);
-	else if (flags & FLAG_Q)
-		nstrprint(1, sha256_hash_string);
+	else if (flags & FLAG_Q || flags & FLAG_STDIN)
+		nstrprint(2, sha256_hash_string, "\n");
 	else if (flags & FLAG_R)
 		nstrprint(5, sha256_hash_string,
 				(flags & FLAG_S) ? " \"" : " ",

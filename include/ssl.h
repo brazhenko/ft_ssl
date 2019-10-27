@@ -24,7 +24,7 @@ typedef uint32_t		reg32;
 typedef unsigned char	byte;
 
 
-typedef struct
+typedef struct			s_hash_md5
 {
 	reg32	a;
 	reg32	b;
