@@ -1,10 +1,9 @@
-#include "ssl.h"
+#include "md5.h"
 
 // TODO decide the arcitecture of buffer
 
-reg32		buffer[17];
 
-int			init_md5_hash(t_hash *hash)
+int			init_md5_hash(t_hash_md5 *hash)
 {
 	hash->a = 0x67452301;
 	hash->b = 0xEFCDAB89;
@@ -143,26 +142,16 @@ int 	fill_buffer(char *str, char *buffer, int flags)
 
 void		*md5(char *str, int flags)
 {
-	t_hash		hash;
+	t_hash_md5		hash;
 	int			fb_return;
+	reg32		buffer[17];
 
 	init_md5_hash(&hash);
 	bzero(buffer, 64);
 	while (1)
 	{
-		hash.aa = hash.a;
-		hash.bb = hash.b;
-		hash.cc = hash.c;
-		hash.dd = hash.d;
 		fb_return = fill_buffer(str, (char *)buffer, flags);
-		R1;
-		R2;
-		R3;
-		R4;
-		hash.a += hash.aa;
-		hash.b += hash.bb;
-		hash.c += hash.cc;
-		hash.d += hash.dd;
+		calculate_md5_block(buffer, &hash);
 		if (fb_return == 1)
 			break ;
 		else if (fb_return == -1)
@@ -172,5 +161,21 @@ void		*md5(char *str, int flags)
 		}
 	}
 	print_md5(hash, str, flags);
+	print_md5(calculate_md5_from_string(str), str, flags);
+
+	/*
+
+	t_hash_md5		hash;
+
+	init_md5_hash(&hash);
+	if (flags & FLAG_P || flags & FLAG_STDIN)
+		hash = calculate_md5_from_stdin();
+	else if (flags & FLAG_S)
+		hash = calculate_md5_from_string(str);
+	else
+		hash = calculate_md5_from_file(str);
+	print_md5(hash, str, flags);
+
+	 */
 	return (NULL);
 }

@@ -100,7 +100,6 @@ void			*sha256(char *str, int flags)
 		hash = calculate_sha256_from_string(str);
 	else
 		hash = calculate_sha256_from_file(str);
-
 	print_sha256_hash(hash, str, flags);
 	return (NULL);
 }

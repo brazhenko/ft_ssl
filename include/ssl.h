@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
-#include "md5.h"
 #include "sha256.h"
 #include "utilities.h"
 
@@ -24,18 +23,9 @@ typedef uint32_t		reg32;
 typedef unsigned char	byte;
 
 
-typedef struct			s_hash_md5
-{
-	reg32	a;
-	reg32	b;
-	reg32	c;
-	reg32	d;
-	reg32	aa;
-	reg32	bb;
-	reg32	cc;
-	reg32	dd;
-}						t_hash;
 
+
+void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);
 
 #endif

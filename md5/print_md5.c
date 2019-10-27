@@ -2,7 +2,7 @@
 #include "md5.h"
 
 
-char*		raw_md5(t_hash hsh)
+char*		raw_md5(t_hash_md5 hsh)
 {
 	char	*buf;
 
@@ -48,7 +48,7 @@ char*		raw_md5(t_hash hsh)
 	return (buf);
 }
 
-void		print_md5(t_hash hsh, char *str, int flags)
+void		print_md5(t_hash_md5 hsh, char *str, int flags)
 {
 	char	*out;
 
