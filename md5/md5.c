@@ -9,19 +9,6 @@ int			init_md5_hash(t_hash_md5 *hash)
 	return (0);
 }
 
-int		fill_msg_len(size_t msg_len, char *buffer)
-{
-	buffer[56] = (msg_len * 8) >> (8 * 0) & A;
-	buffer[57] = (msg_len * 8) >> (8 * 1) & A;
-	buffer[58] = (msg_len * 8) >> (8 * 2) & A;
-	buffer[59] = (msg_len * 8) >> (8 * 3) & A;
-	buffer[60] = (msg_len * 8) >> (8 * 4) & A;
-	buffer[61] = (msg_len * 8) >> (8 * 5) & A;
-	buffer[62] = (msg_len * 8) >> (8 * 6) & A;
-	buffer[63] = (msg_len * 8) >> (8 * 7) & A;
-	return (0);
-}
-
 void		*md5(char *str, int flags)
 {
 

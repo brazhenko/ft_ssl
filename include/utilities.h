@@ -1,6 +1,8 @@
 #ifndef UTILITIES_H
 # define UTILITIES_H
 
+# define MAX(x, y) ((x) > (y) ? (x) : (y))
+
 static const char 		hex_arr[] = {
 		'0', '1', '2', '3',
 		'4', '5', '6', '7',

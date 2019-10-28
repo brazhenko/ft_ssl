@@ -21,7 +21,7 @@ static size_t	calculate_md5_buf_padding(char *padded, size_t len)
 	padded_len = len + 1;
 	ret = 0;
 	padded[len % (BUFLEN)] = 0x80;
-	if ((padded_len % 64 == 0) || (padded_len % 64 >= 60))
+	if ((padded_len % 64 == 0) || (padded_len % 64 > 56))
 	{
 		ret = 64 + (64 - len % 64);
 		padded_len = ret + len;
@@ -31,14 +31,19 @@ static size_t	calculate_md5_buf_padding(char *padded, size_t len)
 		ret = 64 - len % 64;
 		padded_len = ret + len;
 	}
-	padded[(padded_len - 8)  % (BUFLEN)] = (len * 8) >> (8 * 0) & A;
-	padded[(padded_len - 7)  % (BUFLEN)] = (len * 8) >> (8 * 1) & A;
-	padded[(padded_len - 6)  % (BUFLEN)] = (len * 8) >> (8 * 2) & A;
-	padded[(padded_len - 5)  % (BUFLEN)] = (len * 8) >> (8 * 3) & A;
-	padded[(padded_len - 4)  % (BUFLEN)] = (len * 8) >> (8 * 4) & A;
-	padded[(padded_len - 3)  % (BUFLEN)] = (len * 8) >> (8 * 5) & A;
-	padded[(padded_len - 2)  % (BUFLEN)] = (len * 8) >> (8 * 6) & A;
-	padded[(padded_len - 1)  % (BUFLEN)] = (len * 8) >> (8 * 7) & A;
+	// printf("pl: %lu\n", padded_len);
+	padded[(padded_len - 8)  % (BUFLEN+64)] = (len * 8) >> (8 * 0) & A;
+	padded[(padded_len - 7)  % (BUFLEN+64)] = (len * 8) >> (8 * 1) & A;
+	padded[(padded_len - 6)  % (BUFLEN+64)] = (len * 8) >> (8 * 2) & A;
+	padded[(padded_len - 5)  % (BUFLEN+64)] = (len * 8) >> (8 * 3) & A;
+	padded[(padded_len - 4)  % (BUFLEN+64)] = (len * 8) >> (8 * 4) & A;
+	padded[(padded_len - 3)  % (BUFLEN+64)] = (len * 8) >> (8 * 5) & A;
+	padded[(padded_len - 2)  % (BUFLEN+64)] = (len * 8) >> (8 * 6) & A;
+	padded[(padded_len - 1)  % (BUFLEN+64)] = (len * 8) >> (8 * 7) & A;
+	// print_bit_str("deb1 ", padded, 64);
+	// print_bit_str("kekch: ", padded, 64);
+//	print_bit_str("kekch2: ", padded+5120, 64);
+
 	return (ret);
 }
 
@@ -55,6 +60,7 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 		bzero(buffer, BUFLEN + 64);
 		if ((rd = read(fd, buffer, BUFLEN)) == -1)
 			return (-1);
+		// print_bit_str("com2 ", buffer, rd);
 		if (flag_p)
 			write(1, buffer, rd);
 		len += rd;
@@ -74,6 +80,7 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 			rd += calculate_md5_buf_padding(buffer, len);
 			padded = 1;
 		}
+		// printf("rd: %lu, padded: %d\n", rd, padded);
 	}
 	if (iter < rd)
 	{
@@ -85,7 +92,7 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 
 t_hash_md5	calculate_md5_from_file(const char *file_name)
 {
-	t_hash_md5	hash;
+	t_hash_md5		hash;
 	ssize_t			fd;
 	char			*block_ptr;
 	int				ret;
