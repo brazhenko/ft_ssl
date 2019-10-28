@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   nstrjoin.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:27:48 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/28 23:27:50 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
@@ -10,11 +22,11 @@
 
 char	*nstrjoin(int n, ...)
 {
-	va_list 	argptr;
+	va_list		argptr;
 	int			n_cpy;
 	size_t		len;
 	char		*ptr;
-	char 		*str;
+	char		*str;
 
 	n_cpy = n;
 	len = 0;
@@ -26,7 +38,8 @@ char	*nstrjoin(int n, ...)
 	}
 	va_end(argptr);
 	str = (char *)malloc(len + 1);
-	str[0] = str[len] = 0;
+	str[0] = 0;
+	str[len] = 0;
 	va_start(argptr, n);
 	while (n_cpy--)
 	{
@@ -39,11 +52,11 @@ char	*nstrjoin(int n, ...)
 
 int		nstrprint(int n, ...)
 {
-	va_list 	argptr;
+	va_list		argptr;
 	int			n_cpy;
 	size_t		len;
 	char		*ptr;
-	char 		*str;
+	char		*str;
 
 	n_cpy = n;
 	len = 0;
@@ -55,7 +68,8 @@ int		nstrprint(int n, ...)
 	}
 	va_end(argptr);
 	str = (char *)malloc(len + 1);
-	str[0] = str[len] = 0;
+	str[0] = 0;
+	str[len] = 0;
 	va_start(argptr, n);
 	while (n_cpy--)
 	{
@@ -70,11 +84,11 @@ int		nstrprint(int n, ...)
 
 int		nstrprinterror(int n, ...)
 {
-	va_list 	argptr;
+	va_list		argptr;
 	int			n_cpy;
 	size_t		len;
 	char		*ptr;
-	char 		*str;
+	char		*str;
 
 	n_cpy = n;
 	len = 0;
@@ -86,7 +100,8 @@ int		nstrprinterror(int n, ...)
 	}
 	va_end(argptr);
 	str = (char *)malloc(len + 1);
-	str[0] = str[len] = 0;
+	str[0] = 0;
+	str[len] = 0;
 	va_start(argptr, n);
 	while (n_cpy--)
 	{
