@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calculate_md5_from_fd.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:17:34 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/28 23:17:35 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ssl.h"
 
 #include "md5.h"
@@ -7,7 +19,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-# define BUFLEN 5120
+#define BUFLEN 5120
 
 /*
 ** 		Returns number of bytes ADDED, NOT the len of all buffer
@@ -32,14 +44,14 @@ static size_t	calculate_md5_buf_padding(char *padded, size_t len)
 		padded_len = ret + len;
 	}
 	// printf("pl: %lu\n", padded_len);
-	padded[(padded_len - 8)  % (BUFLEN+64)] = (len * 8) >> (8 * 0) & A;
-	padded[(padded_len - 7)  % (BUFLEN+64)] = (len * 8) >> (8 * 1) & A;
-	padded[(padded_len - 6)  % (BUFLEN+64)] = (len * 8) >> (8 * 2) & A;
-	padded[(padded_len - 5)  % (BUFLEN+64)] = (len * 8) >> (8 * 3) & A;
-	padded[(padded_len - 4)  % (BUFLEN+64)] = (len * 8) >> (8 * 4) & A;
-	padded[(padded_len - 3)  % (BUFLEN+64)] = (len * 8) >> (8 * 5) & A;
-	padded[(padded_len - 2)  % (BUFLEN+64)] = (len * 8) >> (8 * 6) & A;
-	padded[(padded_len - 1)  % (BUFLEN+64)] = (len * 8) >> (8 * 7) & A;
+	padded[(padded_len - 8) % (BUFLEN + 64)] = (len * 8) >> (8 * 0) & A;
+	padded[(padded_len - 7) % (BUFLEN + 64)] = (len * 8) >> (8 * 1) & A;
+	padded[(padded_len - 6) % (BUFLEN + 64)] = (len * 8) >> (8 * 2) & A;
+	padded[(padded_len - 5) % (BUFLEN + 64)] = (len * 8) >> (8 * 3) & A;
+	padded[(padded_len - 4) % (BUFLEN + 64)] = (len * 8) >> (8 * 4) & A;
+	padded[(padded_len - 3) % (BUFLEN + 64)] = (len * 8) >> (8 * 5) & A;
+	padded[(padded_len - 2) % (BUFLEN + 64)] = (len * 8) >> (8 * 6) & A;
+	padded[(padded_len - 1) % (BUFLEN + 64)] = (len * 8) >> (8 * 7) & A;
 	// print_bit_str("deb1 ", padded, 64);
 	// print_bit_str("kekch: ", padded, 64);
 //	print_bit_str("kekch2: ", padded+5120, 64);
@@ -104,8 +116,6 @@ t_hash_md5	calculate_md5_from_file(const char *file_name)
 		hash.error = 2;
 		return (hash);
 	}
-
-	int i = 0;
 	while ((ret = get_block_from_fd(fd, &block_ptr, 0)))
 	{
 		if (ret == -1)
@@ -114,29 +124,19 @@ t_hash_md5	calculate_md5_from_file(const char *file_name)
 			return (hash);
 		}
 		calculate_md5_block((reg32 *)block_ptr, &hash);
-		i++;
-		if (i == 1000000)
-		{
-			printf("exit()\n");
-			exit(0);
-		}
 	}
 	return (hash);
 }
 
 t_hash_md5	calculate_md5_from_stdin(int flag_p)
 {
-	t_hash_md5	hash;
+	t_hash_md5		hash;
 	char			*block_ptr;
 
 	init_md5_hash(&hash);
-	int i = 0;
 	while (get_block_from_fd(0, &block_ptr, flag_p & FLAG_P))
 	{
 		calculate_md5_block((reg32 *)block_ptr, &hash);
-		i++;
-		if (i == 100000) exit(0);
 	}
-
 	return (hash);
 }

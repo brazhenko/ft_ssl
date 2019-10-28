@@ -11,7 +11,6 @@ int			init_md5_hash(t_hash_md5 *hash)
 
 void		*md5(char *str, int flags)
 {
-
 	t_hash_md5		hash;
 
 	init_md5_hash(&hash);

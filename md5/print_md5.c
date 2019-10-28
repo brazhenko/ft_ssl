@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_md5.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:22:08 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/28 23:22:10 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ssl.h"
 #include "md5.h"
 
 // TODO fix hardcode md5toa
-char*		raw_md5(t_hash_md5 hsh)
+
+char		*raw_md5(t_hash_md5 hsh)
 {
 	char	*buf;
 
@@ -43,37 +56,35 @@ char*		raw_md5(t_hash_md5 hsh)
 	buf[29] = hex_arr[hsh.d >> 16 & B];
 	buf[30] = hex_arr[hsh.d >> 28 & B];
 	buf[31] = hex_arr[hsh.d >> 24 & B];
-
 	buf[32] = 0;
 	return (buf);
 }
 
 void		print_md5(t_hash_md5 hsh, char *str, int flags)
 {
-	// -------------
-    char	*md5_hash_string;
+	char	*md5_hash_string;
 
-    md5_hash_string = raw_md5(hsh);
-    if (hsh.error == 1)
-        nstrprinterror(3, "md5: ", str, ": Is a directory\n");
+	md5_hash_string = raw_md5(hsh);
+	if (hsh.error == 1)
+		nstrprinterror(3, "md5: ", str, ": Is a directory\n");
 	else if (hsh.error == 2)
 		nstrprinterror(3, "md5: ", str, ": No such file or directory\n");
-    else if (flags & FLAG_P)
-    {
-        nstrprint(2, md5_hash_string, "\n");
-    }
-    else if (flags & FLAG_Q || flags & FLAG_STDIN)
-        nstrprint(2, md5_hash_string, "\n");
-    else if (flags & FLAG_R)
-        nstrprint(5, md5_hash_string,
-                  (flags & FLAG_S) ? " \"" : " ",
-                  str,
-                  (flags & FLAG_S) ? "\"" : "", "\n");
-    else
-        nstrprint(6, "MD5",
-                  (flags & FLAG_S) ? " (\"" : " (",
-                  str,
-                  (flags & FLAG_S) ? "\") = " : ") = ",
-                  md5_hash_string, "\n");
-    free(md5_hash_string);
+	else if (flags & FLAG_P)
+	{
+		nstrprint(2, md5_hash_string, "\n");
+	}
+	else if (flags & FLAG_Q || flags & FLAG_STDIN)
+		nstrprint(2, md5_hash_string, "\n");
+	else if (flags & FLAG_R)
+		nstrprint(5, md5_hash_string,
+					(flags & FLAG_S) ? " \"" : " ",
+					str,
+					(flags & FLAG_S) ? "\"" : "", "\n");
+	else
+		nstrprint(6, "MD5",
+					(flags & FLAG_S) ? " (\"" : " (",
+					str,
+					(flags & FLAG_S) ? "\") = " : ") = ",
+					md5_hash_string, "\n");
+	free(md5_hash_string);
 }

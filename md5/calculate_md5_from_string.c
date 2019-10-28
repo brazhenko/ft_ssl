@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calculate_md5_from_string.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:23:14 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/28 23:23:15 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "md5.h"
 
-size_t			calculate_md5_str_padding(const char *str, char	**padded)
+size_t			calculate_md5_str_padding(const char *str, char **padded)
 {
 	size_t		len;
 	size_t		padded_len;
