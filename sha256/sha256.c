@@ -97,7 +97,7 @@ void			*sha256(char *str, int flags)
 
 	if (flags & FLAG_P || flags & FLAG_STDIN)
     {
-        hash = calculate_sha256_from_stdin();
+        hash = calculate_sha256_from_stdin(flags & FLAG_P);
     }
 	else if (flags & FLAG_S)
 		hash = calculate_sha256_from_string(str);

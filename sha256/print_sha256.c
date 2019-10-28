@@ -37,7 +37,9 @@ void			print_sha256_hash(t_hash_sha256 hash, char *str, int flags)
 
 	sha256_hash_string = sha256toa(hash);
 	if (hash.error == 1)
-		nstrprint(3, "sha256: ", str, ": Is a directory\n");
+		nstrprinterror(3, "sha256: ", str, ": Is a directory\n");
+	else if (hash.error == 2)
+		nstrprinterror(3, "sha256: ", str, ": No such file or directory\n");
 	else if (flags & FLAG_P)
     {
         nstrprint(2, sha256_hash_string, "\n");
