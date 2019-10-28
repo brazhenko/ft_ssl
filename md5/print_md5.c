@@ -1,7 +1,7 @@
 #include "ssl.h"
 #include "md5.h"
 
-
+// TODO fix hardcode md5toa
 char*		raw_md5(t_hash_md5 hsh)
 {
 	char	*buf;
@@ -50,39 +50,28 @@ char*		raw_md5(t_hash_md5 hsh)
 
 void		print_md5(t_hash_md5 hsh, char *str, int flags)
 {
-	char	*out;
+	// -------------
+    char	*md5_hash_string;
 
-	if (flags & FLAG_FILEERROR)
-	{
-		nstrprint(
-				3, "md5: ", str,
-				": No such file or directory or it is directory\n"
-		);
-	}
-	else if (flags & FLAG_Q || flags & FLAG_P)
-	{
-		out = nstrjoin(2, raw_md5(hsh), "\n");
-		write(1, out, strlen(out));
-	}
-	else
-	{
-		if (flags & FLAG_R)
-		{
-			raw_md5(hsh);
-			nstrprint(4,
-					raw_md5(hsh),
-					flags & FLAG_S ? " \"" : " ",
-					str,
-					flags & FLAG_S ? "\"\n" : "\n");
-		}
-		else
-		{
-			raw_md5(hsh);
-			nstrprint(5,
-					flags & FLAG_S ? "MD5 (\"" : "MD5 (",
-					str,
-					flags & FLAG_S ? "\") = " : ") = ",
-					raw_md5(hsh), "\n");
-		}
-	}
+    md5_hash_string = raw_md5(hsh);
+    if (hsh.error == 1)
+        nstrprint(3, "md5: ", str, ": Is a directory\n");
+    else if (flags & FLAG_P)
+    {
+        nstrprint(2, md5_hash_string, "\n");
+    }
+    else if (flags & FLAG_Q || flags & FLAG_STDIN)
+        nstrprint(2, md5_hash_string, "\n");
+    else if (flags & FLAG_R)
+        nstrprint(5, md5_hash_string,
+                  (flags & FLAG_S) ? " \"" : " ",
+                  str,
+                  (flags & FLAG_S) ? "\"" : "", "\n");
+    else
+        nstrprint(6, "SHA256",
+                  (flags & FLAG_S) ? " (\"" : " (",
+                  str,
+                  (flags & FLAG_S) ? "\") = " : ") = ",
+                  md5_hash_string, "\n");
+    free(md5_hash_string);
 }
