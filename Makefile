@@ -27,7 +27,6 @@ OBJECTS=$(SOURCES:.c=.o)
 
 all: $(SOURCES) $(PROJECT)
 
-allclear: all clean
 
 $(PROJECT): $(OBJECTS)
 	@$(CC) $(LDFLAGS) $(OBJECTS) -o $@
@@ -35,6 +34,8 @@ $(PROJECT): $(OBJECTS)
 
 .c.o:
 	@$(CC) $(CFLAGS) $< -o $@
+
+allclear: all clean
 
 
 clean:
