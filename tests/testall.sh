@@ -7,9 +7,9 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-###################################################################################
+###############################################################################
 # MD5 flag tests
-###################################################################################
+###############################################################################
 echo -e "${BLUE}MD5 flag tests${NC}"
 
 echo -n "test1  "
@@ -124,19 +124,20 @@ else
 fi
 
 echo -n "test11  "
-echo "one more thing" | $bin md5 -r -p -s "foo" file -s "bar" > my
-echo "one more thing" | md5 -r -p -s "foo" file -s "bar" > orig
+echo "one more thing" | $bin md5 -r -p -s "foo" file -s "bar" > my 2>&1
+echo "one more thing" | md5 -r -p -s "foo" file -s "bar" > orig 2>&1
 DIFF=$(diff my orig)
 if [ "$DIFF" == "" ]
 then
     echo -e "${GREEN}Passed!${NC}"
 else
+    echo ${DIFF}
     echo -e "${RED}Failed!${NC}"
 fi
 
 echo -n "test12  "
 echo "just to be extra clear" | $bin md5 -r -q -p -s "foo" file > my
-echo "just to be extra clear" | $bin -r -q -p -s "foo" file > orig
+echo "just to be extra clear" | md5 -r -q -p -s "foo" file > orig
 DIFF=$(diff my orig)
 if [ "$DIFF" == "" ]
 then

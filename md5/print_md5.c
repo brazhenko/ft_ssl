@@ -55,7 +55,9 @@ void		print_md5(t_hash_md5 hsh, char *str, int flags)
 
     md5_hash_string = raw_md5(hsh);
     if (hsh.error == 1)
-        nstrprint(3, "md5: ", str, ": Is a directory\n");
+        nstrprinterror(3, "md5: ", str, ": Is a directory\n");
+	else if (hsh.error == 2)
+		nstrprinterror(3, "md5: ", str, ": No such file or directory\n");
     else if (flags & FLAG_P)
     {
         nstrprint(2, md5_hash_string, "\n");

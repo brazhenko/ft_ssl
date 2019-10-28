@@ -54,7 +54,7 @@ int			hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int))
 	flags = 0;
     while (i < ac)
     {
-        if (is_flag(av[i]))
+        if (is_flag(av[i]) && !(flags & FARGS_APPEARED))
         {
             parse_hash_flags(av[i], &flags, hash_algo);
             if (flags & FLAG_S)
@@ -62,7 +62,7 @@ int			hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int))
                 if (++i < ac)
                 {
                     hash_algo(av[i], flags);
-                    flags = flags + ARGS_APPEARED;
+                    flags = flags | ARGS_APPEARED;
                     flags = flags - FLAG_S;
                 }
                 else
@@ -76,13 +76,16 @@ int			hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int))
         else
         {
             hash_algo(av[i], flags);
-            flags = flags + ARGS_APPEARED;
+            flags = flags | ARGS_APPEARED;
+			flags = flags | FARGS_APPEARED;
             flags &= RESET_FLAG;
         }
         ++i;
     }
     if (!(flags & ARGS_APPEARED))
+	{
 		hash_algo(NULL, flags + FLAG_STDIN);
+	}
 	return (0);
 }
 

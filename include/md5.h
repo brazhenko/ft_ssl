@@ -53,17 +53,13 @@ typedef struct			s_hash_md5
 	reg32	b;
 	reg32	c;
 	reg32	d;
-	reg32	aa;
-	reg32	bb;
-	reg32	cc;
-	reg32	dd;
 	int		error;
 }						t_hash_md5;
 
 void		*md5(char *str, int flags);
 int			init_md5_hash(t_hash_md5 *hash);
 t_hash_md5	calculate_md5_from_string(const char *str);
-t_hash_md5	calculate_md5_from_stdin(void);
+t_hash_md5	calculate_md5_from_stdin(int flag_p);
 t_hash_md5	calculate_md5_from_file(const char *file_name);
 int			calculate_md5_block(reg32 *ptr, t_hash_md5 *hash);
 

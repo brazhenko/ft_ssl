@@ -10,7 +10,7 @@ static const char 		hex_arr[] = {
 
 char	*nstrjoin(int n, ...);
 int		nstrprint(int n, ...);
-int		nstrprint_fd(int n, int fd, ...);
+int		nstrprinterror(int n, ...);
 int		is_flag(const char *str);
 
 #endif

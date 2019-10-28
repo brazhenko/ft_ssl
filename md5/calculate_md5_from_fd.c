@@ -42,7 +42,7 @@ static size_t	calculate_md5_buf_padding(char *padded, size_t len)
 	return (ret);
 }
 
-static int		get_block_from_fd(int fd, char **block)
+static int		get_block_from_fd(int fd, char **block, int flag_p)
 {
 	static char		buffer[BUFLEN + 64];
 	static size_t	iter = 0;
@@ -55,6 +55,8 @@ static int		get_block_from_fd(int fd, char **block)
 		bzero(buffer, BUFLEN + 64);
 		if ((rd = read(fd, buffer, BUFLEN)) == -1)
 			return (-1);
+		if (flag_p)
+			write(1, buffer, rd);
 		len += rd;
 		iter = 0;
 		// printf("rd: %lu, padded: %d\n", rd, padded);
@@ -90,9 +92,14 @@ t_hash_md5	calculate_md5_from_file(const char *file_name)
 
 	init_md5_hash(&hash);
 	fd = open(file_name, O_RDONLY);
+	if (fd < 0)
+	{
+		hash.error = 2;
+		return (hash);
+	}
 
 	int i = 0;
-	while ((ret = get_block_from_fd(fd, &block_ptr)))
+	while ((ret = get_block_from_fd(fd, &block_ptr, 0)))
 	{
 		if (ret == -1)
 		{
@@ -110,14 +117,14 @@ t_hash_md5	calculate_md5_from_file(const char *file_name)
 	return (hash);
 }
 
-t_hash_md5	calculate_md5_from_stdin(void)
+t_hash_md5	calculate_md5_from_stdin(int flag_p)
 {
 	t_hash_md5	hash;
 	char			*block_ptr;
 
 	init_md5_hash(&hash);
 	int i = 0;
-	while (get_block_from_fd(0, &block_ptr))
+	while (get_block_from_fd(0, &block_ptr, flag_p & FLAG_P))
 	{
 		calculate_md5_block((reg32 *)block_ptr, &hash);
 		i++;

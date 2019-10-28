@@ -29,7 +29,7 @@ void		*md5(char *str, int flags)
 
 	init_md5_hash(&hash);
 	if (flags & FLAG_P || flags & FLAG_STDIN)
-		hash = calculate_md5_from_stdin();
+		hash = calculate_md5_from_stdin(flags & FLAG_P);
 	else if (flags & FLAG_S)
 		hash = calculate_md5_from_string(str);
 	else
