@@ -93,13 +93,17 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 void			*sha256(char *str, int flags)
 {
 	t_hash_sha256	hash;
+    char            *buffer;
 
 	if (flags & FLAG_P || flags & FLAG_STDIN)
-		hash = calculate_sha256_from_stdin();
+    {
+        hash = calculate_sha256_from_stdin();
+    }
 	else if (flags & FLAG_S)
 		hash = calculate_sha256_from_string(str);
 	else
 		hash = calculate_sha256_from_file(str);
+
 	print_sha256_hash(hash, str, flags);
 	return (NULL);
 }

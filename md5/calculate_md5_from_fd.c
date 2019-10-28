@@ -120,12 +120,10 @@ t_hash_md5	calculate_md5_from_stdin(void)
 	int i = 0;
 	while (get_block_from_fd(0, &block_ptr))
 	{
-		printf("deb1\n");
-
 		calculate_md5_block((reg32 *)block_ptr, &hash);
-		printf("deb2\n");
 		i++;
 		if (i == 100000) exit(0);
 	}
+
 	return (hash);
 }

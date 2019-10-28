@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bin="ft_ssl"
+bin="../ft_ssl"
 
 for entry in "test_files"/*
 do

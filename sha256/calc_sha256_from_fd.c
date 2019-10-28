@@ -52,7 +52,6 @@ static int		get_block_from_fd(int fd, char **block)
 			return (-1);
 		len += rd;
 		iter = 0;
-		// printf("rd: %lu, padded: %d\n", rd, padded);
 		if (rd == 0 && padded == 1)
 		{
 			bzero(buffer, BUFLEN + 64);
@@ -60,7 +59,7 @@ static int		get_block_from_fd(int fd, char **block)
 			len = 0;
 			rd = 0;
 			padded = 0;
-			return (0);
+            return (0);
 		}
 		if (rd < BUFLEN)
 		{
@@ -115,12 +114,14 @@ t_hash_sha256	calculate_sha256_from_stdin(void)
 	int i = 0;
 	while (get_block_from_fd(0, &block_ptr))
 	{
-		printf("deb1\n");
-
 		calculate_sha256_block((reg32 *)block_ptr, &hash);
-		printf("deb2\n");
+
 		i++;
-		if (i == 100000) exit(0);
+		if (i == 100000)
+        {
+		    printf("exit()");
+            exit(0);
+        }
 	}
 	return (hash);
 }
