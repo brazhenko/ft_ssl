@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ssl.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:03:13 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/28 23:03:15 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
-#include <string.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <fcntl.h>
-#include "sha256.h"
-#include "utilities.h"
+# include <string.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <string.h>
+# include <fcntl.h>
+# include "sha256.h"
+# include "utilities.h"
 
 # define FLAG_R 		0b0000000000000001
 # define FLAG_Q 		0b0000000000000010
