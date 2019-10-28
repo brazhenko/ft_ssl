@@ -20,10 +20,6 @@
 # define RESET_FLAG     0b1111111101110011
 
 typedef uint32_t		reg32;
-typedef unsigned char	byte;
-
-
-
 
 void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);
