@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calc_sha256_from_fd.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:10:45 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/28 23:10:46 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sha256.h"
 #include <string.h>
 #include <unistd.h>
@@ -5,7 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-# define BUFLEN 5120
+#define BUFLEN 5120
 
 /*
 ** 		Returns number of bytes ADDED, NOT the len of all buffer
@@ -29,11 +41,10 @@ static size_t	calculate_sha256_buf_padding(char *padded, size_t len)
 		ret = 64 - len % 64;
 		padded_len = ret + len;
 	}
-	padded[(padded_len - 4)  % (BUFLEN)] = ((len * 8) >> 24) & 0b11111111;
-	padded[(padded_len - 3)  % (BUFLEN)] = ((len * 8) >> 16) & 0b11111111;
-	padded[(padded_len - 2)  % (BUFLEN)] = ((len * 8) >> 8) & 0b11111111;
-	padded[(padded_len - 1)  % (BUFLEN)] = ((len * 8) >> 0) & 0b11111111;
-	// printf("calc_padding() ret: %lu padded_len: %lu len: %lu\n", ret, padded_len, len);
+	padded[(padded_len - 4) % (BUFLEN)] = ((len * 8) >> 24) & 0b11111111;
+	padded[(padded_len - 3) % (BUFLEN)] = ((len * 8) >> 16) & 0b11111111;
+	padded[(padded_len - 2) % (BUFLEN)] = ((len * 8) >> 8) & 0b11111111;
+	padded[(padded_len - 1) % (BUFLEN)] = ((len * 8) >> 0) & 0b11111111;
 	return (ret);
 }
 
@@ -61,7 +72,7 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 			len = 0;
 			rd = 0;
 			padded = 0;
-            return (0);
+			return (0);
 		}
 		if (rd < BUFLEN)
 		{
@@ -91,7 +102,6 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 		hash.error = 2;
 		return (hash);
 	}
-	int i = 0;
 	while ((ret = get_block_from_fd(fd, &block_ptr, 0)))
 	{
 		if (ret == -1)
@@ -100,12 +110,6 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 			return (hash);
 		}
 		calculate_sha256_block((reg32 *)block_ptr, &hash);
-		i++;
-		if (i == 1000000)
-		{
-			printf("exit()\n");
-			exit(0);
-		}
 	}
 	return (hash);
 }
@@ -116,17 +120,9 @@ t_hash_sha256	calculate_sha256_from_stdin(int flag_p)
 	char			*block_ptr;
 
 	init_sha256_hash(&hash);
-	int i = 0;
 	while (get_block_from_fd(0, &block_ptr, flag_p))
 	{
 		calculate_sha256_block((reg32 *)block_ptr, &hash);
-
-		i++;
-		if (i == 100000)
-        {
-		    printf("exit()");
-            exit(0);
-        }
 	}
 	return (hash);
 }

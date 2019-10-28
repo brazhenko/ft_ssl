@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_sha256.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:11:36 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/28 23:11:37 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sha256.h"
 #include "ssl.h"
 #include <stdio.h>
@@ -41,9 +53,9 @@ void			print_sha256_hash(t_hash_sha256 hash, char *str, int flags)
 	else if (hash.error == 2)
 		nstrprinterror(3, "sha256: ", str, ": No such file or directory\n");
 	else if (flags & FLAG_P)
-    {
-        nstrprint(2, sha256_hash_string, "\n");
-    }
+	{
+		nstrprint(2, sha256_hash_string, "\n");
+	}
 	else if (flags & FLAG_Q || flags & FLAG_STDIN)
 		nstrprint(2, sha256_hash_string, "\n");
 	else if (flags & FLAG_R)

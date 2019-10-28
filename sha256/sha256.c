@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sha256.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:07:41 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/28 23:07:43 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sha256.h"
 #include "ssl.h"
 #include "utilities.h"
@@ -34,7 +46,7 @@ void			update_sha256_block(t_hash_sha256 *hash, reg32 *tmp)
 	hash->hash[7] += tmp[7];
 }
 
-static int		calculate_w_array(reg32* ptr, reg32 *w)
+static int		calculate_w_array(reg32 *ptr, reg32 *w)
 {
 	size_t		i;
 
@@ -43,7 +55,6 @@ static int		calculate_w_array(reg32* ptr, reg32 *w)
 	while (i < 16)
 	{
 		w[i] = 0;
-
 		w[i] |= (ptr[i] >> 24) & 0b11111111;
 		w[i] |= (((ptr[i] >> 16) & 0b11111111) << 8);
 		w[i] |= (((ptr[i] >> 8) & 0b11111111) << 16);
@@ -52,10 +63,8 @@ static int		calculate_w_array(reg32* ptr, reg32 *w)
 	}
 	while (i < 64)
 	{
-		w[i] = 	w[i - 16] +
-				SHA256_S2(w[i - 15]) +
-				w[i - 7] +
-				SHA256_S3(w[i - 2]);
+		w[i] = w[i - 16] + SHA256_S2(w[i - 15]) +
+				w[i - 7] + SHA256_S3(w[i - 2]);
 		i++;
 	}
 	return (0);
@@ -65,7 +74,8 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 {
 	size_t		i;
 	reg32		tmp[8];
-	reg32		t1, t2;
+	reg32		t1;
+	reg32		t2;
 	reg32		w[64];
 
 	calculate_w_array(ptr, w);
@@ -93,17 +103,16 @@ int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
 void			*sha256(char *str, int flags)
 {
 	t_hash_sha256	hash;
-    char            *buffer;
+	char			*buffer;
 
 	if (flags & FLAG_P || flags & FLAG_STDIN)
-    {
-        hash = calculate_sha256_from_stdin(flags & FLAG_P);
-    }
+	{
+		hash = calculate_sha256_from_stdin(flags & FLAG_P);
+	}
 	else if (flags & FLAG_S)
 		hash = calculate_sha256_from_string(str);
 	else
 		hash = calculate_sha256_from_file(str);
-
 	print_sha256_hash(hash, str, flags);
 	return (NULL);
 }

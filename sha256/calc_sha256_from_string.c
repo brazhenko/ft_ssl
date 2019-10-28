@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calc_sha256_from_string.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:12:23 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/28 23:12:25 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "sha256.h"
 #include "ssl.h"
 #include "utilities.h"
 #include <string.h>
 
-size_t			calculate_sha256_str_padding(const char *str, char	**padded)
+size_t			calculate_sha256_str_padding(const char *str, char **padded)
 {
 	size_t		len;
 	size_t		padded_len;
