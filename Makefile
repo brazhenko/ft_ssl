@@ -23,18 +23,25 @@ SOURCES= 				ssl/command_executor.c \
          				utilities/debug.c \
 
 
-clean:
-	rm -rf */*.o
-
 OBJECTS=$(SOURCES:.c=.o)
 
 all: $(SOURCES) $(PROJECT)
 
 $(PROJECT): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	@$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	@echo "Compiled!"
 
 .c.o:
-	$(CC) $(CFLAGS) $< -o $@
+	@$(CC) $(CFLAGS) $< -o $@
+
+
+clean:
+	rm -rf */*.o
+
+fclean: clean
+	rm ${PROJECT}
+
+re: fclean all
 
 test256:
 	shasum -a tests/abc

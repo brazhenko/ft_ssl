@@ -85,8 +85,6 @@ int			hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int))
 
 int			command_executor(int ac, char *av[])
 {
-	char	*ptr;
-
 	if (strcmp(av[0], "md5") == 0)
 		hash_executor(ac - 1, av + 1, &md5);
 	else if (strcmp(av[0], "sha256") == 0)
