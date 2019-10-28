@@ -68,7 +68,7 @@ void		print_md5(t_hash_md5 hsh, char *str, int flags)
                   str,
                   (flags & FLAG_S) ? "\"" : "", "\n");
     else
-        nstrprint(6, "SHA256",
+        nstrprint(6, "MD5",
                   (flags & FLAG_S) ? " (\"" : " (",
                   str,
                   (flags & FLAG_S) ? "\") = " : ") = ",

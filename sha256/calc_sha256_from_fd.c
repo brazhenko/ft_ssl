@@ -104,7 +104,6 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 	return (hash);
 }
 
-// TODO fix it
 t_hash_sha256	calculate_sha256_from_stdin(void)
 {
 	t_hash_sha256	hash;

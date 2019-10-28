@@ -16,7 +16,7 @@
 # define FLAG_S 		0b100
 # define FLAG_P 		0b1000
 # define FLAG_STDIN 	0b10000
-# define FLAG_FILEERROR 0b10000000
+# define ARGS_APPEARED  0b100000
 # define RESET_FLAG     0b1111111101110011
 
 typedef uint32_t		reg32;

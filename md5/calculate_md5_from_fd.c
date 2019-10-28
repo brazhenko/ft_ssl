@@ -110,7 +110,6 @@ t_hash_md5	calculate_md5_from_file(const char *file_name)
 	return (hash);
 }
 
-// TODO fix it
 t_hash_md5	calculate_md5_from_stdin(void)
 {
 	t_hash_md5	hash;

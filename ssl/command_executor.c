@@ -28,12 +28,16 @@ int			parse_hash_flags(char *str, int *flags, void *(*hash_algo)(char *, int))
 			if (*(str + 1))
 			{
 				hash_algo(str + 1, *flags + FLAG_S);
+                *flags = *flags + ARGS_APPEARED;
 				return (0);
 			}
 			*flags = *flags | FLAG_S;
 		}
 		else if (*str == 'p')
-			hash_algo(NULL, *flags + FLAG_P);
+		{
+            hash_algo(NULL, *flags + FLAG_P);
+		    *flags |= ARGS_APPEARED;
+		}
 		else
 			illegal_hash_option_exit(*str);
 		++str;
@@ -48,38 +52,37 @@ int			hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int))
 
 	i = 0;
 	flags = 0;
-	if (ac)
-	{
-		while (i < ac)
-		{
-			if (is_flag(av[i]))
-			{
-				parse_hash_flags(av[i], &flags, hash_algo);
-				if (flags & FLAG_S)
-				{
-					if (++i < ac)
-					{
-						hash_algo(av[i], flags);
-						flags = flags - FLAG_S;
-					}
-					else
-					{
-						write(1, "-s error\n", 9);
-						// TODO print usage
-						exit(EXIT_FAILURE);
-					}
-				}
-			}
-			else
-			{
-				hash_algo(av[i], flags);
-				flags &= RESET_FLAG;
-			}
-			++i;
-		}
-	}
-	else
-		hash_algo(NULL, FLAG_STDIN);
+    while (i < ac)
+    {
+        if (is_flag(av[i]))
+        {
+            parse_hash_flags(av[i], &flags, hash_algo);
+            if (flags & FLAG_S)
+            {
+                if (++i < ac)
+                {
+                    hash_algo(av[i], flags);
+                    flags = flags + ARGS_APPEARED;
+                    flags = flags - FLAG_S;
+                }
+                else
+                {
+                    write(1, "-s error\n", 9);
+                    // TODO print usage
+                    exit(EXIT_FAILURE);
+                }
+            }
+        }
+        else
+        {
+            hash_algo(av[i], flags);
+            flags = flags + ARGS_APPEARED;
+            flags &= RESET_FLAG;
+        }
+        ++i;
+    }
+    if (!(flags & ARGS_APPEARED))
+		hash_algo(NULL, flags + FLAG_STDIN);
 	return (0);
 }
 

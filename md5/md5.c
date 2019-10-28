@@ -1,8 +1,5 @@
 #include "md5.h"
 
-// TODO decide the arcitecture of buffer
-
-
 int			init_md5_hash(t_hash_md5 *hash)
 {
 	hash->a = 0x67452301;

@@ -68,6 +68,10 @@ ft_ssl
 
 # Test Files
 TorBrowser-8.5.4-osx64_ru.dmg
+tests/TimeBenchmarkFiles/1GB
+tests/TimeBenchmarkFiles/2GB
+tests/TimeBenchmarkFiles/4GB
+tests/TimeBenchmarkFiles/50MB
 
 # Debug files
 *.dSYM/
