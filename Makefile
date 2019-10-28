@@ -27,6 +27,8 @@ OBJECTS=$(SOURCES:.c=.o)
 
 all: $(SOURCES) $(PROJECT)
 
+allclear: all clean
+
 $(PROJECT): $(OBJECTS)
 	@$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 	@echo "Compiled!"
@@ -36,22 +38,11 @@ $(PROJECT): $(OBJECTS)
 
 
 clean:
-	rm -rf */*.o
+	@rm -rf */*.o
+	@echo "Object files removed"
 
 fclean: clean
-	rm ${PROJECT}
+	@rm ${PROJECT}
+	@echo ${PROJECT} removed
 
 re: fclean all
-
-test256:
-	shasum -a tests/abc
-	./ft_ssl sha256 tests/abc
-	@echo "\n"
-	shasum -a tests/64l
-	./ft_ssl sha256 tests/64l
-	@echo "\n"
-	shasum -a tests/a
-	./ft_ssl sha256 tests/a
-	@echo "\n"
-	shasum -a tests/a
-	./ft_ssl sha256 tests/a

@@ -106,6 +106,3 @@ int			command_executor(int ac, char *av[])
 	}
 	return (0);
 }
-
-// TODO -s after that ONLY files nothing more
-// TODO from pipe (or stdin) with -p forward the input to the output
