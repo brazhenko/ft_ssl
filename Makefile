@@ -23,16 +23,3 @@ INC			= include
 all :
 	@${CC} -O2 ${FT_MD5_SRC} -I ${INC} -o ${PROJECT}
 	@echo "Compiled"
-
-test256:
-	shasum -a tests/abc
-	./ft_ssl sha256 tests/abc
-	@echo "\n"
-	shasum -a tests/64l
-	./ft_ssl sha256 tests/64l
-	@echo "\n"
-	shasum -a tests/a
-	./ft_ssl sha256 tests/a
-	@echo "\n"
-	shasum -a tests/a
-	./ft_ssl sha256 tests/a
