@@ -3,7 +3,7 @@
 import random
 import string
 
-lens = [52428800, 1073741824, 2147483648, 4294967296]
+lens = [57, 56, 55, 54, 53, 52, 51, 50, 49]
 
 for i in lens:
 	with open("TimeBenchmarkFiles/" + str(i) + "len", "w") as f:
