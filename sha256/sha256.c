@@ -101,7 +101,6 @@ void			calculate_sha256_block(t_reg32 *ptr, t_hash_sha256 *hash)
 void			*sha256(char *str, int flags)
 {
 	t_hash_sha256	hash;
-	char			*buffer;
 
 	if (flags & FLAG_P || flags & FLAG_STDIN)
 	{

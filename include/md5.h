@@ -67,5 +67,6 @@ t_hash_md5				calculate_md5_from_string(const char *str);
 t_hash_md5				calculate_md5_from_stdin(int flag_p);
 t_hash_md5				calculate_md5_from_file(const char *file_name);
 int						calculate_md5_block(t_reg32 *ptr, t_hash_md5 *hash);
-
+size_t					calculate_md5_buf_padding(char *padded, size_t len);
+void					print_md5(t_hash_md5 hsh, char *str, int flags);
 #endif

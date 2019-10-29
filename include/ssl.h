@@ -32,9 +32,17 @@
 # define FARGS_APPEARED	0b0000000001000000
 # define RESET_FLAG     0b1111111101110011
 
+# define BUFLEN			5120
+
 typedef uint32_t		t_reg32;
 
 void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);
+void		hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int));
+int			parse_hash_flags(char *str, int *flags,
+						void *(*hash_algo)(char *, int));
+void		print_usage(void);
+void		illegal_hash_option_exit(char c);
+void		s_param_error_exit(void);
 
 #endif

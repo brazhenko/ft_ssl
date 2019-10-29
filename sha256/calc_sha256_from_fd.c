@@ -17,8 +17,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define BUFLEN 5120
-
 /*
 ** 		Returns number of bytes ADDED, NOT the len of all buffer
 ** 		lst_b - the "last" byte after padding where no vital data will
@@ -26,29 +24,24 @@
 **		pd_len - padded len, total len of stream.
 */
 
-static size_t	calculate_sha256_buf_padding(char *padded, size_t len)
+static int		reset_get_block_from_fd(size_t *iter, size_t *len,
+		ssize_t *rd, int *padded)
 {
-	size_t		pd_len;
-	size_t		ret;
-	size_t		lst_b;
+	*iter = 0;
+	*len = 0;
+	*rd = 0;
+	*padded = 0;
+	return (0);
+}
 
-	pd_len = len + 1;
-	ret = 0;
-	padded[len % (BUFLEN)] = 0x80;
-	if ((pd_len % 64 == 0) || (pd_len % 64 > 56))
-		ret = 64 + (64 - len % 64);
-	else
-		ret = 64 - len % 64;
-	pd_len = ret + len;
-	if (BUFLEN - 9 <= len % (BUFLEN) && len % (BUFLEN) < BUFLEN)
-		lst_b = pd_len % (BUFLEN + 64) ? pd_len % (BUFLEN + 64) : (BUFLEN + 64);
-	else
-		lst_b = pd_len % (BUFLEN) ? pd_len % (BUFLEN) : BUFLEN;
-	padded[lst_b - 4] = ((len * 8) >> 24) & 0b11111111;
-	padded[lst_b - 3] = ((len * 8) >> 16) & 0b11111111;
-	padded[lst_b - 2] = ((len * 8) >> 8) & 0b11111111;
-	padded[lst_b - 1] = ((len * 8) >> 0) & 0b11111111;
-	return (ret);
+static void		move_iter(char **ret_block,
+				char *buffer, size_t *iter, ssize_t rd)
+{
+	if (*iter < rd)
+	{
+		*ret_block = &buffer[*iter];
+		*iter = *iter + 64;
+	}
 }
 
 static int		get_block_from_fd(int fd, char **block, int flag_p)
@@ -69,25 +62,14 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 		len += rd;
 		iter = 0;
 		if (rd == 0 && padded == 1)
-		{
-			bzero(buffer, BUFLEN + 64);
-			iter = 0;
-			len = 0;
-			rd = 0;
-			padded = 0;
-			return (0);
-		}
+			return (reset_get_block_from_fd(&iter, &len, &rd, &padded));
 		if (rd < BUFLEN)
 		{
 			rd += calculate_sha256_buf_padding(buffer, len);
 			padded = 1;
 		}
 	}
-	if (iter < rd)
-	{
-		*block = &buffer[iter];
-		iter += 64;
-	}
+	move_iter(block, (char *)&buffer, &iter, rd);
 	return (1);
 }
 
