@@ -47,7 +47,7 @@ clean:
 	@echo "Object files removed"
 
 fclean: clean
-	@rm ${PROJECT}
+	@rm  -f ${PROJECT}
 	@echo ${PROJECT} removed
 
 re: fclean all

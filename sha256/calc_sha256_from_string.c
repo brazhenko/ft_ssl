@@ -45,15 +45,18 @@ t_hash_sha256	calculate_sha256_from_string(const char *str)
 {
 	t_hash_sha256		hash;
 	char				*padded;
+	char				*padded_cpy;
 	size_t				padded_len;
 
 	init_sha256_hash(&hash);
 	padded_len = calculate_sha256_str_padding(str, &padded);
+	padded_cpy = padded;
 	while (padded_len)
 	{
 		calculate_sha256_block((t_reg32 *)padded, &hash);
 		padded += 64;
 		padded_len -= 64;
 	}
+	free(padded_cpy);
 	return (hash);
 }

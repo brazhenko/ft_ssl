@@ -42,15 +42,18 @@ t_hash_md5			calculate_md5_from_string(const char *str)
 {
 	t_hash_md5			hash;
 	char				*padded;
+	char				*padded_cpy;
 	size_t				padded_len;
 
 	init_md5_hash(&hash);
 	padded_len = calculate_md5_str_padding(str, &padded);
+	padded_cpy = padded;
 	while (padded_len)
 	{
 		calculate_md5_block((t_reg32 *)padded, &hash);
 		padded += 64;
 		padded_len -= 64;
 	}
+	free(padded_cpy);
 	return (hash);
 }
