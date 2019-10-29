@@ -20,7 +20,8 @@ void		illegal_hash_option_exit(char c)
 	exit(EXIT_FAILURE);
 }
 
-int			parse_hash_flags(char *str, int *flags, void *(*hash_algo)(char *, int))
+int			parse_hash_flags(char *str, int *flags,
+					void *(*hash_algo)(char *, int))
 {
 	++str;
 	while (*str)
