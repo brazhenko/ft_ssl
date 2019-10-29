@@ -63,7 +63,7 @@ typedef struct	s_hash_sha256
 
 void			*sha256(char *str, int flags);
 int				init_sha256_hash(t_hash_sha256 *hash);
-int				calculate_sha256_block(t_reg32 *ptr, t_hash_sha256 *hash);
+void			calculate_sha256_block(t_reg32 *ptr, t_hash_sha256 *hash);
 t_hash_sha256	calculate_sha256_from_string(const char *str);
 t_hash_sha256	calculate_sha256_from_file(const char *file_name);
 t_hash_sha256	calculate_sha256_from_stdin(int flag_p);

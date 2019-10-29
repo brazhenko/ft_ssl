@@ -69,7 +69,7 @@ static int		calculate_w_array(t_reg32 *ptr, t_reg32 *w)
 	return (0);
 }
 
-int				calculate_sha256_block(t_reg32 *ptr, t_hash_sha256 *hash)
+void			calculate_sha256_block(t_reg32 *ptr, t_hash_sha256 *hash)
 {
 	size_t		i;
 	t_reg32		tmp[8];
@@ -96,7 +96,6 @@ int				calculate_sha256_block(t_reg32 *ptr, t_hash_sha256 *hash)
 		i++;
 	}
 	update_sha256_block(hash, tmp);
-	return (0);
 }
 
 void			*sha256(char *str, int flags)
