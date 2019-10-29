@@ -21,39 +21,33 @@
 
 /*
 ** 		Returns number of bytes ADDED, NOT the len of all buffer
+** 		lst_b - the "last" byte after padding where no vital data will
+** 		be stored (inside the buffer[BUFFLEN + 64])
+**		pd_len - padded len, total len of stream.
 */
 
 static size_t	calculate_sha256_buf_padding(char *padded, size_t len)
 {
-	size_t		padded_len;
+	size_t		pd_len;
 	size_t		ret;
-	size_t		last_byte_num;
+	size_t		lst_b;
 
-	padded_len = len + 1;
+	pd_len = len + 1;
 	ret = 0;
 	padded[len % (BUFLEN)] = 0x80;
-	if ((padded_len % 64 == 0) || (padded_len % 64 > 56))
-	{
+	if ((pd_len % 64 == 0) || (pd_len % 64 > 56))
 		ret = 64 + (64 - len % 64);
-		padded_len = ret + len;
-	}
 	else
-	{
 		ret = 64 - len % 64;
-		padded_len = ret + len;
-	}
+	pd_len = ret + len;
 	if (BUFLEN - 9 <= len % (BUFLEN) && len % (BUFLEN) < BUFLEN)
-	{
-		last_byte_num = padded_len % (BUFLEN + 64) ? padded_len % (BUFLEN + 64) : (BUFLEN + 64);
-	}
+		lst_b = pd_len % (BUFLEN + 64) ? pd_len % (BUFLEN + 64) : (BUFLEN + 64);
 	else
-	{
-		last_byte_num = padded_len % (BUFLEN) ? padded_len % (BUFLEN) : BUFLEN;
-	}
-	padded[last_byte_num - 4] = ((len * 8) >> 24) & 0b11111111;
-	padded[last_byte_num - 3] = ((len * 8) >> 16) & 0b11111111;
-	padded[last_byte_num - 2] = ((len * 8) >> 8) & 0b11111111;
-	padded[last_byte_num - 1] = ((len * 8) >> 0) & 0b11111111;
+		lst_b = pd_len % (BUFLEN) ? pd_len % (BUFLEN) : BUFLEN;
+	padded[lst_b - 4] = ((len * 8) >> 24) & 0b11111111;
+	padded[lst_b - 3] = ((len * 8) >> 16) & 0b11111111;
+	padded[lst_b - 2] = ((len * 8) >> 8) & 0b11111111;
+	padded[lst_b - 1] = ((len * 8) >> 0) & 0b11111111;
 	return (ret);
 }
 

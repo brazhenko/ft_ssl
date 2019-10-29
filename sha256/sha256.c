@@ -51,7 +51,6 @@ static int		calculate_w_array(t_reg32 *ptr, t_reg32 *w)
 	size_t		i;
 
 	i = 0;
-	// TODO refactor this hardcode pizdec-------
 	while (i < 16)
 	{
 		w[i] = 0;

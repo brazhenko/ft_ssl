@@ -12,7 +12,7 @@
 
 #include "md5.h"
 
-size_t			calculate_md5_str_padding(const char *str, char **padded)
+size_t				calculate_md5_str_padding(const char *str, char **padded)
 {
 	size_t		len;
 	size_t		padded_len;
@@ -20,17 +20,12 @@ size_t			calculate_md5_str_padding(const char *str, char **padded)
 	len = strlen(str);
 	padded_len = len + 1;
 	if (padded_len % 64 < 60)
-	{
 		padded_len = padded_len + (64 - padded_len % 64);
-	}
 	else
-	{
 		padded_len = padded_len + 64 + (64 - padded_len % 64);
-	}
 	*padded = (char *)malloc(padded_len);
 	bzero(*padded, padded_len);
 	memcpy(*padded, str, len);
-	// TODO recode this hardcode
 	(*padded)[len] = 0x80;
 	(*padded)[padded_len - 8] = (len * 8) >> (8 * 0) & A;
 	(*padded)[padded_len - 7] = (len * 8) >> (8 * 1) & A;
