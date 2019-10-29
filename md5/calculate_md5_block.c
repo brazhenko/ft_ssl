@@ -12,7 +12,7 @@
 
 #include "md5.h"
 
-static int		round1_md5(reg32 *tmp, reg32 *buffer)
+static int		round1_md5(t_reg32 *tmp, t_reg32 *buffer)
 {
 	ROUND1(tmp[0], tmp[1], tmp[2], tmp[3], buffer[0], 7, 1);
 	ROUND1(tmp[3], tmp[0], tmp[1], tmp[2], buffer[1], 12, 2);
@@ -33,28 +33,28 @@ static int		round1_md5(reg32 *tmp, reg32 *buffer)
 	return (0);
 }
 
-static int		round2_md5(reg32 *tmp, reg32 *buffer)
+static int		round2_md5(t_reg32 *tmp, t_reg32 *buffer)
 {
-	ROUND2(tmp[0], tmp[1], tmp[2], tmp[3], buffer[1], 5, 17); \
-	ROUND2(tmp[3], tmp[0], tmp[1], tmp[2], buffer[6], 9, 18); \
-	ROUND2(tmp[2], tmp[3], tmp[0], tmp[1], buffer[11], 14, 19); \
-	ROUND2(tmp[1], tmp[2], tmp[3], tmp[0], buffer[0], 20, 20); \
-	ROUND2(tmp[0], tmp[1], tmp[2], tmp[3], buffer[5], 5, 21); \
-	ROUND2(tmp[3], tmp[0], tmp[1], tmp[2], buffer[10], 9, 22); \
-	ROUND2(tmp[2], tmp[3], tmp[0], tmp[1], buffer[15], 14, 23); \
-	ROUND2(tmp[1], tmp[2], tmp[3], tmp[0], buffer[4], 20, 24); \
-	ROUND2(tmp[0], tmp[1], tmp[2], tmp[3], buffer[9], 5, 25); \
-	ROUND2(tmp[3], tmp[0], tmp[1], tmp[2], buffer[14], 9, 26); \
-	ROUND2(tmp[2], tmp[3], tmp[0], tmp[1], buffer[3], 14, 27); \
-	ROUND2(tmp[1], tmp[2], tmp[3], tmp[0], buffer[8], 20, 28); \
-	ROUND2(tmp[0], tmp[1], tmp[2], tmp[3], buffer[13], 5, 29); \
-	ROUND2(tmp[3], tmp[0], tmp[1], tmp[2], buffer[2], 9, 30); \
-	ROUND2(tmp[2], tmp[3], tmp[0], tmp[1], buffer[7], 14, 31); \
+	ROUND2(tmp[0], tmp[1], tmp[2], tmp[3], buffer[1], 5, 17);
+	ROUND2(tmp[3], tmp[0], tmp[1], tmp[2], buffer[6], 9, 18);
+	ROUND2(tmp[2], tmp[3], tmp[0], tmp[1], buffer[11], 14, 19);
+	ROUND2(tmp[1], tmp[2], tmp[3], tmp[0], buffer[0], 20, 20);
+	ROUND2(tmp[0], tmp[1], tmp[2], tmp[3], buffer[5], 5, 21);
+	ROUND2(tmp[3], tmp[0], tmp[1], tmp[2], buffer[10], 9, 22);
+	ROUND2(tmp[2], tmp[3], tmp[0], tmp[1], buffer[15], 14, 23);
+	ROUND2(tmp[1], tmp[2], tmp[3], tmp[0], buffer[4], 20, 24);
+	ROUND2(tmp[0], tmp[1], tmp[2], tmp[3], buffer[9], 5, 25);
+	ROUND2(tmp[3], tmp[0], tmp[1], tmp[2], buffer[14], 9, 26);
+	ROUND2(tmp[2], tmp[3], tmp[0], tmp[1], buffer[3], 14, 27);
+	ROUND2(tmp[1], tmp[2], tmp[3], tmp[0], buffer[8], 20, 28);
+	ROUND2(tmp[0], tmp[1], tmp[2], tmp[3], buffer[13], 5, 29);
+	ROUND2(tmp[3], tmp[0], tmp[1], tmp[2], buffer[2], 9, 30);
+	ROUND2(tmp[2], tmp[3], tmp[0], tmp[1], buffer[7], 14, 31);
 	ROUND2(tmp[1], tmp[2], tmp[3], tmp[0], buffer[12], 20, 32);
 	return (0);
 }
 
-static int		round3_md5(reg32 *tmp, reg32 *buffer)
+static int		round3_md5(t_reg32 *tmp, t_reg32 *buffer)
 {
 	ROUND3(tmp[0], tmp[1], tmp[2], tmp[3], buffer[5], 4, 33);
 	ROUND3(tmp[3], tmp[0], tmp[1], tmp[2], buffer[8], 11, 34);
@@ -75,7 +75,7 @@ static int		round3_md5(reg32 *tmp, reg32 *buffer)
 	return (0);
 }
 
-static int		round4_md5(reg32 *tmp, reg32 *buffer)
+static int		round4_md5(t_reg32 *tmp, t_reg32 *buffer)
 {
 	ROUND4(tmp[0], tmp[1], tmp[2], tmp[3], buffer[0], 6, 49);
 	ROUND4(tmp[3], tmp[0], tmp[1], tmp[2], buffer[7], 10, 50);
@@ -96,9 +96,9 @@ static int		round4_md5(reg32 *tmp, reg32 *buffer)
 	return (0);
 }
 
-int				calculate_md5_block(reg32 *ptr, t_hash_md5 *hash)
+int				calculate_md5_block(t_reg32 *ptr, t_hash_md5 *hash)
 {
-	reg32	tmp[4];
+	t_reg32	tmp[4];
 
 	tmp[0] = hash->a;
 	tmp[1] = hash->b;

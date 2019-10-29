@@ -53,7 +53,7 @@ t_hash_md5			calculate_md5_from_string(const char *str)
 	padded_len = calculate_md5_str_padding(str, &padded);
 	while (padded_len)
 	{
-		calculate_md5_block((reg32 *)padded, &hash);
+		calculate_md5_block((t_reg32 *)padded, &hash);
 		padded += 64;
 		padded_len -= 64;
 	}

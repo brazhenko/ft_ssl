@@ -38,8 +38,7 @@ char	*nstrjoin(int n, ...)
 	}
 	va_end(argptr);
 	str = (char *)malloc(len + 1);
-	str[0] = 0;
-	str[len] = 0;
+	bzero(str, len + 1);
 	va_start(argptr, n);
 	while (n_cpy--)
 	{
@@ -68,8 +67,7 @@ int		nstrprint(int n, ...)
 	}
 	va_end(argptr);
 	str = (char *)malloc(len + 1);
-	str[0] = 0;
-	str[len] = 0;
+	bzero(str, len + 1);
 	va_start(argptr, n);
 	while (n_cpy--)
 	{

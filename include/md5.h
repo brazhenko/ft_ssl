@@ -54,10 +54,10 @@ static const unsigned g_md5_vals[64] = {
 
 typedef struct			s_hash_md5
 {
-	reg32	a;
-	reg32	b;
-	reg32	c;
-	reg32	d;
+	t_reg32	a;
+	t_reg32	b;
+	t_reg32	c;
+	t_reg32	d;
 	int		error;
 }						t_hash_md5;
 
@@ -66,6 +66,6 @@ int						init_md5_hash(t_hash_md5 *hash);
 t_hash_md5				calculate_md5_from_string(const char *str);
 t_hash_md5				calculate_md5_from_stdin(int flag_p);
 t_hash_md5				calculate_md5_from_file(const char *file_name);
-int						calculate_md5_block(reg32 *ptr, t_hash_md5 *hash);
+int						calculate_md5_block(t_reg32 *ptr, t_hash_md5 *hash);
 
 #endif

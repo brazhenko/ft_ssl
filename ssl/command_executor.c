@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_executor.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/29 20:39:11 by lreznak-          #+#    #+#             */
+/*   Updated: 2019/10/29 20:39:12 by lreznak-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ssl.h"
 
 void		illegal_hash_option_exit(char c)
@@ -28,15 +40,15 @@ int			parse_hash_flags(char *str, int *flags, void *(*hash_algo)(char *, int))
 			if (*(str + 1))
 			{
 				hash_algo(str + 1, *flags + FLAG_S);
-                *flags = *flags + ARGS_APPEARED;
+				*flags = *flags + ARGS_APPEARED;
 				return (0);
 			}
 			*flags = *flags | FLAG_S;
 		}
 		else if (*str == 'p')
 		{
-            hash_algo(NULL, *flags + FLAG_P);
-		    *flags |= ARGS_APPEARED;
+			hash_algo(NULL, *flags + FLAG_P);
+			*flags |= ARGS_APPEARED;
 		}
 		else
 			illegal_hash_option_exit(*str);
@@ -52,37 +64,37 @@ int			hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int))
 
 	i = 0;
 	flags = 0;
-    while (i < ac)
-    {
-        if (is_flag(av[i]) && !(flags & FARGS_APPEARED))
-        {
-            parse_hash_flags(av[i], &flags, hash_algo);
-            if (flags & FLAG_S)
-            {
-                if (++i < ac)
-                {
-                    hash_algo(av[i], flags);
-                    flags = flags | ARGS_APPEARED;
-                    flags = flags - FLAG_S;
-                }
-                else
-                {
-                    write(1, "-s error\n", 9);
-                    // TODO print usage
-                    exit(EXIT_FAILURE);
-                }
-            }
-        }
-        else
-        {
-            hash_algo(av[i], flags);
-            flags = flags | ARGS_APPEARED;
+	while (i < ac)
+	{
+		if (is_flag(av[i]) && !(flags & FARGS_APPEARED))
+		{
+			parse_hash_flags(av[i], &flags, hash_algo);
+			if (flags & FLAG_S)
+			{
+				if (++i < ac)
+				{
+					hash_algo(av[i], flags);
+					flags = flags | ARGS_APPEARED;
+					flags = flags - FLAG_S;
+				}
+				else
+				{
+					write(1, "-s error\n", 9);
+					// TODO print usage
+					exit(EXIT_FAILURE);
+				}
+			}
+		}
+		else
+		{
+			hash_algo(av[i], flags);
+			flags = flags | ARGS_APPEARED;
 			flags = flags | FARGS_APPEARED;
-            flags &= RESET_FLAG;
-        }
-        ++i;
-    }
-    if (!(flags & ARGS_APPEARED))
+			flags &= RESET_FLAG;
+		}
+		++i;
+	}
+	if (!(flags & ARGS_APPEARED))
 	{
 		hash_algo(NULL, flags + FLAG_STDIN);
 	}
@@ -107,8 +119,7 @@ int			command_executor(int ac, char *av[])
 				"sha512 - under development\n",
 				"Whirlpool - under development\n",
 				"\n",
-				"Cipher commands:\n", "\n"
-				);
+				"Cipher commands:\n", "\n");
 	}
 	return (0);
 }

@@ -34,7 +34,7 @@ int				init_sha256_hash(t_hash_sha256 *hash)
 	return (0);
 }
 
-void			update_sha256_block(t_hash_sha256 *hash, reg32 *tmp)
+void			update_sha256_block(t_hash_sha256 *hash, t_reg32 *tmp)
 {
 	hash->hash[0] += tmp[0];
 	hash->hash[1] += tmp[1];
@@ -46,7 +46,7 @@ void			update_sha256_block(t_hash_sha256 *hash, reg32 *tmp)
 	hash->hash[7] += tmp[7];
 }
 
-static int		calculate_w_array(reg32 *ptr, reg32 *w)
+static int		calculate_w_array(t_reg32 *ptr, t_reg32 *w)
 {
 	size_t		i;
 
@@ -70,21 +70,21 @@ static int		calculate_w_array(reg32 *ptr, reg32 *w)
 	return (0);
 }
 
-int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash)
+int				calculate_sha256_block(t_reg32 *ptr, t_hash_sha256 *hash)
 {
 	size_t		i;
-	reg32		tmp[8];
-	reg32		t1;
-	reg32		t2;
-	reg32		w[64];
+	t_reg32		tmp[8];
+	t_reg32		t1;
+	t_reg32		t2;
+	t_reg32		w[64];
 
 	calculate_w_array(ptr, w);
-	memcpy(tmp, hash->hash, 8 * sizeof(reg32));
+	memcpy(tmp, hash->hash, 8 * sizeof(t_reg32));
 	i = 0;
 	while (i < 64)
 	{
 		t1 = tmp[7] + SHA256_S1(tmp[4]) + SHA256_CH(tmp[4], tmp[5], tmp[6]) +
-				sha256_constants[i] + w[i];
+				g_sha256_constants[i] + w[i];
 		t2 = SHA256_S0(tmp[0]) + SHA256_MAJ(tmp[0], tmp[1], tmp[2]);
 		tmp[7] = tmp[6];
 		tmp[6] = tmp[5];

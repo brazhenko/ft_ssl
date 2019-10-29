@@ -13,6 +13,8 @@
 #ifndef FT_SHA256_H
 # define FT_SHA256_H
 
+# include <stdint.h>
+
 /*
 **	All macros defined below take 32-bit (8-byte) arguments and return
 **	32-bit (8-byte) value.
@@ -28,13 +30,13 @@
 # define SHA256_S2(x) ((RSHIFT((x), 7)) ^ (RSHIFT((x), 18)) ^ (RROT((x), 3)))
 # define SHA256_S3(x) ((RSHIFT((x), 17)) ^ (RSHIFT((x), 19)) ^ (RROT((x), 10)))
 
-typedef unsigned int	reg32;
+typedef uint32_t	t_reg32;
 
 /*
 **	Array of SHA-256 algorithm constants
 */
 
-static const reg32 sha256_constants[64] = {
+static const t_reg32 g_sha256_constants[64] = {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
 	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -55,13 +57,13 @@ static const reg32 sha256_constants[64] = {
 
 typedef struct	s_hash_sha256
 {
-	reg32	hash[8];
+	t_reg32	hash[8];
 	int		error;
 }				t_hash_sha256;
 
 void			*sha256(char *str, int flags);
 int				init_sha256_hash(t_hash_sha256 *hash);
-int				calculate_sha256_block(reg32 *ptr, t_hash_sha256 *hash);
+int				calculate_sha256_block(t_reg32 *ptr, t_hash_sha256 *hash);
 t_hash_sha256	calculate_sha256_from_string(const char *str);
 t_hash_sha256	calculate_sha256_from_file(const char *file_name);
 t_hash_sha256	calculate_sha256_from_stdin(int flag_p);

@@ -20,7 +20,7 @@ SOURCES= 				ssl/command_executor.c \
          				sha256/calc_sha256_from_fd.c \
          				utilities/nstrjoin.c \
          				utilities/is_flag.c \
-         				utilities/debug.c \
+         				#utilities/debug.c \
 
 
 OBJECTS=$(SOURCES:.c=.o)

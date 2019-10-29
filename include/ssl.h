@@ -32,7 +32,7 @@
 # define FARGS_APPEARED	0b0000000001000000
 # define RESET_FLAG     0b1111111101110011
 
-typedef uint32_t		reg32;
+typedef uint32_t		t_reg32;
 
 void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);

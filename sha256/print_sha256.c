@@ -17,7 +17,6 @@
 
 /*
 **	Returns fresh allocated string with ascii printable hash.
-**
 */
 
 char			*sha256toa(t_hash_sha256 hash)
@@ -30,14 +29,14 @@ char			*sha256toa(t_hash_sha256 hash)
 	bzero(str, 65);
 	while (i < 8)
 	{
-		str[8 * i + 0] = hex_arr[((hash.hash[i] >> 28) & 0b1111)];
-		str[8 * i + 1] = hex_arr[((hash.hash[i] >> 24) & 0b1111)];
-		str[8 * i + 2] = hex_arr[((hash.hash[i] >> 20) & 0b1111)];
-		str[8 * i + 3] = hex_arr[((hash.hash[i] >> 16) & 0b1111)];
-		str[8 * i + 4] = hex_arr[((hash.hash[i] >> 12) & 0b1111)];
-		str[8 * i + 5] = hex_arr[((hash.hash[i] >> 8) & 0b1111)];
-		str[8 * i + 6] = hex_arr[((hash.hash[i] >> 4) & 0b1111)];
-		str[8 * i + 7] = hex_arr[((hash.hash[i] >> 0) & 0b1111)];
+		str[8 * i + 0] = g_hex_arr[((hash.hash[i] >> 28) & 0b1111)];
+		str[8 * i + 1] = g_hex_arr[((hash.hash[i] >> 24) & 0b1111)];
+		str[8 * i + 2] = g_hex_arr[((hash.hash[i] >> 20) & 0b1111)];
+		str[8 * i + 3] = g_hex_arr[((hash.hash[i] >> 16) & 0b1111)];
+		str[8 * i + 4] = g_hex_arr[((hash.hash[i] >> 12) & 0b1111)];
+		str[8 * i + 5] = g_hex_arr[((hash.hash[i] >> 8) & 0b1111)];
+		str[8 * i + 6] = g_hex_arr[((hash.hash[i] >> 4) & 0b1111)];
+		str[8 * i + 7] = g_hex_arr[((hash.hash[i] >> 0) & 0b1111)];
 		i++;
 	}
 	return (str);

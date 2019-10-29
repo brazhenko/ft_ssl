@@ -27,7 +27,7 @@ static size_t	calculate_sha256_buf_padding(char *padded, size_t len)
 {
 	size_t		padded_len;
 	size_t		ret;
-	size_t last_byte_num;
+	size_t		last_byte_num;
 
 	padded_len = len + 1;
 	ret = 0;
@@ -45,19 +45,15 @@ static size_t	calculate_sha256_buf_padding(char *padded, size_t len)
 	if (BUFLEN - 9 <= len % (BUFLEN) && len % (BUFLEN) < BUFLEN)
 	{
 		last_byte_num = padded_len % (BUFLEN + 64) ? padded_len % (BUFLEN + 64) : (BUFLEN + 64);
-//		printf("________________________kek1____________________________\n%lu\n", last_byte_num);
 	}
 	else
 	{
 		last_byte_num = padded_len % (BUFLEN) ? padded_len % (BUFLEN) : BUFLEN;
-//		printf("________________________kek2____________________________\n%lu\n", last_byte_num);
 	}
-//	printf("pl: %lu lbn: %lu\n", padded_len, last_byte_num);
 	padded[last_byte_num - 4] = ((len * 8) >> 24) & 0b11111111;
 	padded[last_byte_num - 3] = ((len * 8) >> 16) & 0b11111111;
 	padded[last_byte_num - 2] = ((len * 8) >> 8) & 0b11111111;
 	padded[last_byte_num - 1] = ((len * 8) >> 0) & 0b11111111;
-//	print_bit_str("kekch: ", padded, 64);
 	return (ret);
 }
 
@@ -87,10 +83,10 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 			padded = 0;
 			return (0);
 		}
-        if (rd < BUFLEN)
+		if (rd < BUFLEN)
 		{
 			rd += calculate_sha256_buf_padding(buffer, len);
-            padded = 1;
+			padded = 1;
 		}
 	}
 	if (iter < rd)
@@ -122,7 +118,7 @@ t_hash_sha256	calculate_sha256_from_file(const char *file_name)
 			hash.error = 1;
 			return (hash);
 		}
-		calculate_sha256_block((reg32 *)block_ptr, &hash);
+		calculate_sha256_block((t_reg32 *)block_ptr, &hash);
 	}
 	return (hash);
 }
@@ -135,7 +131,7 @@ t_hash_sha256	calculate_sha256_from_stdin(int flag_p)
 	init_sha256_hash(&hash);
 	while (get_block_from_fd(0, &block_ptr, flag_p))
 	{
-		calculate_sha256_block((reg32 *)block_ptr, &hash);
+		calculate_sha256_block((t_reg32 *)block_ptr, &hash);
 	}
 	return (hash);
 }
