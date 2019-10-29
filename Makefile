@@ -35,8 +35,7 @@ $(PROJECT): $(OBJECTS)
 .c.o:
 	@$(CC) $(CFLAGS) $< -o $@
 
-allclear: all clean
-
+allcl: all clean
 
 clean:
 	@rm -rf */*.o

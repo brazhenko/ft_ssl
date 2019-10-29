@@ -74,10 +74,10 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 			padded = 0;
 			return (0);
 		}
-		if (rd < BUFLEN)
+        if (rd < BUFLEN)
 		{
 			rd += calculate_sha256_buf_padding(buffer, len);
-			padded = 1;
+            padded = 1;
 		}
 	}
 	if (iter < rd)
