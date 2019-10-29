@@ -29,11 +29,11 @@ static size_t	calculate_md5_buf_padding(char *padded, size_t len)
 {
 	size_t		padded_len;
 	size_t		ret;
+	size_t last_byte_num;
 
 	padded_len = len + 1;
 	ret = 0;
 
-	size_t last_byte_num;
 
 	padded[len % (BUFLEN)] = 0x80;
 	if ((padded_len % 64 == 0) || (padded_len % 64 > 56))
@@ -50,7 +50,6 @@ static size_t	calculate_md5_buf_padding(char *padded, size_t len)
 	{
 
 		last_byte_num = padded_len % (BUFLEN + 64) ? padded_len % (BUFLEN + 64) : (BUFLEN + 64);
-//		printf("________________________kek____________________________\n%lu\n", last_byte_num);
 	}
 	else
 	{
