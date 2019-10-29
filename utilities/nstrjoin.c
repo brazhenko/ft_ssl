@@ -20,7 +20,7 @@
 **	(const) char * args are binded in one string
 */
 
-char	*nstrjoin(int n, ...)
+char		*nstrjoin(int n, ...)
 {
 	va_list		argptr;
 	int			n_cpy;
@@ -49,7 +49,16 @@ char	*nstrjoin(int n, ...)
 	return (str);
 }
 
-int		nstrprint(int n, ...)
+static char	*strnew(size_t len)
+{
+	char	*ret;
+
+	ret = (char *)malloc(len + 1);
+	bzero(ret, len + 1);
+	return (ret);
+}
+
+int			nstrprint(int n, ...)
 {
 	va_list		argptr;
 	int			n_cpy;
@@ -62,12 +71,10 @@ int		nstrprint(int n, ...)
 	va_start(argptr, n);
 	while (n--)
 	{
-		ptr = va_arg(argptr, char *);
-		len += strlen(ptr);
+		len += strlen(va_arg(argptr, char *));
 	}
 	va_end(argptr);
-	str = (char *)malloc(len + 1);
-	bzero(str, len + 1);
+	str = strnew(len);
 	va_start(argptr, n);
 	while (n_cpy--)
 	{
@@ -80,7 +87,7 @@ int		nstrprint(int n, ...)
 	return (len);
 }
 
-int		nstrprinterror(int n, ...)
+int			nstrprinterror(int n, ...)
 {
 	va_list		argptr;
 	int			n_cpy;
@@ -93,13 +100,10 @@ int		nstrprinterror(int n, ...)
 	va_start(argptr, n);
 	while (n--)
 	{
-		ptr = va_arg(argptr, char *);
-		len += strlen(ptr);
+		len += strlen(va_arg(argptr, char *));
 	}
 	va_end(argptr);
-	str = (char *)malloc(len + 1);
-	str[0] = 0;
-	str[len] = 0;
+	str = strnew(len);
 	va_start(argptr, n);
 	while (n_cpy--)
 	{
