@@ -57,13 +57,14 @@ Temporary Items
 *.so.*
 *.dylib
 
-# Executables
+# Executables and build
 *.exe
 *.out
 *.app
 *.i*86
 *.x86_64
 *.hex
+cmake-build-debug/
 ft_ssl
 
 # Test Files
