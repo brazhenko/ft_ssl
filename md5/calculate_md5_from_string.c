@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "md5.h"
+#include "ssl.h"
 
 size_t				calculate_md5_str_padding(const char *str, char **padded)
 {

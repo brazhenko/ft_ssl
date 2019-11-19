@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ssl.h"
-#include "md5.h"
 
 size_t	calculate_md5_buf_padding(char *padded, size_t len)
 {

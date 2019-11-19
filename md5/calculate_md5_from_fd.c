@@ -11,12 +11,9 @@
 /* ************************************************************************** */
 
 #include "ssl.h"
-#include "md5.h"
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 /*
 ** 		Returns number of bytes ADDED, NOT the len of all buffer

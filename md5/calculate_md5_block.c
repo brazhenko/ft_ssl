@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "md5.h"
+#include "ssl.h"
 
 static int		round1_md5(t_reg32 *tmp, t_reg32 *buffer)
 {

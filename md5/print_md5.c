@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ssl.h"
-#include "md5.h"
 
 /*
 **		Honest hardcode to translate md5 to ascii,

@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
-# include "sha256.h"
+
 # include "utilities.h"
 
 # define FLAG_R 		0b0000000000000001
@@ -34,7 +34,10 @@
 
 # define BUFLEN			5120
 
-typedef uint32_t		t_reg32;
+typedef uint32_t 		t_reg32;
+
+# include "sha256.h"
+# include "md5.h"
 
 void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);
