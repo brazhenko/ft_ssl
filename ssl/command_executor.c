@@ -20,7 +20,7 @@ int			command_executor(int ac, char *av[])
 		hash_executor(ac - 1, av + 1, &sha256);
 	else if (strcmp(av[0], "base64") == 0)
 	{
-		// encode_executor(ac - 1, av + 1, algo);
+		// encode_executor(ac - 1, av + 1, &base64);
 		printf("debug\n");
 	}
 	else

@@ -12,4 +12,6 @@ static const char[] = {
 	'4', '5', '6', '7', '8', '9', '+', '/'
 };
 
+void		*base64(char *str, int flags);
+
 #endif

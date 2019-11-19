@@ -12,7 +12,7 @@ set(FT_SSL_SRC	ssl/command_executor.c
 				ssl/hash_executor.c
 				ssl/help.c
 				ssl/main.c
-				ssl/parse_hash_flags.c)
+				ssl/parse_hash_flags.c ssl/encode_executor.c)
 
 set(MD5_SRC md5/calculate_md5_block.c
 			md5/calculate_md5_buf_padding.c
