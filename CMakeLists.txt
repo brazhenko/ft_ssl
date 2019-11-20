@@ -29,6 +29,8 @@ set(SHA256_SRC	sha256/calc_sha256_buf_padding.c
 
 set(SHA384_SRC)
 set(SHA512_SRC)
+set(BASE64_SRC		base64/base64.c)
+
 SET(UTILITIES_SRC	utilities/is_flag.c
 					utilities/nstrjoin.c)
 
@@ -38,6 +40,7 @@ add_executable(
 				${FT_SSL_SRC}
 				${MD5_SRC}
 				${SHA256_SRC}
+				${BASE64_SRC}
 				${UTILITIES_SRC}
 )
 
