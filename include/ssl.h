@@ -38,12 +38,13 @@ typedef uint32_t 		t_reg32;
 
 # include "sha256.h"
 # include "md5.h"
+# include "base64.h"
 
 void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);
 void		hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int));
-int			parse_hash_flags(char *str, int *flags,
-						void *(*hash_algo)(char *, int));
+void		encode_executor(int ac, char *av[], void *(*algo)(char*, int));
+int			parse_hash_flags(char *str, int *flags, void *(*hash_algo)(char *, int));
 void		print_usage(void);
 void		illegal_hash_option_exit(char c);
 void		s_param_error_exit(void);

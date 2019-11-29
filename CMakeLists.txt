@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 project(ft_ssl C)
 
 set(CMAKE_C_STANDARD 99)
-
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 set(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra -Werror")
 set(GCC_COVERAGE_LINK_FLAGS    "-Wall -Wextra -Werror")
 
@@ -12,7 +12,8 @@ set(FT_SSL_SRC	ssl/command_executor.c
 				ssl/hash_executor.c
 				ssl/help.c
 				ssl/main.c
-				ssl/parse_hash_flags.c ssl/encode_executor.c)
+				ssl/parse_hash_flags.c
+				ssl/encode_executor.c)
 
 set(MD5_SRC md5/calculate_md5_block.c
 			md5/calculate_md5_buf_padding.c
