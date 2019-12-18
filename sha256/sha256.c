@@ -12,7 +12,6 @@
 
 #include "sha256.h"
 #include "ssl.h"
-#include "utilities.h"
 #include <string.h>
 
 /*

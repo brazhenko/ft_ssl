@@ -1,7 +1,7 @@
 #ifndef BASE64_H
 # define BASE64_H
 
-static const char[] = {
+static const char base64_arr[] = {
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 	'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
 	'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
