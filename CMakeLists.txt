@@ -30,10 +30,14 @@ set(SHA256_SRC	sha256/calc_sha256_buf_padding.c
 
 set(SHA384_SRC)
 set(SHA512_SRC)
-set(BASE64_SRC		base64/base64.c)
+set(BASE64_SRC		base64/base64.c
+		base64/context/init_base64_context.c
+		base64/context/set_decode_mode.c
+		base64/context/set_encode_mode.c
+		base64/context/set_input_file.c base64/context/set_output_file.c base64/context/parse_base64_argv.c base64/context/base64_states.c)
 
 SET(UTILITIES_SRC	utilities/is_flag.c
-					utilities/nstrjoin.c)
+					utilities/nstrjoin.c utilities/xmalloc.c base64/context/base64_states.c)
 
 
 add_executable(

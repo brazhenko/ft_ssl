@@ -26,5 +26,6 @@ char	*nstrjoin(int n, ...);
 int		nstrprint(int n, ...);
 int		nstrprinterror(int n, ...);
 int		is_flag(const char *str);
+void	*xmalloc(size_t size);
 
 #endif
