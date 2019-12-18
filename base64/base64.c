@@ -1,12 +1,17 @@
 # define BASE64BUF_LEN 64
 
+#include "ssl.h"
+#include <stddef.h>
+
 void		*base64(char *str, int flags)
 {
 	return (NULL);
 }
 
-void 		*encode_fd_to_base64(int fd)
+// prints to the output
+void 		*encode_fd_to_base64(int inp_fd)
 {
+
 	return (NULL);
 }
 
@@ -17,9 +22,10 @@ void		*encode_str_to_base64(char *str)
 	size_t 		i;
 
 	i = 0;
-	while (/* есть что обсчитывать */)
+	while (0/* есть что обсчитывать */)
 	{
 		tmp = (t_reg32)str[i];
 		i += 3;
 	}
+	return (NULL);
 }
