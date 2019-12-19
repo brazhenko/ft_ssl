@@ -13,6 +13,7 @@
 #ifndef UTILITIES_H
 # define UTILITIES_H
 
+# include <stddef.h>
 # define MAX(x, y) ((x) > (y) ? (x) : (y))
 
 static const char		g_hex_arr[] = {
@@ -27,5 +28,6 @@ int		nstrprint(int n, ...);
 int		nstrprinterror(int n, ...);
 int		is_flag(const char *str);
 void	*xmalloc(size_t size);
+void	print_uint32_bits(unsigned num);
 
 #endif

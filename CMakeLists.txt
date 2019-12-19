@@ -34,10 +34,18 @@ set(BASE64_SRC		base64/base64.c
 		base64/context/init_base64_context.c
 		base64/context/set_decode_mode.c
 		base64/context/set_encode_mode.c
-		base64/context/set_input_file.c base64/context/set_output_file.c base64/context/parse_base64_argv.c base64/context/base64_states.c)
+		base64/context/set_input_file.c
+		base64/context/set_output_file.c
+		base64/context/parse_base64_argv.c
+		base64/context/base64_states.c
+		)
+
+set(DES_SRC des/context/des_argv_states.c des/context/init_des_context.c)
 
 SET(UTILITIES_SRC	utilities/is_flag.c
-					utilities/nstrjoin.c utilities/xmalloc.c base64/context/base64_states.c)
+					utilities/nstrjoin.c
+					utilities/xmalloc.c
+		utilities/print_uint32_bits.c)
 
 
 add_executable(
@@ -46,6 +54,7 @@ add_executable(
 				${MD5_SRC}
 				${SHA256_SRC}
 				${BASE64_SRC}
+				${DES_SRC}
 				${UTILITIES_SRC}
 )
 

@@ -12,7 +12,7 @@
 
 #include "ssl.h"
 
-int			main(int ac, char *av[], char *en[])
+int			main(int ac, char **av, char **en)
 {
 	(void)en;
 	if (ac == 1)

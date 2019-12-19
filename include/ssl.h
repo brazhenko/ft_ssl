@@ -48,5 +48,6 @@ int			parse_hash_flags(char *str, int *flags, void *(*hash_algo)(char *, int));
 void		print_usage(void);
 void		illegal_hash_option_exit(char c);
 void		s_param_error_exit(void);
+void		cipher_executor(int ac, char **av, void *(*algo)(char*, int));
 
 #endif

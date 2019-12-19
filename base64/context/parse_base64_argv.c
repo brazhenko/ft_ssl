@@ -28,8 +28,7 @@ t_base64_context	*parse_base64_argv(int argc, char **argv)
 	else
 	{
 		puts("parse_base64_argv()");
-		// TODO handle error
+		// TODO handle error, available options
 	}
-
 	return (ctx);
 }

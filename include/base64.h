@@ -19,23 +19,25 @@ static const char base64_arr[] = {
 ** ctx.mode {0, 1, ..., 31} Int32.
 ** BitN    true/false
 ** 31 decode/encode
-** 30 outfile/nooutfile
-** 29 infile/noinfile
+** 30 outfile/no outfile
+** 29 infile/no infile
 */
 
 struct		s_base64_context
 {
-	char 	input_file[PATH_MAX];
-	char 	output_file[PATH_MAX];
-	int 	mode;
+	char 		input_file[PATH_MAX];
+	char 		output_file[PATH_MAX];
+	int 		input_fd;
+	int			output_fd;
+	unsigned  	mode;
 };
 
-# define ISENCODEMODE(c) 	(!(get_base64_mode(c) & 	0b1))
-# define ISDECODEMODE(c) 	((get_base64_mode(c) & 0b1))
+# define ISENCODEMODE(c) 	(!(get_base64_mode(c) & 0b1))
+# define ISDECODEMODE(c) 	((get_base64_mode(c) & 	0b1))
 # define ISOUTFILE(c) 		((get_base64_mode(c) & 	0b10))
 # define ISINPFILE(c) 		((get_base64_mode(c) & 	0b100))
 
-typedef		struct s_base64_context t_base64_context;
+typedef struct s_base64_context t_base64_context;
 
 t_base64_context 	*init_base64_context(void);
 int 				set_base64_decode_mode(t_base64_context *ctx);

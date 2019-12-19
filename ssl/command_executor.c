@@ -22,6 +22,10 @@ int			command_executor(int ac, char *av[])
 	{
 		encode_executor(ac - 1, av + 1, &base64);
 	}
+	else if (strcmp(av[0], "des") == 0)
+	{
+		cipher_executor(ac - 1, av + 1, NULL);
+	}
 	else
 	{
 		nstrprint(16,
