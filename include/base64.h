@@ -64,6 +64,9 @@ t_base64_context	*base64_state_o(int argc, char **argv, t_base64_context *ctx);
 ** base64 algorithm part
 */
 
-void		*base64(char *str, int flags);
+# define BASE64_READ_LEN	(64)
+# define BASE64_OUTPUT_LEN	((((BASE64_READ_LEN + BASE64_READ_LEN%3))/3)*4)
+
+void		*base64(t_base64_context *ctx);
 
 #endif

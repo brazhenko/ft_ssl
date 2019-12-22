@@ -4,7 +4,8 @@
 
 // TODO fix algo signature
 
-void		encode_executor(int ac, char **av, void *(*algo)(char*, int))
+void		encode_executor(int ac, char **av,
+		void *(*algo)(t_base64_context*))
 {
 	t_base64_context	*res;
 	res = parse_base64_argv(ac, av);
@@ -13,6 +14,7 @@ void		encode_executor(int ac, char **av, void *(*algo)(char*, int))
 	puts(res->input_file);
 	// TODO binary print, handle "else" (not waited argv's) in base64_states.c
 	printf("%u\n", res->mode);
+	algo(res);
 }
 
 void		cipher_executor(int ac, char **av, void *(*algo)(char*, int))

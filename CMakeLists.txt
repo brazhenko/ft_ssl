@@ -45,7 +45,8 @@ set(DES_SRC des/context/des_argv_states.c des/context/init_des_context.c)
 SET(UTILITIES_SRC	utilities/is_flag.c
 					utilities/nstrjoin.c
 					utilities/xmalloc.c
-		utilities/print_uint32_bits.c)
+					utilities/print_uint32_bits.c
+		)
 
 
 add_executable(

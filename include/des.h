@@ -24,7 +24,7 @@ struct		s_des_context
 	int 		input_fd;
 	int			output_fd;
 	char		key[123]; 			// TODO fix hardcode
-	char		password[PASS_MAX]; 	// here too
+	char		password[PASS_MAX]; // here too
 	char		salt[1024];			// and here
 	char		vector[10];			// here
 	unsigned  	mode;
