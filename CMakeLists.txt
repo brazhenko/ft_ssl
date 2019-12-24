@@ -38,7 +38,7 @@ set(BASE64_SRC		base64/base64.c
 		base64/context/set_output_file.c
 		base64/context/parse_base64_argv.c
 		base64/context/base64_states.c
-		base64/base64_decode.c)
+		base64/base64_decode.c base64/base64_encode.c base64/encode_usage.c base64/context/argv_errors.c)
 
 set(DES_SRC des/context/des_argv_states.c des/context/init_des_context.c)
 

@@ -63,6 +63,11 @@ int 				set_base64_decode_mode(t_base64_context *ctx);
 int 				set_base64_encode_mode(t_base64_context *ctx);
 int					set_base64_input_file(t_base64_context *ctx, const char *input_file_name);
 int 				set_base64_output_file(t_base64_context *ctx, const char *output_file_name);
+
+/*
+** base64 FSM part (argv parser)
+*/
+
 t_base64_context	*parse_base64_argv(int argc, char **argv);
 t_base64_context	*base64_state_d(int argc, char **argv, t_base64_context *ctx);
 t_base64_context	*base64_state_e(int argc, char **argv, t_base64_context *ctx);
@@ -70,12 +75,13 @@ t_base64_context	*base64_state_i(int argc, char **argv, t_base64_context *ctx);
 t_base64_context	*base64_state_o(int argc, char **argv, t_base64_context *ctx);
 
 /*
-** base64 FSM part (argv parser)
+** base64 help, encode etc.
 */
 
-//
-
-
+void 		encode_option_requires_argument_exit(const char *opt);
+void		encode_invalid_option_exit(const char *opt);
+void		encode_usage(void);
+void		encode_print_usage_exit(void);
 /*
 ** base64 algorithm part
 */
@@ -100,6 +106,7 @@ t_base64_context	*base64_state_o(int argc, char **argv, t_base64_context *ctx);
 # define BASE64_DECODE_READ_LEN		(84)
 # define BASE64_DECODE_OUTPUT_LEN	((BASE64_DECODE_READ_LEN)/4*3)
 
+void 		base64_encode(t_base64_context *ctx);
 void 		base64_decode(t_base64_context *ctx);
 void		*base64(t_base64_context *ctx);
 

@@ -1,6 +1,7 @@
 #include "base64.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 t_base64_context	*parse_base64_argv(int argc, char **argv)
 {
@@ -25,10 +26,11 @@ t_base64_context	*parse_base64_argv(int argc, char **argv)
 	{
 		return (base64_state_o(argc - 1, argv  + 1, ctx));
 	}
+	else if (strcmp(*argv, "-h") == 0)
+		encode_print_usage_exit();
 	else
 	{
-		puts("parse_base64_argv()");
-		// TODO handle error, available options
+		encode_invalid_option_exit(*argv);
 	}
 	return (ctx);
 }
