@@ -1,0 +1,57 @@
+#ifndef ENCODE_CONTEXT_H
+#define ENCODE_CONTEXT_H
+
+# include <sys/syslimits.h>
+
+/*
+** encode context part
+** ctx.mode {0, 1, ..., 31} Int32.
+** BitN    true/false
+** 31 decode/encode
+** 30 outfile/no outfile
+** 29 infile/no infile
+*/
+
+struct		s_encode_context
+{
+	char 		input_file[PATH_MAX];
+	char 		output_file[PATH_MAX];
+	int 		input_fd;
+	int			output_fd;
+	unsigned  	mode;
+};
+
+# define ISENCODEMODE(c) 	(!(c->mode & 0b1))
+# define ISDECODEMODE(c) 	((c->mode & 	0b1))
+# define ISOUTFILE(c) 		((c->mode & 	0b10))
+# define ISINPFILE(c) 		((c->mode & 	0b100))
+
+typedef struct s_encode_context t_encode_context;
+
+t_encode_context 	*init_encode_context(void);
+void				destruct_encode_context(t_encode_context *ctx);
+int 				set_encode_decode_mode(t_encode_context *ctx);
+int 				set_encode_encode_mode(t_encode_context *ctx);
+int					set_encode_input_file(t_encode_context *ctx, const char *input_file_name);
+int 				set_encode_output_file(t_encode_context *ctx, const char *output_file_name);
+
+/*
+** base64 FSM part (argv parser)
+*/
+
+t_encode_context	*parse_encode_argv(int argc, char **argv);
+t_encode_context	*encode_state_d(int argc, char **argv, t_encode_context *ctx);
+t_encode_context	*encode_state_e(int argc, char **argv, t_encode_context *ctx);
+t_encode_context	*encode_state_i(int argc, char **argv, t_encode_context *ctx);
+t_encode_context	*encode_state_o(int argc, char **argv, t_encode_context *ctx);
+
+/*
+** encode help, encode etc.
+*/
+
+void 		encode_option_requires_argument_exit(const char *opt);
+void		encode_invalid_option_exit(const char *opt);
+void		encode_usage(void);
+void		encode_print_usage_exit(void);
+
+#endif

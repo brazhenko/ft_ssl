@@ -3,7 +3,7 @@
 #include <stddef.h>
 
 
-void		*base64(t_base64_context *ctx)
+void		*base64(t_encode_context *ctx)
 {
 	if (ISENCODEMODE(ctx))
 		base64_encode(ctx);

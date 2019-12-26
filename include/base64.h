@@ -2,6 +2,7 @@
 # define BASE64_H
 
 # include <sys/syslimits.h>
+# include "encode_context.h"
 
 static const char base64_arr[] = {
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -34,55 +35,6 @@ static const char base64_dec_arr[] = {
 };
 
 /*
-** base64 context part
-** ctx.mode {0, 1, ..., 31} Int32.
-** BitN    true/false
-** 31 decode/encode
-** 30 outfile/no outfile
-** 29 infile/no infile
-*/
-
-struct		s_base64_context
-{
-	char 		input_file[PATH_MAX];
-	char 		output_file[PATH_MAX];
-	int 		input_fd;
-	int			output_fd;
-	unsigned  	mode;
-};
-
-# define ISENCODEMODE(c) 	(!(c->mode & 0b1))
-# define ISDECODEMODE(c) 	((c->mode & 	0b1))
-# define ISOUTFILE(c) 		((c->mode & 	0b10))
-# define ISINPFILE(c) 		((c->mode & 	0b100))
-
-typedef struct s_base64_context t_base64_context;
-
-t_base64_context 	*init_base64_context(void);
-int 				set_base64_decode_mode(t_base64_context *ctx);
-int 				set_base64_encode_mode(t_base64_context *ctx);
-int					set_base64_input_file(t_base64_context *ctx, const char *input_file_name);
-int 				set_base64_output_file(t_base64_context *ctx, const char *output_file_name);
-
-/*
-** base64 FSM part (argv parser)
-*/
-
-t_base64_context	*parse_base64_argv(int argc, char **argv);
-t_base64_context	*base64_state_d(int argc, char **argv, t_base64_context *ctx);
-t_base64_context	*base64_state_e(int argc, char **argv, t_base64_context *ctx);
-t_base64_context	*base64_state_i(int argc, char **argv, t_base64_context *ctx);
-t_base64_context	*base64_state_o(int argc, char **argv, t_base64_context *ctx);
-
-/*
-** base64 help, encode etc.
-*/
-
-void 		encode_option_requires_argument_exit(const char *opt);
-void		encode_invalid_option_exit(const char *opt);
-void		encode_usage(void);
-void		encode_print_usage_exit(void);
-/*
 ** base64 algorithm part
 */
 
@@ -106,8 +58,8 @@ void		encode_print_usage_exit(void);
 # define BASE64_DECODE_READ_LEN		(84)
 # define BASE64_DECODE_OUTPUT_LEN	((BASE64_DECODE_READ_LEN)/4*3)
 
-void 		base64_encode(t_base64_context *ctx);
-void 		base64_decode(t_base64_context *ctx);
-void		*base64(t_base64_context *ctx);
+void 		base64_encode(t_encode_context *ctx);
+void 		base64_decode(t_encode_context *ctx);
+void		*base64(t_encode_context *ctx);
 
 #endif

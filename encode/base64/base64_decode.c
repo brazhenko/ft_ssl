@@ -35,7 +35,7 @@ static void		base64_decode_block(
 		uint8_t *buf,
 		char *output_buf,
 		ssize_t rd,
-		t_base64_context *ctx
+		t_encode_context *ctx
 		)
 {
 	static enum	e_decode_states st = modzero;
@@ -93,7 +93,7 @@ static void		base64_decode_block(
 	}
 }
 
-void 			base64_decode(t_base64_context *ctx)
+void 			base64_decode(t_encode_context *ctx)
 {
 	ssize_t			rd;
 	size_t			i;

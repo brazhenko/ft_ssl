@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int					set_base64_output_file(t_base64_context *ctx,
+int					set_encode_output_file(t_encode_context *ctx,
 		const char *output_file_name)
 {
 	int 	output_fd;

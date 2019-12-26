@@ -44,7 +44,7 @@ void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);
 void		hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int));
 void		encode_executor(int ac, char *av[],
-		void *(*algo)(t_base64_context *ctx));
+		void *(*algo)(t_encode_context *ctx));
 int			parse_hash_flags(char *str, int *flags, void *(*hash_algo)(char *, int));
 void		print_usage(void);
 void		illegal_hash_option_exit(char c);

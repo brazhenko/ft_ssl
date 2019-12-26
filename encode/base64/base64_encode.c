@@ -12,7 +12,7 @@ static size_t 	encode_base64_block(
 		unsigned char *buf,
 		char *output_buf,
 		ssize_t rd,
-		t_base64_context *ctx
+		t_encode_context *ctx
 )
 {
 	size_t		i;
@@ -47,7 +47,7 @@ static void			encode_base64_block_with_padding(
 		unsigned char *buf,
 		char *output_buf,
 		ssize_t rd,
-		t_base64_context *ctx
+		t_encode_context *ctx
 )
 {
 	size_t		i;
@@ -67,7 +67,7 @@ static void			encode_base64_block_with_padding(
 	}
 }
 
-void 	base64_encode(t_base64_context *ctx)
+void 	base64_encode(t_encode_context *ctx)
 {
 	ssize_t			rd;
 	unsigned char	buf[BASE64_ENCODE_READ_LEN];

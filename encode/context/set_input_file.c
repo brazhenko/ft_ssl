@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-int					set_base64_input_file(t_base64_context *ctx,
+int					set_encode_input_file(t_encode_context *ctx,
 							const char *input_file_name)
 {
 	int 	input_fd;
