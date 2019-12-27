@@ -40,7 +40,7 @@ set(BASE64_SRC encode/base64/base64.c
 		encode/context/encode_argv_states.c
 		encode/base64/base64_decode.c encode/base64/base64_encode.c encode/encode_usage.c encode/context/argv_errors.c encode/context/destruct_encode_context.c include/encode_context.h)
 
-set(DES_SRC cipher/des/context/des_argv_states.c cipher/des/context/init_des_context.c)
+set(DES_SRC cipher/context/des_argv_states.c cipher/context/init_des_context.c include/cipher_context.h)
 
 SET(UTILITIES_SRC ssl/utilities/is_flag.c
 		ssl/utilities/nstrjoin.c

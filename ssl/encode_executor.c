@@ -2,8 +2,6 @@
 #include "base64.h"
 #include "des.h"
 
-// TODO fix algo signature
-
 void		encode_executor(int ac, char **av,
 		void *(*algo)(t_encode_context*))
 {
@@ -15,21 +13,21 @@ void		encode_executor(int ac, char **av,
 
 void		cipher_executor(int ac, char **av, void *(*algo)(char*, int))
 {
-	t_des_context		*res;
-	res = parse_des_argv(ac, av);
+	t_cipher_context		*ctx;
+	ctx = parse_des_argv(ac, av);
 	puts("____CIPHER_CTX____");
 	puts("ctx mode:");
-	print_uint32_bits(res->mode);
+	print_uint32_bits(ctx->mode);
 	puts("salt:");
-	puts(res->salt);
+	puts(ctx->salt);
 	puts("vector:");
-	puts(res->vector);
+	puts(ctx->vector);
 	puts("pass:");
-	puts(res->password);
+	puts(ctx->password);
 	puts("out file:");
-	puts(res->output_file);
+	puts(ctx->output_file);
 	puts("in file:");
-	puts(res->input_file);
-	printf("inputfd:\n%d\n", res->input_fd);
-	printf("outputfd:\n%d\n", res->output_fd);
+	puts(ctx->input_file);
+	printf("inputfd:\n%d\n", ctx->input_fd);
+	printf("outputfd:\n%d\n", ctx->output_fd);
 }

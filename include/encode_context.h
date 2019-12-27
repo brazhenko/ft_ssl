@@ -5,7 +5,7 @@
 
 /*
 ** encode context part
-** ctx.mode {0, 1, ..., 31} Int32.
+** s_encode_context.mode = {0, 1, ..., 31} Int32.
 ** BitN    true/false
 ** 31 decode/encode
 ** 30 outfile/no outfile
@@ -32,26 +32,28 @@ t_encode_context 	*init_encode_context(void);
 void				destruct_encode_context(t_encode_context *ctx);
 int 				set_encode_decode_mode(t_encode_context *ctx);
 int 				set_encode_encode_mode(t_encode_context *ctx);
-int					set_encode_input_file(t_encode_context *ctx, const char *input_file_name);
-int 				set_encode_output_file(t_encode_context *ctx, const char *output_file_name);
+int					set_encode_input_file(t_encode_context *ctx,
+									const char *input_file_name);
+int 				set_encode_output_file(t_encode_context *ctx,
+									const char *output_file_name);
 
 /*
-** base64 FSM part (argv parser)
+** encode FSM part (argv parser)
 */
 
-t_encode_context	*parse_encode_argv(int argc, char **argv);
-t_encode_context	*encode_state_d(int argc, char **argv, t_encode_context *ctx);
-t_encode_context	*encode_state_e(int argc, char **argv, t_encode_context *ctx);
-t_encode_context	*encode_state_i(int argc, char **argv, t_encode_context *ctx);
-t_encode_context	*encode_state_o(int argc, char **argv, t_encode_context *ctx);
+t_encode_context	*parse_encode_argv(int ac, char **av);
+t_encode_context	*encode_state_d(int ac, char **av, t_encode_context *ctx);
+t_encode_context	*encode_state_e(int ac, char **av, t_encode_context *ctx);
+t_encode_context	*encode_state_i(int ac, char **av, t_encode_context *ctx);
+t_encode_context	*encode_state_o(int ac, char **av, t_encode_context *ctx);
 
 /*
 ** encode help, encode etc.
 */
 
-void 		encode_option_requires_argument_exit(const char *opt);
-void		encode_invalid_option_exit(const char *opt);
-void		encode_usage(void);
-void		encode_print_usage_exit(void);
+void 				encode_option_requires_argument_exit(const char *opt);
+void				encode_invalid_option_exit(const char *opt);
+void				encode_usage(void);
+void				encode_print_usage_exit(void);
 
 #endif

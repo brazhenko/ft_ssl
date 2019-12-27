@@ -1,7 +1,7 @@
 #include "utilities.h"
 #include <stdlib.h>
 
-void encode_usage(void)
+void		encode_usage(void)
 {
 	nstrprinterror(8, "Usage:  ft_ssl ",
 			"[encoding_algorithm] " ,

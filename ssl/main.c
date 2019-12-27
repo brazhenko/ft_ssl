@@ -17,11 +17,12 @@ int			main(int ac, char **av, char **en)
 	(void)en;
 	if (ac == 1)
 	{
-		write(2, "usage: ft_ssl command [command opts] [command args]\n", 52);
+		nstrprinterror(3, "usage: ", av[0], " command [command opts] [command args]\n");
+		// write(2, "usage: ft_ssl command [command opts] [command args]\n", 52);
 	}
 	else
 	{
-		command_executor(ac - 1, av + 1);
+		command_executor(ac, av);
 	}
 	return (0);
 }
