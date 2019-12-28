@@ -11,7 +11,7 @@ void		encode_executor(int ac, char **av,
 	destruct_encode_context(ctx);
 }
 
-void		cipher_executor(int ac, char **av, void *(*algo)(char*, int))
+void		cipher_executor(int ac, char **av, void *(*algo)(t_cipher_context *))
 {
 	t_cipher_context		*ctx;
 	ctx = parse_des_argv(ac, av);
@@ -30,4 +30,6 @@ void		cipher_executor(int ac, char **av, void *(*algo)(char*, int))
 	puts(ctx->input_file);
 	printf("inputfd:\n%d\n", ctx->input_fd);
 	printf("outputfd:\n%d\n", ctx->output_fd);
+	algo(ctx);
+
 }

@@ -40,15 +40,36 @@ set(BASE64_SRC encode/base64/base64.c
 		encode/context/encode_argv_states.c
 		encode/base64/base64_decode.c encode/base64/base64_encode.c encode/encode_usage.c encode/context/argv_errors.c encode/context/destruct_encode_context.c include/encode_context.h)
 
-set(DES_SRC cipher/context/des_argv_states.c cipher/context/init_des_context.c include/cipher_context.h)
+set(DES_SRC
+		include/cipher_context.h
+		cipher/context/des_argv_states.c
+		cipher/context/init_des_context.c
+		cipher/context/set_cipher_input_file.c
+		cipher/context/set_cipher_output_file.c
+		cipher/des/des_ecb.c
+		cipher/des/des_cbc.c
+		cipher/des/des_cfb.c
+		cipher/des/des_ofb.c
+		cipher/des/des_ctr.c
+		cipher/des/des_3des.c
+		cipher/des/des_3des_encode.c
+		cipher/des/des_3des_decode.c
+		cipher/des/des_cbc_encode.c
+		cipher/des/des_cbc_decode.c
+		cipher/des/des_cfb_encode.c
+		cipher/des/des_cfb_decode.c
+		cipher/des/des_ctr_encode.c
+		cipher/des/des_ctr_decode.c
+		cipher/des/des_ecb_encode.c
+		cipher/des/des_ecb_decode.c
+		cipher/des/des_ofb_encode.c
+		cipher/des/des_ofb_decode.c cipher/context/set_cipher_bufsize.c cipher/des/des_get_block.c cipher/des/des_ip.c)
 
 SET(UTILITIES_SRC ssl/utilities/is_flag.c
 		ssl/utilities/nstrjoin.c
 		ssl/utilities/xmalloc.c
 		ssl/utilities/print_uint32_bits.c
-		)
-
-
+		ssl/utilities/print_uint64_bits.c)
 add_executable(
 				${PROJECT_NAME}
 				${FT_SSL_SRC}

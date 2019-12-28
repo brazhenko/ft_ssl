@@ -1,12 +1,12 @@
-#include "encode_context.h"
-#include <string.h>
-#include <fcntl.h>
+#include "cipher_context.h"
 #include "utilities.h"
-#include <stdlib.h>
+#include <fcntl.h>
 #include <errno.h>
+#include <string.h>
+#include <stdlib.h>
 
-int					set_encode_input_file(t_encode_context *ctx,
-							const char *input_file_name)
+int 		set_cipher_input_file(t_cipher_context *ctx,
+								const char *input_file_name)
 {
 	int 	input_fd;
 

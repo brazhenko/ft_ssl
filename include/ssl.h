@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
-
+# include "cipher_context.h"
 # include "utilities.h"
 
 # define FLAG_R 		0b0000000000000001
@@ -49,6 +49,6 @@ int			parse_hash_flags(char *str, int *flags, void *(*hash_algo)(char *, int));
 void		print_usage(void);
 void		illegal_hash_option_exit(char c);
 void		s_param_error_exit(void);
-void		cipher_executor(int ac, char **av, void *(*algo)(char*, int));
+void		cipher_executor(int ac, char **av, void *(*algo)(t_cipher_context *));
 
 #endif

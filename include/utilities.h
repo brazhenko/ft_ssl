@@ -13,6 +13,7 @@
 #ifndef UTILITIES_H
 # define UTILITIES_H
 
+#include <stdint.h>
 # include <stddef.h>
 # define MAX(x, y) ((x) > (y) ? (x) : (y))
 
@@ -29,5 +30,6 @@ int		nstrprinterror(int n, ...);
 int		is_flag(const char *str);
 void	*xmalloc(size_t size);
 void	print_uint32_bits(unsigned num);
+void print_uint64_bits(uint64_t num);
 
 #endif

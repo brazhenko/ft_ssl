@@ -9,6 +9,7 @@ t_cipher_context	*init_des_context(void)
 
 	ctx = (t_cipher_context *)xmalloc(sizeof(t_cipher_context));
 	memset(ctx, 0, sizeof(t_cipher_context));
+	ctx->bufsize = DEFAULT_CIPHER_BUFLEN;
 	ctx->output_fd = STDOUT_FILENO;
 	ctx->input_fd = STDIN_FILENO;
 	return (ctx);
