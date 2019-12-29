@@ -44,7 +44,6 @@ int 	des_ip_reverse(LPDESBLOCK block)
 	}
 	memcpy(block, res, sizeof(res));
 	return (0);
-	return (0);
 }
 
 int 	des_ip_debug(LPDESBLOCK block)

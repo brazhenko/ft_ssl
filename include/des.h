@@ -9,10 +9,16 @@
 # define DES_CIPHER_BLOCK_LEN	(64/(CHAR_BIT))
 # define DES_CIPHER_BIT_LEN		(64)
 
-typedef		uint8_t		DESBLOCK[8];
-typedef		DESBLOCK	*LPDESBLOCK;
-typedef		uint8_t 	DESHALFBLOCK[4];
-typedef		uint8_t		*LPDESHALFBLOCK;
+typedef		uint8_t				DESBLOCK[8];
+typedef		DESBLOCK			*LPDESBLOCK;
+typedef		uint8_t 			DESHALFBLOCK[4];
+typedef		DESHALFBLOCK		*LPDESHALFBLOCK;
+typedef		uint8_t				DES64KEY[8];
+typedef		DES64KEY			*LPDES64KEY;
+typedef		uint8_t				DES56KEY[7];
+typedef		DES56KEY			*LPDES56KEY;
+typedef		uint8_t				DES48KEY[6];
+typedef		DES48KEY			*LPDES48KEY;
 
 ssize_t		des_get_block(t_cipher_context *ctx, LPDESBLOCK block);
 
@@ -74,8 +80,46 @@ int 	des_ip_forward(LPDESBLOCK block);
 int 	des_ip_reverse(LPDESBLOCK block);
 int 	des_ip_debug(LPDESBLOCK block);
 
+/* Des half block spread table */
+
+static const uint8_t	des_e_tbl[] = {
+	31, 0, 1, 2, 3, 4, 3, 4,
+	5, 6, 7, 8, 7, 8, 9, 10,
+	11, 12, 11, 12, 13, 14, 15, 16,
+	15, 16, 17, 18, 19, 20, 19, 20,
+	21, 22, 23, 24, 23, 24, 25, 26,
+	27, 28, 27, 28, 29, 30, 31, 0
+};
+
+/* table P */
+
+static const uint8_t	des_p_tbl[] = {
+	15, 6, 19, 20, 28, 11, 27, 16,
+	0, 14, 22, 25, 4, 17, 30, 9,
+	1, 7, 23, 13, 31, 26, 2, 8,
+	18, 12, 29, 5, 21, 10, 3, 24
+};
+
+/* round key compress and shuffle table */
+
+static const uint8_t	cmprs_key[] = {
+	56, 48, 40, 32, 24, 16, 8, 0,
+	57, 49, 41, 33, 25, 17, 9, 1,
+	58, 50, 42, 34, 26, 18, 10, 2,
+	59, 51, 43, 35, 62, 54, 46, 38,
+	30, 22, 14, 6, 61, 53, 45, 37,
+	29, 21, 13, 5, 60, 52, 44, 36,
+	28, 20, 12, 4, 27, 19, 11, 3
+};
+
+int 	des_permute_key1(LPDES64KEY key);
 
 
+/* key round padding */
 
+static const uint8_t 	des_key_pd[] = {
+	1, 1, 2, 2, 2, 2, 2, 2,
+	1, 2, 2, 2, 2, 2, 2, 1
+};
 
 #endif
