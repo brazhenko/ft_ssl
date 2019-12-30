@@ -314,15 +314,15 @@ int main(){
 	for(int i=0; i<16; i++){
 		//Shifting
 		left= shift_left(left, shift_table[i]);
-		std::cout << "Left: " << left << std::endl;
+
 		right= shift_left(right, shift_table[i]);
 
 		//Combining
 		string combine= left + right;
-
+		std::cout << "key1: " << combine <<std::endl;
 		//Key Compression
 		string RoundKey= permute(combine, key_comp, 48);
-
+		std::cout << "key2: " << RoundKey <<std::endl;
 		rkb.push_back(RoundKey);
 		rk.push_back(bin2hex(RoundKey));
 	}

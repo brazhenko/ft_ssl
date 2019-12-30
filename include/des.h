@@ -8,7 +8,7 @@
 
 # define DES_CIPHER_BLOCK_LEN	(64/(CHAR_BIT))
 # define DES_CIPHER_BIT_LEN		(64)
-
+# define DES_CIPHER_ROUND_COUNT (16)
 typedef		uint8_t				DESBLOCK[8];
 typedef		DESBLOCK			*LPDESBLOCK;
 typedef		uint8_t 			DESHALFBLOCK[4];
@@ -102,7 +102,7 @@ static const uint8_t	des_p_tbl[] = {
 
 /* round key compress and shuffle table */
 
-static const uint8_t	cmprs_key[] = {
+static const uint8_t	init_pm[] = {
 	56, 48, 40, 32, 24, 16, 8, 0,
 	57, 49, 41, 33, 25, 17, 9, 1,
 	58, 50, 42, 34, 26, 18, 10, 2,
@@ -112,14 +112,33 @@ static const uint8_t	cmprs_key[] = {
 	28, 20, 12, 4, 27, 19, 11, 3
 };
 
-int 	des_permute_key1(LPDES64KEY key);
+int 	des_init_key_permutation(LPDES64KEY old, LPDES56KEY fresh);
 
+static const uint8_t	final_pm[] = {
+	13, 16, 10, 23, 0, 4, 2, 27,
+	14, 5, 20, 9, 22, 18, 11, 3,
+	25, 7, 15, 6, 26, 19, 12, 1,
+	40, 51, 30, 36, 46, 54, 29, 39,
+	50, 44, 32, 47, 43, 48, 38, 55,
+	33, 52, 45, 41, 49, 35, 28, 31
+};
 
-/* key round padding */
+int 	des_final_key_permutation(LPDES56KEY old, LPDES48KEY fresh);
+
+/* ******************** */
 
 static const uint8_t 	des_key_pd[] = {
 	1, 1, 2, 2, 2, 2, 2, 2,
 	1, 2, 2, 2, 2, 2, 2, 1
 };
+int 			rot_des56key_blocks_left_n(LPDES56KEY key, uint8_t times);
+
+/* key debug */
+
+int 	debug48key(LPDES48KEY block);
+int 	debug56key(LPDES56KEY block);
+int 	debug64key(LPDES64KEY block);
+
+/* *************** */
 
 #endif
