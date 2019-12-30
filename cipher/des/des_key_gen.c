@@ -45,7 +45,7 @@ int 	des_final_key_permutation(LPDES56KEY old, LPDES48KEY fresh)
 **  and they are rotted separately.
 */
 
-# define CHARFIRSTBIT(c) ((c & (1u<<(CHAR_BIT-1u))) >> (CHAR_BIT-1u))
+# define CHARFIRSTBIT(c) ((c & (1u<<(CHAR_BIT-1u)))>>(CHAR_BIT-1u))
 
 static int		rot_des56key_blocks_left(LPDES56KEY key)
 {

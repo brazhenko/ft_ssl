@@ -30,6 +30,6 @@ int		nstrprinterror(int n, ...);
 int		is_flag(const char *str);
 void	*xmalloc(size_t size);
 void	print_uint32_bits(unsigned num);
-void print_uint64_bits(uint64_t num);
+void	print_uint64_bits(uint64_t num);
 
 #endif
