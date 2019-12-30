@@ -8,9 +8,9 @@ int 	des_init_key_permutation(LPDES64KEY old, LPDES56KEY fresh)
 	uint8_t		t;
 	i = 0;
 	memset(fresh, 0, 7);
-	while (i < sizeof(init_pm))
+	while (i < sizeof(init_key_pm))
 	{
-		t = init_pm[i];
+		t = init_key_pm[i];
 		(*fresh)[i/8] |= (
 				((*old)[t / 8u] & ((1u) << (8u - t % 8u - 1))) ?
 				(1u << (8u - i % 8u - 1)) : 0u
@@ -28,9 +28,9 @@ int 	des_final_key_permutation(LPDES56KEY old, LPDES48KEY fresh)
 	i = 0;
 
 	memset(fresh, 0, 6);
-	while (i < sizeof(final_pm))
+	while (i < sizeof(final_key_pm))
 	{
-		t = final_pm[i];
+		t = final_key_pm[i];
 		(*fresh)[i/8] |= (
 				((*old)[t / 8u] & ((1u) << (8u - t % 8u - 1))) ?
 				(1u << (8u - i % 8u - 1)) : 0u
