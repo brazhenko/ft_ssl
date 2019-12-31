@@ -227,8 +227,8 @@ string encrypt(string pt, vector<string> rkb, vector<string> rk){
 		if(i!= 15){
 			swap(left, right);
 		}
-		cout<<"Round "<<i+1<<" "<<bin2hex(left)<<" "
-			<<bin2hex(right)<<" "<<rk[i]<<endl;
+		cout<<"Round "<<i+1<<" "<<(left)<<" "
+			<<(right)<<" "<<rk[i]<<endl;
 	}
 
 	//Combination

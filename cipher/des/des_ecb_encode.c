@@ -22,7 +22,8 @@ void 		des_ecb_encode(t_cipher_context *ctx)
 			rot_des56key_blocks_left_n(&key1, des_key_pd[i]);
 			des_final_key_permutation(&key1, &key2);
 			// operations with block
-
+			des_encode_block(&bl, &key2);
+			des_ip_debug(&bl);
 		}
 		des_ip_reverse(&bl);
 	}

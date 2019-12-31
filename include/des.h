@@ -201,5 +201,6 @@ static const uint8_t	s[8][4][16] =
 	}
 };
 
+int 	des_encode_block(LPDESBLOCK block, LPDES48KEY key);
 
 #endif
