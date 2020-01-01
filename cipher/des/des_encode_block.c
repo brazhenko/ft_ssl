@@ -1,5 +1,6 @@
 #include "des.h"
 #include <string.h>
+#include <stdio.h>
 
 int 	des_spread_half_block(LPDESHALFBLOCK hb, LPDESSPREADHALFBLOCK shb)
 {
@@ -28,15 +29,20 @@ int 	des_compress_half_block(LPDESHALFBLOCK shb)
 	DESHALFBLOCK	tmp;
 
 	i = 0;
+	puts("__before last permutation: ");
+	debug32(shb);
 	while (i < sizeof(des_p_tbl))
 	{
-		t = des_e_tbl[i];
+		t = des_p_tbl[i];
 		tmp[i/8] |= (
 				((*shb)[t / 8u] & ((1u) << (8u - t % 8u - 1))) ?
 				(1u << (8u - i % 8u - 1)) : 0u
 		);
 		i++;
 	}
+
+	puts("__after last permutation:");
+	debug32(&tmp);
 	memcpy(shb, tmp, sizeof(tmp));
 	return (0);
 }
@@ -125,9 +131,21 @@ int 	f1(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
 	DESHALFBLOCK			hb2;
 
 	des_spread_half_block(hb, &shb);
+
 	xor2(&shb, key, &shb);
+
+
 	sss(&shb, &hb2);
+
+
+	// до сюда все работает
+
 	des_compress_half_block(&hb2);
+
+	puts("after permutation");
+	debug32(&hb2);
+
+
 	memcpy(res, hb2, sizeof(hb2));
 	return (0);
 }
@@ -135,8 +153,11 @@ int 	f1(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
 int 	des_encode_block(LPDESBLOCK block, LPDES48KEY key)
 {
 	DESHALFBLOCK		tmp;
+	memset(&tmp, 0, sizeof(tmp));
+	//
 	f1((LPDESHALFBLOCK)((uint8_t*)block + 4), key, &tmp);
 	xor1(&tmp, (LPDESHALFBLOCK)block, &tmp);
+	//
 	memcpy(block, ((uint8_t*)block + 4), 4);
 	memcpy(((uint8_t*)block + 4), &tmp, 4);
 

@@ -118,6 +118,7 @@ int 			rot_des56key_blocks_left_n(LPDES56KEY key, uint8_t times);
 
 /* key debug */
 
+int 	debug32(LPDESHALFBLOCK block);
 int 	debug48key(LPDES48KEY block);
 int 	debug56key(LPDES56KEY block);
 int 	debug64key(LPDES64KEY block);

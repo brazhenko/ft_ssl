@@ -65,6 +65,7 @@ string permute(string k, int* arr, int n){
 	for(int i=0; i<n ; i++){
 		per+= k[arr[i]-1];
 	}
+
 	return per;
 }
 
@@ -109,13 +110,13 @@ string encrypt(string pt, vector<string> rkb, vector<string> rk){
 			};
 	//Initial Permutation
 	pt= permute(pt, initial_perm, 64);
-	cout<<"After initial permutation: "<<bin2hex(pt)<<endl;
+	cout<<"After initial permutation: "<< pt << "  ||| hex:" << bin2hex(pt) <<endl;
 
 	//Splitting
 	string left= pt.substr(0, 32);
 	string right= pt.substr(32, 32);
-	cout<<"After splitting: L0="<<bin2hex(left)
-		<<" R0="<<bin2hex(right)<<endl;
+	cout<<"After splitting: L0="<<(left)
+		<<" R0="<<(right)<<endl;
 
 	//Expansion D-box Table
 	int exp_d[48]=
@@ -196,10 +197,10 @@ string encrypt(string pt, vector<string> rkb, vector<string> rk){
 	for(int i=0; i<16; i++){
 		//Expansion D-box
 		string right_expanded= permute(right, exp_d, 48);
-
+		std::cout << "right_expanded" << right_expanded << std::endl;
 		//XOR RoundKey[i] and right_expanded
 		string x= xor_(rkb[i], right_expanded);
-
+		std::cout << "after xor: " << x << std::endl;
 		//S-boxes
 		string op="";
 		for(int i=0;i<8; i++){
@@ -215,8 +216,11 @@ string encrypt(string pt, vector<string> rkb, vector<string> rk){
 			val= val%2;
 			op+= char(val+ '0');
 		}
+		std::cout << "after s table: " << op << std::endl;
 		//Straight D-box
+		std::cout << "__before last permutation: " << op << std::endl;
 		op= permute(op, per, 32);
+		std::cout << "__after last permutation: " << op << std::endl;
 
 		//XOR left and op
 		x= xor_(op, left);
@@ -257,6 +261,7 @@ int main(){
 	cin>>pt;
 	cout<<"Enter key(in hexadecimal): ";
 	cin>>key;*/
+
 
 	pt= "123456ABCD132536";
 	// key= "AABB09182736CCDD";
@@ -319,7 +324,7 @@ int main(){
 
 		//Combining
 		string combine= left + right;
-		std::cout << "key1: " << combine <<std::endl;
+		// std::cout << "key1: " << combine <<std::endl;
 		//Key Compression
 		string RoundKey= permute(combine, key_comp, 48);
 		std::cout << "key2: " << RoundKey <<std::endl;

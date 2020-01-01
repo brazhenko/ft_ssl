@@ -15,17 +15,23 @@ void 		des_ecb_encode(t_cipher_context *ctx)
 	while (des_get_block(ctx, &bl))
 	{
 		des_ip_forward(&bl);
-
+		puts("After initial permutation");
+		des_ip_debug(&bl);
 		des_init_key_permutation(&key0, &key1);
 		for (int i = 0; i < DES_CIPHER_ROUND_COUNT; ++i)
 		{
 			rot_des56key_blocks_left_n(&key1, des_key_pd[i]);
 			des_final_key_permutation(&key1, &key2);
+			puts("_______________________________________\nfinal key");
+			debug48key(&key2);
 			// operations with block
 			des_encode_block(&bl, &key2);
+
+			puts("_______________________________________\nencoded after round");
 			des_ip_debug(&bl);
 		}
 		des_ip_reverse(&bl);
+		des_ip_debug(&bl);
 	}
 }
 
