@@ -74,14 +74,14 @@ int 	xor2(LPDESSPREADHALFBLOCK shb, LPDES48KEY key, LPDESSPREADHALFBLOCK res)
 	return (0);
 }
 
-#define B0(c)	((c&(1u<<7u))>>7u)
-#define B1(c)	((c&(1u<<6u))>>6u)
-#define B2(c)	((c&(1u<<5u))>>5u)
-#define B3(c)	((c&(1u<<4u))>>4u)
-#define B4(c)	((c&(1u<<3u))>>3u)
-#define B5(c)	((c&(1u<<2u))>>2u)
-#define B6(c)	((c&(1u<<1u))>>1u)
-#define B7(c)	((c&(1u<<0u))>>0u)
+#define B0(c)	(((c)&(1u<<7u))>>7u)
+#define B1(c)	(((c)&(1u<<6u))>>6u)
+#define B2(c)	(((c)&(1u<<5u))>>5u)
+#define B3(c)	(((c)&(1u<<4u))>>4u)
+#define B4(c)	(((c)&(1u<<3u))>>3u)
+#define B5(c)	(((c)&(1u<<2u))>>2u)
+#define B6(c)	(((c)&(1u<<1u))>>1u)
+#define B7(c)	(((c)&(1u<<0u))>>0u)
 #define CB2(c1,c2) (((c1)<<1u) | c2)
 #define CB4(c1,c2,c3,c4)(((c1)<<3u)|((c2)<<2u)|((c3)<<1u)|((c4)<<0u))
 
