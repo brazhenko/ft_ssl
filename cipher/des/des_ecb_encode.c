@@ -22,10 +22,8 @@ void 		des_ecb_encode(t_cipher_context *ctx)
 		{
 			rot_des56key_blocks_left_n(&key1, des_key_pd[i]);
 			des_final_key_permutation(&key1, &key2);
-			puts("_______________________________________\nfinal key");
-			debug48key(&key2);
 			// operations with block
-			des_encode_block(&bl, &key2);
+			des_encode_round(&bl, &key2);
 
 			puts("_______________________________________\nencoded after round");
 			des_ip_debug(&bl);
@@ -34,4 +32,12 @@ void 		des_ecb_encode(t_cipher_context *ctx)
 		des_ip_debug(&bl);
 	}
 }
+
+
+
+
+
+
+
+
 

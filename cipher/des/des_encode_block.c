@@ -1,6 +1,7 @@
 #include "des.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdatomic.h>
 
 int 	des_spread_half_block(LPDESHALFBLOCK hb, LPDESSPREADHALFBLOCK shb)
 {
@@ -150,7 +151,7 @@ int 	f1(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
 	return (0);
 }
 
-int 	des_encode_block(LPDESBLOCK block, LPDES48KEY key)
+int 	des_encode_round(LPDESBLOCK block, LPDES48KEY key)
 {
 	DESHALFBLOCK		tmp;
 	memset(&tmp, 0, sizeof(tmp));

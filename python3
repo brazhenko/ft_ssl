@@ -1,2 +1,0 @@
-with open("S.txt", "r") as f:
-	print(list(map(lambda x: ", ".join(x.split()), f.read().split("\n"))))
