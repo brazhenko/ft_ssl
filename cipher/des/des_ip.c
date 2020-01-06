@@ -79,6 +79,7 @@ int 	des_ip_debug(LPDESBLOCK block)
 		);
 	}
 	printf("\n\n");
+	fflush(stdout);
 	return 0;
 }
 

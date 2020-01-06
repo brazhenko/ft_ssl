@@ -30,8 +30,8 @@ int 	des_compress_half_block(LPDESHALFBLOCK shb)
 	DESHALFBLOCK	tmp;
 
 	i = 0;
-	puts("__before last permutation: ");
-	debug32(shb);
+//	puts("__before last permutation: ");
+//	debug32(shb);
 	while (i < sizeof(des_p_tbl))
 	{
 		t = des_p_tbl[i];
@@ -42,8 +42,8 @@ int 	des_compress_half_block(LPDESHALFBLOCK shb)
 		i++;
 	}
 
-	puts("__after last permutation:");
-	debug32(&tmp);
+//	puts("__after last permutation:");
+//	debug32(&tmp);
 	memcpy(shb, tmp, sizeof(tmp));
 	return (0);
 }
@@ -142,9 +142,6 @@ int 	f1(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
 	// до сюда все работает
 
 	des_compress_half_block(&hb2);
-
-	puts("after permutation");
-	debug32(&hb2);
 
 
 	memcpy(res, hb2, sizeof(hb2));
