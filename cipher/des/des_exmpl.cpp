@@ -257,11 +257,6 @@ string encrypt(string pt, vector<string> rkb, vector<string> rk){
 int main(){
 	// pt is plain text
 	string pt, key;
-	/*cout<<"Enter plain text(in hexadecimal): ";
-	cin>>pt;
-	cout<<"Enter key(in hexadecimal): ";
-	cin>>key;*/
-
 
 	pt= "123456ABCD132536";
 	// key= "AABB09182736CCDD";

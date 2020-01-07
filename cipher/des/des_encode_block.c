@@ -30,8 +30,6 @@ int 	des_compress_half_block(LPDESHALFBLOCK shb)
 	DESHALFBLOCK	tmp;
 
 	i = 0;
-//	puts("__before last permutation: ");
-//	debug32(shb);
 	while (i < sizeof(des_p_tbl))
 	{
 		t = des_p_tbl[i];
@@ -41,9 +39,6 @@ int 	des_compress_half_block(LPDESHALFBLOCK shb)
 		);
 		i++;
 	}
-
-//	puts("__after last permutation:");
-//	debug32(&tmp);
 	memcpy(shb, tmp, sizeof(tmp));
 	return (0);
 }
@@ -105,7 +100,6 @@ int 	sss(LPDESSPREADHALFBLOCK shb, LPDESHALFBLOCK hb)
 	[CB4(B5((*shb)[4]), B6((*shb)[4]), B7((*shb)[4]), B0((*shb)[5]))] << 4u;
 	(*hb)[3] |= s[7][CB2(B2((*shb)[5]), B7((*shb)[5]))]
 	[CB4(B3((*shb)[5]), B4((*shb)[5]), B5((*shb)[5]), B6((*shb)[5]))];
-
 	return (0);
 }
 

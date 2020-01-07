@@ -9,7 +9,7 @@ void 		des_ecb_encode(t_cipher_context *ctx)
 	DES64KEY 		key0;
 	DES56KEY		key1;
 	DES48KEY		key2;
-	memcpy(key0, "64bitKey", 8);
+	memcpy(key0, ctx->key, 8);
 
 	while (des_get_block(ctx, &bl))
 	{
