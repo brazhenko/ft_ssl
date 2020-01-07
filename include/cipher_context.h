@@ -18,6 +18,7 @@
 */
 
 # define MAX_KEY_BYTE_LEN		64
+# define MAX_SALT_BYTE_LEN		16
 # define DEFAULT_CIPHER_BUFLEN	64
 # define ISENCODEMODE(c) 	(!(c->mode & 0b1))
 # define ISDECODEMODE(c) 	((c->mode & 	0b1))
@@ -59,5 +60,6 @@ int		set_cipher_output_file(t_cipher_context *ctx,
 		const char *output_file_name);
 int		set_cipher_bufsize(t_cipher_context *ctx, const char *argv);
 void 	set_cipher_key(t_cipher_context *ctx, char *arg);
+void	set_cipher_pass_salt(t_cipher_context *ctx, char *arg);
 
 #endif

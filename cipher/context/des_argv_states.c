@@ -36,7 +36,6 @@ t_cipher_context	*ci_state_a(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_a(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 /*
@@ -72,7 +71,6 @@ t_cipher_context	*ci_state_d(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_d(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 /*
@@ -108,7 +106,6 @@ t_cipher_context	*ci_state_e(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_e(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 t_cipher_context	*ci_state_i(int argc, char **argv, t_cipher_context *ctx)
@@ -148,7 +145,6 @@ t_cipher_context	*ci_state_i(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_i(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 /*
@@ -192,7 +188,6 @@ t_cipher_context	*ci_state_k(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_k(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 t_cipher_context	*ci_state_o(int argc, char **argv, t_cipher_context *ctx)
@@ -232,7 +227,6 @@ t_cipher_context	*ci_state_o(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_o(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 t_cipher_context	*ci_state_p(int argc, char **argv, t_cipher_context *ctx)
@@ -274,7 +268,6 @@ t_cipher_context	*ci_state_p(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_p(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 t_cipher_context	*ci_state_s(int argc, char **argv, t_cipher_context *ctx)
@@ -283,11 +276,8 @@ t_cipher_context	*ci_state_s(int argc, char **argv, t_cipher_context *ctx)
 	{
 		puts("ci_state_s(): -s needs arg");
 		exit(0);
-		return (ctx);
 	}
-	memset(ctx->salt, 0, sizeof(ctx->salt));
-	strcpy(ctx->salt, *argv);
-	ctx->mode |= 0b1000000;
+	set_cipher_pass_salt(ctx, *argv);
 	argv++;
 	argc--;
 	if (!*argv)
@@ -316,7 +306,6 @@ t_cipher_context	*ci_state_s(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_s(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 t_cipher_context	*ci_state_v(int argc, char **argv, t_cipher_context *ctx)
@@ -358,7 +347,6 @@ t_cipher_context	*ci_state_v(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_v(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 
@@ -390,7 +378,6 @@ t_cipher_context	*parse_des_argv(t_cipher_context *ctx, int argc, char **argv)
 		puts("parse_des_argv(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
 
 t_cipher_context	*ci_state_bufsize(int argc, char **argv, t_cipher_context *ctx)
@@ -430,5 +417,4 @@ t_cipher_context	*ci_state_bufsize(int argc, char **argv, t_cipher_context *ctx)
 		puts("ci_state_i(): unexpected token");
 		exit(0);
 	}
-	return (ctx);
 }
