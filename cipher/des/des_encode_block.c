@@ -135,14 +135,9 @@ int 	f1(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
 
 	xor2(&shb, key, &shb);
 
-
 	sss(&shb, &hb2);
 
-
-	// до сюда все работает
-
 	des_compress_half_block(&hb2);
-
 
 	memcpy(res, hb2, sizeof(hb2));
 	return (0);

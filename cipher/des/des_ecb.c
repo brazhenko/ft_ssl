@@ -1,6 +1,5 @@
 #include "des.h"
 #include <stddef.h>
-#include <stdio.h>
 
 void		*des_ecb(t_cipher_context *ctx)
 {

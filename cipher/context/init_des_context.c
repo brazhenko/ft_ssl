@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 
-t_cipher_context	*init_des_context(void)
+t_cipher_context	*init_des_context(void *alg_ptr)
 {
 	t_cipher_context	*ctx;
 
@@ -12,5 +12,6 @@ t_cipher_context	*init_des_context(void)
 	ctx->bufsize = DEFAULT_CIPHER_BUFLEN;
 	ctx->output_fd = STDOUT_FILENO;
 	ctx->input_fd = STDIN_FILENO;
+	ctx->alg_ptr = alg_ptr;
 	return (ctx);
 }

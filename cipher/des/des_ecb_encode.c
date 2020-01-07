@@ -3,11 +3,6 @@
 #include "utilities.h"
 #include <string.h>
 
-void 		print_des_block(LPDESBLOCK block)
-{
-
-}
-
 void 		des_ecb_encode(t_cipher_context *ctx)
 {
 	DESBLOCK		bl;
@@ -16,7 +11,6 @@ void 		des_ecb_encode(t_cipher_context *ctx)
 	DES48KEY		key2;
 	memcpy(key0, "64bitKey", 8);
 
-//	puts("DEBUG: des_ecb_encode()");
 	while (des_get_block(ctx, &bl))
 	{
 		des_ip_forward(&bl);
@@ -35,10 +29,7 @@ void 		des_ecb_encode(t_cipher_context *ctx)
 		memcpy(bl, tmp, 4);
 		// ---------
 
-//		puts("_______________________________________\nencoded after all");
-//		des_ip_debug(&bl);
 		des_ip_reverse(&bl);
-//		des_ip_debug(&bl);
 		write(1, bl, 8);
 	}
 }

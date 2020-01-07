@@ -38,7 +38,11 @@ set(BASE64_SRC encode/base64/base64.c
 		encode/context/set_output_file.c
 		encode/context/parse_encode_argv.c
 		encode/context/encode_argv_states.c
-		encode/base64/base64_decode.c encode/base64/base64_encode.c encode/encode_usage.c encode/context/argv_errors.c encode/context/destruct_encode_context.c include/encode_context.h)
+		encode/base64/base64_decode.c
+		encode/base64/base64_encode.c
+		encode/encode_usage.c encode/context/argv_errors.c
+		encode/context/destruct_encode_context.c
+		include/encode_context.h)
 
 set(DES_SRC
 		include/cipher_context.h
@@ -63,7 +67,7 @@ set(DES_SRC
 		cipher/des/des_ecb_encode.c
 		cipher/des/des_ecb_decode.c
 		cipher/des/des_ofb_encode.c
-		cipher/des/des_ofb_decode.c cipher/context/set_cipher_bufsize.c cipher/des/des_get_block.c cipher/des/des_ip.c cipher/des/des_key_gen.c cipher/des/des_block_debug.c cipher/des/des_encode_block.c)
+		cipher/des/des_ofb_decode.c cipher/context/set_cipher_bufsize.c cipher/des/des_get_block.c cipher/des/des_ip.c cipher/des/des_key_gen.c cipher/des/des_block_debug.c cipher/des/des_encode_block.c cipher/context/set_cipher_key.c ssl/cipher_executor.c)
 
 SET(UTILITIES_SRC ssl/utilities/is_flag.c
 		ssl/utilities/nstrjoin.c

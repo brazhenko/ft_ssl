@@ -46,7 +46,7 @@ static const char base64_dec_arr[] = {
 */
 
 # define BASE64_ENCODE_READ_LEN		(63)
-# define BASE64_ENCODE_OUTPUT_LEN	(((((BASE64_ENCODE_READ_LEN))/3)*4)+1)
+# define BASE64_ENCODE_OUTPUT_LEN	(((((BASE64_ENCODE_READ_LEN))/3)*4))
 
 /*
 ** N.B.

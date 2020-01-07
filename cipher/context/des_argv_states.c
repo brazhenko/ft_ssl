@@ -163,9 +163,7 @@ t_cipher_context	*ci_state_k(int argc, char **argv, t_cipher_context *ctx)
 		exit(0);
 		return (ctx);
 	}
-	memcpy(ctx->key, 0, sizeof(ctx->key));
-	strcpy(ctx->key, *argv);
-	ctx->mode |= 0b10000;
+	set_cipher_key(ctx, *argv);
 	argv++;
 	argc--;
 	if (!*argv)
@@ -364,11 +362,8 @@ t_cipher_context	*ci_state_v(int argc, char **argv, t_cipher_context *ctx)
 }
 
 
-t_cipher_context	*parse_des_argv(int argc, char **argv)
+t_cipher_context	*parse_des_argv(t_cipher_context *ctx, int argc, char **argv)
 {
-	t_cipher_context	*ctx;
-
-	ctx = init_des_context();
 	if (!*argv)
 		return (ctx);
 	else if (strcmp(*argv, "-a") == 0)
