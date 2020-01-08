@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 
-t_cipher_context	*init_des_context(void *alg_ptr)
+t_cipher_context	*init_cipher_context(void *alg_ptr)
 {
 	t_cipher_context	*ctx;
 

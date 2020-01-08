@@ -1,50 +1,5 @@
 #include "des.h"
-#include <string.h>
 #include <stdio.h>
-
-int 	des_ip_forward(LPDESBLOCK block)
-{
-	DESBLOCK	res;
-	uint8_t		i;
-	uint8_t		t;
-	i = 0;
-
-	memset(res, 0, sizeof(res));
-	while (i < DES_CIPHER_BIT_LEN)
-	{
-		t = des_shfl_tbl[i];
-
-		res[i/8] |= (
-				((*block)[t / 8] & ((1u)<<(8u - t % 8u - 1))) ?
-				(1u << (8u - i % 8u - 1)) : 0u
-				);
-		i++;
-	}
-	memcpy(block, res, sizeof(res));
-	return (0);
-}
-
-int 	des_ip_reverse(LPDESBLOCK block)
-{
-	DESBLOCK	res;
-	uint8_t		i;
-	uint8_t		t;
-	i = 0;
-
-	memset(res, 0, sizeof(res));
-	while (i < DES_CIPHER_BIT_LEN)
-	{
-		t = des_shfl_tbl_r[i];
-
-		res[i/8] |= (
-				((*block)[t / 8] & ((1u)<<(8u - t % 8u - 1))) ?
-				(1u << (8u - i % 8u - 1)) : 0u
-		);
-		i++;
-	}
-	memcpy(block, res, sizeof(res));
-	return (0);
-}
 
 int 	des_ip_debug(LPDESBLOCK block)
 {

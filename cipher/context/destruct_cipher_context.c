@@ -1,4 +1,8 @@
-//
-// Created by 17641238 on 08.01.2020.
-//
+#include "cipher_context.h"
+#include <string.h>
 
+void		destruct_cipher_context(t_cipher_context *ctx)
+{
+	memset(ctx, 0, sizeof(t_cipher_context));
+	free(ctx);
+}

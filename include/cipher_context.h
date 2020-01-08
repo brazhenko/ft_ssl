@@ -40,7 +40,8 @@ struct		s_cipher_context
 
 typedef struct s_cipher_context t_cipher_context;
 
-t_cipher_context	*init_des_context(void *cipher_alg_ptr);
+t_cipher_context	*init_cipher_context(void *cipher_alg_ptr);
+void				destruct_cipher_context(t_cipher_context *ctx);
 
 t_cipher_context	*ci_state_a(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_d(int argc, char **argv, t_cipher_context *ctx);

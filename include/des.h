@@ -53,9 +53,16 @@ void 		des_3des_decode(t_cipher_context *ctx);
 ** des algorithm part
 */
 
+/*
+** The only function used for bit permutation in des implementation.
+*/
+
+void 		des_permutation(unsigned char *input, unsigned char *output,
+		const size_t *arr, size_t arr_len);
+
 /* beginning shuffling */
 
-static const uint8_t	des_shfl_tbl[] = {
+static const size_t	des_shfl_tbl[] = {
 	57, 49, 41, 33, 25, 17, 9, 1,
 	59, 51, 43, 35, 27, 19, 11, 3,
 	61, 53, 45, 37, 29, 21, 13, 5,
@@ -68,7 +75,7 @@ static const uint8_t	des_shfl_tbl[] = {
 
 /* ending shuffling */
 
-static const uint8_t	des_shfl_tbl_r[] = {
+static const size_t	des_shfl_tbl_r[] = {
 	39, 7, 47, 15, 55, 23, 63, 31,
 	38, 6, 46, 14, 54, 22, 62, 30,
 	37, 5, 45, 13, 53, 21, 61, 29,
@@ -79,13 +86,9 @@ static const uint8_t	des_shfl_tbl_r[] = {
 	32, 0, 40, 8, 48, 16, 56, 24
 };
 
-int 	des_ip_forward(LPDESBLOCK block);
-int 	des_ip_reverse(LPDESBLOCK block);
-int 	des_ip_debug(LPDESBLOCK block);
-
 /* round key compress and shuffle table */
 
-static const uint8_t	init_key_pm[] = {
+static const size_t	init_key_pm[] = {
 	56, 48, 40, 32, 24, 16, 8, 0,
 	57, 49, 41, 33, 25, 17, 9, 1,
 	58, 50, 42, 34, 26, 18, 10, 2,
@@ -95,9 +98,7 @@ static const uint8_t	init_key_pm[] = {
 	28, 20, 12, 4, 27, 19, 11, 3
 };
 
-int 	des_init_key_permutation(LPDES64KEY old, LPDES56KEY fresh);
-
-static const uint8_t	final_key_pm[] = {
+static const size_t	final_key_pm[] = {
 	13, 16, 10, 23, 0, 4, 2, 27,
 	14, 5, 20, 9, 22, 18, 11, 3,
 	25, 7, 15, 6, 26, 19, 12, 1,
@@ -106,14 +107,13 @@ static const uint8_t	final_key_pm[] = {
 	33, 52, 45, 41, 49, 35, 28, 31
 };
 
-int 	des_final_key_permutation(LPDES56KEY old, LPDES48KEY fresh);
-
 /* ******************** */
 
 static const uint8_t 	des_key_pd[] = {
 	1, 1, 2, 2, 2, 2, 2, 2,
 	1, 2, 2, 2, 2, 2, 2, 1
 };
+
 int 			rot_des56key_blocks_left_n(LPDES56KEY key, uint8_t times);
 
 /* key debug */
@@ -130,7 +130,7 @@ int 	debug64key(LPDES64KEY block);
 
 /* Des half block spread table */
 
-static const uint8_t	des_e_tbl[] = {
+static const size_t	des_e_tbl[] = {
 		31, 0, 1, 2, 3, 4, 3, 4,
 		5, 6, 7, 8, 7, 8, 9, 10,
 		11, 12, 11, 12, 13, 14, 15, 16,
@@ -141,7 +141,7 @@ static const uint8_t	des_e_tbl[] = {
 
 /* table P */
 
-static const uint8_t	des_p_tbl[] = {
+static const size_t	des_p_tbl[] = {
 		15, 6, 19, 20, 28, 11, 27, 16,
 		0, 14, 22, 25, 4, 17, 30, 9,
 		1, 7, 23, 13, 31, 26, 2, 8,

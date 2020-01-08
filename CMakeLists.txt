@@ -47,7 +47,7 @@ set(BASE64_SRC encode/base64/base64.c
 set(DES_SRC
 		include/cipher_context.h
 		cipher/context/des_argv_states.c
-		cipher/context/init_des_context.c
+		cipher/context/init_cipher_context.c
 		cipher/context/set_cipher_input_file.c
 		cipher/context/set_cipher_output_file.c
 		cipher/des/des_ecb.c
@@ -67,7 +67,7 @@ set(DES_SRC
 		cipher/des/des_ecb_encode.c
 		cipher/des/des_ecb_decode.c
 		cipher/des/des_ofb_encode.c
-		cipher/des/des_ofb_decode.c cipher/context/set_cipher_bufsize.c cipher/des/des_get_block.c cipher/des/des_ip.c cipher/des/des_key_gen.c cipher/des/des_block_debug.c cipher/des/des_encode_block.c cipher/context/set_cipher_key.c ssl/cipher_executor.c cipher/context/set_cipher_pass_salt.c)
+		cipher/des/des_ofb_decode.c cipher/context/set_cipher_bufsize.c cipher/des/des_get_block.c cipher/des/des_ip.c cipher/des/des_key_gen.c cipher/des/des_block_debug.c cipher/des/des_encode_block.c cipher/context/set_cipher_key.c ssl/cipher_executor.c cipher/context/set_cipher_pass_salt.c cipher/context/destruct_cipher_context.c cipher/des/des_permutation.c)
 
 SET(UTILITIES_SRC ssl/utilities/is_flag.c
 		ssl/utilities/nstrjoin.c

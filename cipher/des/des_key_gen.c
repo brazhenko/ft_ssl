@@ -1,44 +1,5 @@
 #include "des.h"
 #include <string.h>
-#include <stdio.h>
-
-int 	des_init_key_permutation(LPDES64KEY old, LPDES56KEY fresh)
-{
-	uint8_t		i;
-	uint8_t		t;
-	i = 0;
-	memset(fresh, 0, 7);
-	while (i < sizeof(init_key_pm))
-	{
-		t = init_key_pm[i];
-		(*fresh)[i/8] |= (
-				((*old)[t / 8u] & ((1u) << (8u - t % 8u - 1))) ?
-				(1u << (8u - i % 8u - 1)) : 0u
-		);
-
-		i++;
-	}
-	return (0);
-}
-
-int 	des_final_key_permutation(LPDES56KEY old, LPDES48KEY fresh)
-{
-	uint8_t		i;
-	uint8_t		t;
-	i = 0;
-
-	memset(fresh, 0, 6);
-	while (i < sizeof(final_key_pm))
-	{
-		t = final_key_pm[i];
-		(*fresh)[i/8] |= (
-				((*old)[t / 8u] & ((1u) << (8u - t % 8u - 1))) ?
-				(1u << (8u - i % 8u - 1)) : 0u
-		);
-		i++;
-	}
-	return (0);
-}
 
 /*
 **	[DES56KEY key] is spread into 2x28bit blocks

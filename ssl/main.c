@@ -17,8 +17,8 @@ int			main(int ac, char **av, char **en)
 	(void)en;
 	if (ac == 1)
 	{
-		nstrprinterror(3, "usage: ", av[0], " command [command opts] [command args]\n");
-		// write(2, "usage: ft_ssl command [command opts] [command args]\n", 52);
+		nstrprinterror(3, "usage: ", av[0],
+		" command [command opts] [command args]\n");
 	}
 	else
 	{

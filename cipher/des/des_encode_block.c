@@ -3,46 +3,6 @@
 #include <stdio.h>
 #include <stdatomic.h>
 
-int 	des_spread_half_block(LPDESHALFBLOCK hb, LPDESSPREADHALFBLOCK shb)
-{
-	uint8_t		i;
-	uint8_t		t;
-
-	i = 0;
-	memset(shb, 0, sizeof(DESSPREADHALFBLOCK));
-	while (i < sizeof(des_e_tbl))
-	{
-		t = des_e_tbl[i];
-		(*shb)[i/8] |= (
-				((*hb)[t / 8u] & ((1u) << (8u - t % 8u - 1))) ?
-				(1u << (8u - i % 8u - 1)) : 0u
-		);
-		i++;
-	}
-	return (0);
-}
-
-// TODO not compress
-int 	des_compress_half_block(LPDESHALFBLOCK shb)
-{
-	uint8_t			i;
-	uint8_t			t;
-	DESHALFBLOCK	tmp;
-
-	i = 0;
-	while (i < sizeof(des_p_tbl))
-	{
-		t = des_p_tbl[i];
-		tmp[i/8] |= (
-				((*shb)[t / 8u] & ((1u) << (8u - t % 8u - 1))) ?
-				(1u << (8u - i % 8u - 1)) : 0u
-		);
-		i++;
-	}
-	memcpy(shb, tmp, sizeof(tmp));
-	return (0);
-}
-
 // TODO rename
 int 	xor1(LPDESHALFBLOCK one, LPDESHALFBLOCK two, LPDESHALFBLOCK res)
 {
@@ -125,14 +85,12 @@ int 	f1(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
 	DESSPREADHALFBLOCK		shb;
 	DESHALFBLOCK			hb2;
 
-	des_spread_half_block(hb, &shb);
-
+	des_permutation(*hb, shb, des_e_tbl, sizeof(des_e_tbl) / sizeof(des_e_tbl[0]));
 	xor2(&shb, key, &shb);
 
 	sss(&shb, &hb2);
 
-	des_compress_half_block(&hb2);
-
+	des_permutation(hb2, hb2, des_p_tbl, sizeof(des_p_tbl) / sizeof(des_p_tbl[0]));
 	memcpy(res, hb2, sizeof(hb2));
 	return (0);
 }
