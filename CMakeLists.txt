@@ -73,7 +73,7 @@ SET(UTILITIES_SRC ssl/utilities/is_flag.c
 		ssl/utilities/nstrjoin.c
 		ssl/utilities/xmalloc.c
 		ssl/utilities/print_uint32_bits.c
-		ssl/utilities/print_uint64_bits.c)
+		ssl/utilities/print_uint64_bits.c ssl/utilities/mem_xor.c)
 add_executable(
 				${PROJECT_NAME}
 				${FT_SSL_SRC}

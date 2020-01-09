@@ -31,5 +31,6 @@ int		is_flag(const char *str);
 void	*xmalloc(size_t size);
 void	print_uint32_bits(unsigned num);
 void	print_uint64_bits(uint64_t num);
+void 	*mem_xor(void *left, void *right, void *out, size_t len);
 
 #endif

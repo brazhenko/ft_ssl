@@ -62,7 +62,7 @@ void 		des_permutation(unsigned char *input, unsigned char *output,
 
 /* beginning shuffling */
 
-static const size_t	des_shfl_tbl[] = {
+static const size_t	des_ip_perm[] = {
 	57, 49, 41, 33, 25, 17, 9, 1,
 	59, 51, 43, 35, 27, 19, 11, 3,
 	61, 53, 45, 37, 29, 21, 13, 5,
@@ -75,7 +75,7 @@ static const size_t	des_shfl_tbl[] = {
 
 /* ending shuffling */
 
-static const size_t	des_shfl_tbl_r[] = {
+static const size_t	des_r_ip_perm[] = {
 	39, 7, 47, 15, 55, 23, 63, 31,
 	38, 6, 46, 14, 54, 22, 62, 30,
 	37, 5, 45, 13, 53, 21, 61, 29,

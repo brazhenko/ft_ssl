@@ -1,34 +1,7 @@
 #include "des.h"
 #include <string.h>
-#include <stdio.h>
 #include <stdatomic.h>
-
-// TODO rename
-int 	xor1(LPDESHALFBLOCK one, LPDESHALFBLOCK two, LPDESHALFBLOCK res)
-{
-	DESHALFBLOCK	tmp;
-
-	tmp[0] = (*one)[0] ^ (*two)[0];
-	tmp[1] = (*one)[1] ^ (*two)[1];
-	tmp[2] = (*one)[2] ^ (*two)[2];
-	tmp[3] = (*one)[3] ^ (*two)[3];
-	memcpy(res, tmp, sizeof(tmp));
-	return (0);
-}
-
-int 	xor2(LPDESSPREADHALFBLOCK shb, LPDES48KEY key, LPDESSPREADHALFBLOCK res)
-{
-	DESSPREADHALFBLOCK	tmp;
-
-	tmp[0] = (*shb)[0] ^ (*key)[0];
-	tmp[1] = (*shb)[1] ^ (*key)[1];
-	tmp[2] = (*shb)[2] ^ (*key)[2];
-	tmp[3] = (*shb)[3] ^ (*key)[3];
-	tmp[4] = (*shb)[4] ^ (*key)[4];
-	tmp[5] = (*shb)[5] ^ (*key)[5];
-	memcpy(res, tmp, sizeof(tmp));
-	return (0);
-}
+#include <utilities.h>
 
 #define B0(c)	(((c)&(1u<<7u))>>7u)
 #define B1(c)	(((c)&(1u<<6u))>>6u)
@@ -85,9 +58,10 @@ int 	f1(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
 	DESSPREADHALFBLOCK		shb;
 	DESHALFBLOCK			hb2;
 
-	des_permutation(*hb, shb, des_e_tbl, sizeof(des_e_tbl) / sizeof(des_e_tbl[0]));
-	xor2(&shb, key, &shb);
+	des_permutation(*hb, shb, des_e_tbl,
+			sizeof(des_e_tbl) / sizeof(des_e_tbl[0]));
 
+	mem_xor(shb, key, shb, sizeof(shb));
 	sss(&shb, &hb2);
 
 	des_permutation(hb2, hb2, des_p_tbl, sizeof(des_p_tbl) / sizeof(des_p_tbl[0]));
@@ -101,7 +75,7 @@ int 	des_encode_round(LPDESBLOCK block, LPDES48KEY key)
 	memset(&tmp, 0, sizeof(tmp));
 	//
 	f1((LPDESHALFBLOCK)((uint8_t*)block + 4), key, &tmp);
-	xor1(&tmp, (LPDESHALFBLOCK)block, &tmp);
+	mem_xor(tmp, block, tmp, sizeof(tmp));
 	//
 	memcpy(block, ((uint8_t*)block + 4), 4);
 	memcpy(((uint8_t*)block + 4), &tmp, 4);

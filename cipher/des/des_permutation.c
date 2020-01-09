@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <limits.h>
+#include <stdlib.h>
 
 /*
 ** des_permutation() takes
@@ -9,8 +10,9 @@
 ** permutation arr[] of arr_len
 ** arr_len
 **
-** The following function enumerates BITS of input[] and output[], bzeros
-** output[] and put to Ns bit of output[] arr[N]s bit for input[].
+** The following function enumerates BITS of input[] and output[],
+** puts to Ns bit of output[] arr[N]s bit for input[].
+** N.B. input pointer can equals output pointer.
 **
 ** if parameters are wrong behaviour is undefined
 */
@@ -21,8 +23,9 @@ void 		des_permutation(unsigned char *input,
 							size_t arr_len)
 {
 	size_t			i;
-	unsigned char	tmp[arr_len / CHAR_BIT];
+	unsigned char	*tmp;
 
+	tmp = malloc(arr_len / CHAR_BIT);
 	memset(tmp, 0, arr_len / CHAR_BIT);
 	i = 0;
 	while (i < arr_len)
@@ -32,4 +35,5 @@ void 		des_permutation(unsigned char *input,
 		i++;
 	}
 	memcpy(output, tmp, arr_len / CHAR_BIT);
+	free(tmp);
 }
