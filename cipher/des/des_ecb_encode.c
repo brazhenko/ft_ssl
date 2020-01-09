@@ -5,38 +5,27 @@
 
 void 		des_ecb_encode(t_cipher_context *ctx)
 {
-	DESBLOCK		bl;
-	DES56KEY		key1;
-	DES48KEY		key2;
+	DESBLOCK		block;
+	DES56KEY		key56;
+	DES48KEY		final_key;
 	size_t			round;
 
-	while (des_get_block(ctx, &bl))
+	while (des_get_block(ctx, &block))
 	{
-		// des_ip_forward(&bl);
-		des_permutation(bl, bl, des_ip_perm,sizeof(des_ip_perm) / sizeof(des_ip_perm[0]));
-		des_permutation(ctx->key, key1, init_key_pm,sizeof(init_key_pm) / sizeof(init_key_pm[0]));
-
+		des_permutation(block, block, des_ip_perm,sizeof(des_ip_perm) / sizeof(des_ip_perm[0]));
+		des_permutation(ctx->key, key56, init_key_pm,sizeof(init_key_pm) / sizeof(init_key_pm[0]));
 		round = 0;
 		while (round < DES_CIPHER_ROUND_COUNT)
 		{
-			rot_des56key_blocks_left_n(&key1, des_key_pd[round]);
-			des_permutation(key1, key2, final_key_pm, sizeof(final_key_pm) / sizeof(final_key_pm[0]));
-			// operations with block
-			des_encode_round(&bl, &key2);
+			rot_des56key_blocks_left_n(&key56, des_key_pd[round]);
+			des_permutation(key56, final_key, final_key_pm, sizeof(final_key_pm) / sizeof(final_key_pm[0]));
+			des_encode_round(&block, &final_key);
 			round++;
 		}
-
-		// Hardcode swapping blocks back
-		DESHALFBLOCK		tmp;
-		memcpy(&tmp, ((uint8_t*)(bl+ 4)), 4);
-		memcpy(((uint8_t*)bl + 4), bl, 4);
-		memcpy(bl, tmp, 4);
-		// ---------
-
-		des_permutation(bl, bl, des_r_ip_perm,
-				sizeof(des_r_ip_perm) / sizeof(des_r_ip_perm[0]));
-		printf("%d\n", bl[7]);
-		write(1, bl, 8);
+		des_swap_block_halves(&block);
+		des_permutation(block, block, des_r_ip_perm,
+		sizeof(des_r_ip_perm) / sizeof(des_r_ip_perm[0]));
+		write(ctx->output_fd, block, sizeof(block));
 	}
 }
 

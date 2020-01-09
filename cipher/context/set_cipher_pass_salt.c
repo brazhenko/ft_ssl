@@ -5,24 +5,24 @@
 #include <utilities.h>
 
 static const uint8_t	hex2bin[] =
-		{
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u,
-				8, 9, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 10u, 11u, 12u, 13u, 14u, 15u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 10u, 11u, 12u, 13u, 14u, 15u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-				0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-		};
+{
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u,
+	8, 9, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 10u, 11u, 12u, 13u, 14u, 15u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 10u, 11u, 12u, 13u, 14u, 15u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+};
 
 static void		cipher_hex_salt_too_long_exit(void)
 {

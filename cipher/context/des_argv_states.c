@@ -157,7 +157,6 @@ t_cipher_context	*ci_state_k(int argc, char **argv, t_cipher_context *ctx)
 	{
 		puts("ci_state_k(): -k needs arg");
 		exit(0);
-		return (ctx);
 	}
 	set_cipher_key(ctx, *argv);
 	argv++;

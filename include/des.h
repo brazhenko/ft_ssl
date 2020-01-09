@@ -59,6 +59,7 @@ void 		des_3des_decode(t_cipher_context *ctx);
 
 void 		des_permutation(unsigned char *input, unsigned char *output,
 		const size_t *arr, size_t arr_len);
+void		des_swap_block_halves(LPDESBLOCK bl);
 
 /* beginning shuffling */
 
