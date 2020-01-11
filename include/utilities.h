@@ -32,5 +32,5 @@ void	*xmalloc(size_t size);
 void	print_uint32_bits(unsigned num);
 void	print_uint64_bits(uint64_t num);
 void 	*mem_xor(void *left, void *right, void *out, size_t len);
-
+void	print_hex_memory(void *mem, size_t size);
 #endif

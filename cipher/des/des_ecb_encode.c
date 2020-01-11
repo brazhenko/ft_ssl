@@ -1,6 +1,4 @@
-#include <stdio.h>
 #include "des.h"
-#include "utilities.h"
 #include <string.h>
 
 void 		des_ecb_encode(t_cipher_context *ctx)

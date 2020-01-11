@@ -8,21 +8,24 @@ set(GCC_COVERAGE_LINK_FLAGS    "-Wall -Wextra -Werror")
 
 include_directories("include")
 
-set(FT_SSL_SRC	ssl/command_executor.c
-				ssl/hash_executor.c
-				ssl/help.c
-				ssl/main.c
-				ssl/parse_hash_flags.c
-				ssl/encode_executor.c)
+set(FT_SSL_SRC
+		ssl/command_executor.c
+		ssl/hash_executor.c
+		ssl/help.c
+		ssl/main.c
+		ssl/parse_hash_flags.c
+		ssl/encode_executor.c)
 
-set(MD5_SRC hash/md5/calculate_md5_block.c
+set(MD5_SRC
+		hash/md5/calculate_md5_block.c
 		hash/md5/calculate_md5_buf_padding.c
 		hash/md5/calculate_md5_from_fd.c
 		hash/md5/calculate_md5_from_string.c
 		hash/md5/md5.c
 		hash/md5/print_md5.c)
 
-set(SHA256_SRC hash/sha256/calc_sha256_buf_padding.c
+set(SHA256_SRC
+		hash/sha256/calc_sha256_buf_padding.c
 		hash/sha256/calc_sha256_from_fd.c
 		hash/sha256/calc_sha256_from_string.c
 		hash/sha256/print_sha256.c
@@ -30,7 +33,9 @@ set(SHA256_SRC hash/sha256/calc_sha256_buf_padding.c
 
 set(SHA384_SRC)
 set(SHA512_SRC)
-set(BASE64_SRC encode/base64/base64.c
+
+set(BASE64_SRC
+		encode/base64/base64.c
 		encode/context/init_encode_context.c
 		encode/context/set_decode_mode.c
 		encode/context/set_encode_mode.c
@@ -67,13 +72,28 @@ set(DES_SRC
 		cipher/des/des_ecb_encode.c
 		cipher/des/des_ecb_decode.c
 		cipher/des/des_ofb_encode.c
-		cipher/des/des_ofb_decode.c cipher/context/set_cipher_bufsize.c cipher/des/des_get_block.c cipher/des/des_ip.c cipher/des/des_key_gen.c cipher/des/des_block_debug.c cipher/des/des_encode_block.c cipher/context/set_cipher_key.c ssl/cipher_executor.c cipher/context/set_cipher_pass_salt.c cipher/context/destruct_cipher_context.c cipher/des/des_permutation.c cipher/des/des_swap_block_halves.c)
+		cipher/des/des_ofb_decode.c
+		cipher/context/set_cipher_bufsize.c
+		cipher/des/des_get_block.c
+		cipher/des/des_ip.c
+		cipher/des/des_key_gen.c
+		cipher/des/des_block_debug.c
+		cipher/des/des_encode_block.c
+		cipher/context/set_cipher_key.c
+		ssl/cipher_executor.c
+		cipher/context/set_cipher_pass_salt.c
+		cipher/context/destruct_cipher_context.c
+		cipher/des/des_permutation.c
+		cipher/des/des_swap_block_halves.c cipher/context/set_cipher_init_vector.c cipher/des/des_pbkdf.c cipher/context/set_cipher_password_from_stdin.c cipher/context/set_cipher_random_pass_salt.c)
 
-SET(UTILITIES_SRC ssl/utilities/is_flag.c
+SET(UTILITIES_SRC
+		ssl/utilities/is_flag.c
 		ssl/utilities/nstrjoin.c
 		ssl/utilities/xmalloc.c
 		ssl/utilities/print_uint32_bits.c
-		ssl/utilities/print_uint64_bits.c ssl/utilities/mem_xor.c)
+		ssl/utilities/print_uint64_bits.c
+		ssl/utilities/mem_xor.c ssl/utilities/print_hex_memory.c)
+
 add_executable(
 				${PROJECT_NAME}
 				${FT_SSL_SRC}

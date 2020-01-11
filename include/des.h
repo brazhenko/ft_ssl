@@ -9,6 +9,7 @@
 # define DES_CIPHER_BLOCK_LEN	(64/(CHAR_BIT))
 # define DES_CIPHER_BIT_LEN		(64)
 # define DES_CIPHER_ROUND_COUNT (16)
+# define DES_ECB_SALT_BYTE_LEN	(8)
 
 typedef		uint8_t				DESBLOCK[8];
 typedef		DESBLOCK			*LPDESBLOCK;

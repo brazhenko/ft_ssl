@@ -23,8 +23,6 @@ struct		s_encode_context
 
 # define ISENCODEMODE(c) 	(!(c->mode & 0b1))
 # define ISDECODEMODE(c) 	((c->mode & 	0b1))
-# define ISOUTFILE(c) 		((c->mode & 	0b10))
-# define ISINPFILE(c) 		((c->mode & 	0b100))
 
 typedef struct s_encode_context t_encode_context;
 

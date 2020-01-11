@@ -313,11 +313,8 @@ t_cipher_context	*ci_state_v(int argc, char **argv, t_cipher_context *ctx)
 	{
 		puts("ci_state_v(): -v needs arg");
 		exit(0);
-		return (ctx);
 	}
-	memset(ctx->vector, 0, sizeof(ctx->vector));
-	strcpy(ctx->vector, *argv);
-	ctx->mode |= 0b10000000;
+	set_cipher_init_vector(ctx, *argv);
 	argv++;
 	argc--;
 	if (!*argv)
