@@ -15,7 +15,7 @@ cmake . && make
 ```bash
 
 ./ft_ssl command [command opts] [command args] 
-./ft_ssl des-ecb -e -in file.txt -p MySuperSecurePassword
+./ft_ssl des-ecb -e -i plain.txt -o crypto.txt -p MySuperSecurePassword
 ```
 
 ## Available commands

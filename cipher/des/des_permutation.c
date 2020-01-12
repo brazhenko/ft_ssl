@@ -2,6 +2,7 @@
 #include <string.h>
 #include <limits.h>
 #include <stdlib.h>
+#include <utilities.h>
 
 /*
 ** des_permutation() takes
@@ -25,7 +26,7 @@ void 		des_permutation(unsigned char *input,
 	size_t			i;
 	unsigned char	*tmp;
 
-	tmp = malloc(arr_len / CHAR_BIT);
+	tmp = xmalloc(arr_len / CHAR_BIT);
 	memset(tmp, 0, arr_len / CHAR_BIT);
 	i = 0;
 	while (i < arr_len)
