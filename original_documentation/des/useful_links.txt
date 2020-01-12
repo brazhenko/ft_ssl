@@ -1,3 +1,4 @@
 https://paginas.fe.up.pt/~ei10109/ca/des.html
 http://kaf401.rloc.ru/Criptfiles/DES.htm
 https://ru.wikipedia.org/wiki/DES
+https://www.openssl.org/docs/man1.1.0/man3/PKCS5_PBKDF2_HMAC_SHA1.html

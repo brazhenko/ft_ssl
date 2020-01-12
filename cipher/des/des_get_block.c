@@ -12,11 +12,14 @@ ssize_t		des_get_block(t_cipher_context *ctx, LPDESBLOCK block)
 	//
 	memset(*block, 0, 8);
 	rc = read(ctx->input_fd, block, 8);
+
+	// Padding
+
 	if (rc < 8)
 	{
 		for (int j = rc; j < 8; ++j)
 		{
-			(*block)[j] = 8;
+			(*block)[j] = 8 - rc;
 		}
 	}
 	return rc; // TODO make normal file reader HARDCORE

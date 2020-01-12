@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 /*
-** set ctx to -a == true
+** set ctx to base64 encode
 */
 
 t_cipher_context	*ci_state_a(int argc, char **argv, t_cipher_context *ctx)

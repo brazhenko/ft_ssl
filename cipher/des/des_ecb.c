@@ -7,6 +7,7 @@ void		*des_ecb(t_cipher_context *ctx)
 {
 	if (!CPHR_ISKEYSET(ctx))
 	{
+		puts("key not set");
 		if (!CPHR_ISPASSSET(ctx))
 			set_cipher_password_from_stdin(ctx);
 		if (!CPHR_ISSALTSET(ctx))
@@ -14,7 +15,7 @@ void		*des_ecb(t_cipher_context *ctx)
 		// generate key
 		// pbkdf(); ...
 	}
-	print_hex_memory(ctx->salt, DES_ECB_SALT_BYTE_LEN);
+	// print_hex_memory(ctx->key, 8);
 	if (CPHR_ISENCODEMODE(ctx))
 		des_ecb_encode(ctx);
 	else if (CPHR_ISDECODEMODE(ctx))
