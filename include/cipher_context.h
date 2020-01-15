@@ -3,6 +3,7 @@
 
 #include <limits.h>
 #include <stdlib.h>
+
 /*
 ** Cipher context part
 ** s_cipher_context.mode = {0, 1, ..., 30, 31} UInt32.
@@ -18,7 +19,7 @@
 */
 
 # define MAX_KEY_BYTE_LEN		64
-# define MAX_SALT_BYTE_LEN		16
+# define CIPHER_SALT_BYTE_LEN	8
 # define MAX_IV_DIG_LEN			32
 # define DEFAULT_CIPHER_BUFLEN	64
 # define CPHR_ISENCODEMODE(c) 	(!(c->mode & 0b1U))
@@ -32,8 +33,6 @@
 # define CIPHER_PASSWORD_PROMPT "enter encryption password:"
 # define CIPHER_PASSWORD_VERIFY_PROMPT "Verifying - enter encryption password:"
 
-
-
 struct		s_cipher_context
 {
 	char 		input_file[PATH_MAX];
@@ -43,7 +42,7 @@ struct		s_cipher_context
 	size_t		bufsize;
 	uint8_t 	key[MAX_KEY_BYTE_LEN];
 	char		password[PASS_MAX];
-	char		salt[PASS_MAX];		// TODO and here
+	char		salt[CIPHER_SALT_BYTE_LEN];		// TODO and here
 	char		vector_ini[MAX_IV_DIG_LEN];
 	unsigned  	mode;
 	void		*alg_ptr;

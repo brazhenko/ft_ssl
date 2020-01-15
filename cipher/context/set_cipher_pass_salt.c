@@ -46,20 +46,20 @@ void		set_cipher_pass_salt(t_cipher_context *ctx, char *arg)
 	size_t		i;
 	uint8_t		bin;
 
-	memset(ctx->salt, 0, MAX_SALT_BYTE_LEN);
+	memset(ctx->salt, 0, CIPHER_SALT_BYTE_LEN);
 	ctx->mode |= 0b1000000;
 	i = 0;
 	while (arg[i])
 	{
 		bin = hex2bin[arg[i]];
-		if (bin)
+		if (bin || arg[i] == '0')
 		{
 			ctx->salt[i / 2] |= (bin << (4u * (1u - i % 2u)));
 		}
 		else
 			cipher_salt_non_hex_exit();
 		i++;
-		if (i == MAX_KEY_BYTE_LEN)
+		if (i == CIPHER_SALT_BYTE_LEN * 2)
 			cipher_hex_salt_too_long_exit();
 	}
 }

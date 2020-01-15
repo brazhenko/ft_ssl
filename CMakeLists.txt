@@ -22,7 +22,7 @@ set(MD5_SRC
 		hash/md5/calculate_md5_from_fd.c
 		hash/md5/calculate_md5_from_string.c
 		hash/md5/md5.c
-		hash/md5/print_md5.c)
+		hash/md5/print_md5.c hash/md5/calculate_md5_from_mem.c)
 
 set(SHA256_SRC
 		hash/sha256/calc_sha256_buf_padding.c
