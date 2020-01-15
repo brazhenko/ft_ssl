@@ -51,6 +51,8 @@ void		set_cipher_pass_salt(t_cipher_context *ctx, char *arg)
 	i = 0;
 	while (arg[i])
 	{
+		if (i == CIPHER_SALT_BYTE_LEN * 2)
+			cipher_hex_salt_too_long_exit();
 		bin = hex2bin[arg[i]];
 		if (bin || arg[i] == '0')
 		{
@@ -59,7 +61,5 @@ void		set_cipher_pass_salt(t_cipher_context *ctx, char *arg)
 		else
 			cipher_salt_non_hex_exit();
 		i++;
-		if (i == CIPHER_SALT_BYTE_LEN * 2)
-			cipher_hex_salt_too_long_exit();
 	}
 }

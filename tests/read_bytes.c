@@ -4,49 +4,55 @@
 #include <stdlib.h>
 #include <string.h>
 
+static const uint8_t	hex2bin[] =
+{
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 1u, 2u, 3u, 4u, 5u, 6u, 7u,
+	8, 9, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 10u, 11u, 12u, 13u, 14u, 15u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 10u, 11u, 12u, 13u, 14u, 15u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
+};
+
 int	main(int c, char **v)
 {
 	int fd;
 	int rd;
-	char byte;
+	char byte[2];
 
-	if (c == 2)
+	if (c == 1)
 	{
-		fd = open(v[1], O_RDONLY);
+		fd = 0;//open(v[1], O_RDONLY);
 		if (fd < 0)
 		{
 			perror("Cannot open file: ");
 			exit(1);
 		}
-		while ((rd = read(fd, &byte, 1)))
+		while ((rd = read(fd, &byte, 2)))
 		{
 			if (rd < 0)
 			{
 				perror("Cannot read: ");
 				exit(1);
 			}
-			printf("%d ", byte);
-		}
-	}
-	else if (c == 3 && strcmp(v[1], "x") == 0)
-	{
-		fd = open(v[2], O_RDONLY);	
-		if (fd < 0)
-		{
-			perror("Cannot open file: ");
-			exit(1);
-		}
-		while ((rd = read(fd, &byte, 1)))
-		{
-			if (rd < 0)
+			else
 			{
-				perror("Cannot read: ");
-				exit(1);
+				printf("%c", (hex2bin[byte[0]] << 4) + (hex2bin[byte[1]]));
 			}
-			printf("%x ", byte);
-		}	
+		}
 	}
-	else puts("usage: ./mm [hex] [file]");
+
+	else puts("usage: ./hb ");
 
 	fflush(stdout);
 }

@@ -42,7 +42,7 @@ struct		s_cipher_context
 	size_t		bufsize;
 	uint8_t 	key[MAX_KEY_BYTE_LEN];
 	char		password[PASS_MAX];
-	char		salt[CIPHER_SALT_BYTE_LEN];		// TODO and here
+	char		salt[CIPHER_SALT_BYTE_LEN];
 	char		vector_ini[MAX_IV_DIG_LEN];
 	unsigned  	mode;
 	void		*alg_ptr;
