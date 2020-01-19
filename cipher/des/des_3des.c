@@ -4,9 +4,9 @@
 
 void		*des_3des(t_cipher_context *ctx)
 {
-	if (CPHR_ISENCODEMODE(ctx))
+	if (CPHR_ISENCRYPTMODE(ctx))
 		;
-	else if (CPHR_ISDECODEMODE(ctx))
+	else if (CPHR_ISDECRYPTMODE(ctx))
 		;
 	puts("des_3des() under development");
 	return (NULL);

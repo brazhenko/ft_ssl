@@ -22,8 +22,8 @@
 # define CIPHER_SALT_BYTE_LEN	8
 # define MAX_IV_DIG_LEN			32
 # define DEFAULT_CIPHER_BUFLEN	64
-# define CPHR_ISENCODEMODE(c) 	(!(c->mode & 0b1U))
-# define CPHR_ISDECODEMODE(c) 	((c->mode & 	0b1U))
+# define CPHR_ISENCRYPTMODE(c) 	(!(c->mode & 0b1U))
+# define CPHR_ISDECRYPTMODE(c) 	((c->mode & 	0b1U))
 # define CPHR_ISAFLAG(c)		((c)->mode & (1U << 3U))
 # define CPHR_ISKEYSET(c)		((c)->mode & (1U << 4U))
 # define CPHR_ISPASSSET(c)		((c)->mode & (1U << 5U))

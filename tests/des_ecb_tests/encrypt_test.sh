@@ -52,7 +52,7 @@ done
 ################################################################################
 # des_ecb pass+salt - encrypt file tests
 ################################################################################
-echo -e "${BLUE}des_ecb des_ecb pass+salt - encrypt file tests file tests${NC}"
+echo -e "${BLUE}des_ecb pass+salt - encrypt file tests${NC}"
 for entry in "test_files"/*
 do
   SALT=$(python3 generate_random_salt.py)
@@ -72,3 +72,9 @@ do
   fi
   rm my orig
 done
+
+################################################################################
+# des_ecb checklist tests
+################################################################################
+
+echo -e "${BLUE}des_ecb checklist tests${NC}"
