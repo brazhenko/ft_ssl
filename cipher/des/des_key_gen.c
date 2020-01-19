@@ -44,6 +44,7 @@ int 			rot_des56key_blocks_left_n(LPDES56KEY key, uint8_t times)
 	return (0);
 }
 
+// TODO not working still
 static int		rot_des56key_blocks_right(LPDES56KEY key)
 {
 	DES56KEY		tmp;
