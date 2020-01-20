@@ -199,7 +199,7 @@ string encrypt(string pt, vector<string> rkb, vector<string> rk){
 
 		//XOR RoundKey[i] and right_expanded
 		string x= xor_(rkb[i], right_expanded);
-		std::cout << "Key:" << rkb[i] << std::endl;
+		std::cout << "rKey:" << rkb[i] << std::endl;
 		//S-boxes
 		string op="";
 		for(int i=0;i<8; i++){

@@ -26,3 +26,20 @@ do
   fi
   rm my orig
 done
+
+################################################################################
+# Base64 checklist test
+################################################################################
+echo -e "${BLUE}Base64 checklist test${NC}"
+s="repeat after me 'encoding is not encryption'"
+echo -n $s
+echo $s |  base64  > orig
+echo $s | ./$bin base64  > my
+DIFF=$(diff my orig)
+
+if [ "$DIFF" == "" ]
+then
+    echo -e "${GREEN}\tPassed!${NC}"
+else
+    echo -e "${RED}\tFailed!${NC}"
+fi
