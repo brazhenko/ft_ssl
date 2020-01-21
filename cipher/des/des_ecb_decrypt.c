@@ -28,7 +28,7 @@ void 		des_ecb_decrypt(t_cipher_context *ctx)
 		}
 		des_swap_block_halves(&block);
 		des_permutation(block, block, des_r_ip_perm,
-				sizeof(des_r_ip_perm) / sizeof(des_r_ip_perm[0]));
+		sizeof(des_r_ip_perm) / sizeof(des_r_ip_perm[0]));
 		write(ctx->output_fd, block, sizeof(block));
 	}
 }
