@@ -94,7 +94,7 @@ string xor_(string a, string b){
 }
 string encrypt(string pt, vector<string> rkb, vector<string> rk){
 	//Hexadecimal to binary
-	pt= hex2bin(pt);
+	pt= hex2bin(p t);
 
 	//Initial Permutation Table
 	int initial_perm[64]=

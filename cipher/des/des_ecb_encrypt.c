@@ -3,12 +3,13 @@
 
 void 		des_ecb_encrypt(t_cipher_context *ctx)
 {
+
 	DESBLOCK		block;
 	DES56KEY		key56;
 	DES48KEY		final_key;
 	size_t			round;
 
-	while (des_get_block(ctx, &block))
+	while (des_get_enc_block(ctx, &block))
 	{
 		des_permutation(block, block, des_ip_perm,
 		sizeof(des_ip_perm) / sizeof(des_ip_perm[0]));

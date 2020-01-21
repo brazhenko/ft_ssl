@@ -1,8 +1,9 @@
 #include <des.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdio.h>
 
-ssize_t		des_get_block(t_cipher_context *ctx, LPDESBLOCK block)
+ssize_t		des_get_enc_block(t_cipher_context *ctx, LPDESBLOCK block)
 {
 	static unsigned char *buffer = NULL;
 	static size_t read_len		= 0;
@@ -36,6 +37,22 @@ ssize_t		des_get_block(t_cipher_context *ctx, LPDESBLOCK block)
 		{
 			(*block)[j] = 8 - rc;
 		}
+	}
+	return rc; // TODO make normal file reader HARDCORE
+}
+
+ssize_t		des_get_decr_block(t_cipher_context *ctx, LPDESBLOCK block)
+{
+	ssize_t		rc;
+	memset(*block, 0, 8);
+	rc = read(ctx->input_fd, block, 8);
+
+	if (rc == 0)
+		return (rc);
+	if (rc != 8)
+	{
+		puts("wrong block size");
+		exit(1);
 	}
 	return rc; // TODO make normal file reader HARDCORE
 }

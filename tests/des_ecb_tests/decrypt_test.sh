@@ -15,7 +15,7 @@ for entry in "test_files"/*
 do
   KEY=$(python3 generate_random_key.py)
   openssl des-ecb -K $KEY -in $entry | openssl  des-ecb -d  -K $KEY | base64 > orig
-  openssl des-ecb -K $KEY -in $entry | ./$bin des-ecb -d -k $key | base64 > my
+  openssl des-ecb -K $KEY -in $entry | ./$bin des-ecb -d -k $KEY | base64 > my
 
   echo -n -e  "$entry " "\t" "$KEY "
   DIFF=$(diff my orig)

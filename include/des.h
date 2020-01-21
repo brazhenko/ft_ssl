@@ -24,7 +24,8 @@ typedef		DES56KEY			*LPDES56KEY;
 typedef		uint8_t				DES48KEY[6];
 typedef		DES48KEY			*LPDES48KEY;
 
-ssize_t		des_get_block(t_cipher_context *ctx, LPDESBLOCK block);
+ssize_t		des_get_enc_block(t_cipher_context *ctx, LPDESBLOCK block);
+ssize_t		des_get_decr_block(t_cipher_context *ctx, LPDESBLOCK block);
 int			try_get_des_salt_from_fd(t_cipher_context *ctx);
 
 void		*des_ecb(t_cipher_context *ctx);
