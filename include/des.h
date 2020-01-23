@@ -206,6 +206,6 @@ static const uint8_t	s[8][4][16] =
 	}
 };
 
-int 	des_encrypt_round(LPDESBLOCK block, LPDES48KEY key);
+int 	des_round(LPDESBLOCK block, LPDES48KEY key);
 
 #endif

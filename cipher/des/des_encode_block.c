@@ -72,7 +72,7 @@ int 		feistel(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
 	return (0);
 }
 
-int 	des_encrypt_round(LPDESBLOCK block, LPDES48KEY key)
+int 	des_round(LPDESBLOCK block, LPDES48KEY key)
 {
 	DESHALFBLOCK		tmp;
 	memset(&tmp, 0, sizeof(tmp));

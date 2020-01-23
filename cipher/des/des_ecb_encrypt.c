@@ -22,7 +22,7 @@ void 		des_ecb_encrypt(t_cipher_context *ctx)
 			des_permutation(key56, final_key, final_key_pm,
 			sizeof(final_key_pm) / sizeof(final_key_pm[0]));
 
-			des_encrypt_round(&block, &final_key);
+			des_round(&block, &final_key);
 			round++;
 		}
 		des_swap_block_halves(&block);
