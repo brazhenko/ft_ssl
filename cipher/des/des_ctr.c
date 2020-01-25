@@ -4,9 +4,9 @@
 
 void		*des_ctr(t_cipher_context *ctx)
 {
-	if (CPHR_ISENCRYPTMODE(ctx))
+	if (cphr_is_encrypt_mode(ctx))
 		;
-	else if (CPHR_ISDECRYPTMODE(ctx))
+	else if (cphr_is_decrypt_mode(ctx))
 		;
 	puts("des_ctr() under development");
 	return (NULL);

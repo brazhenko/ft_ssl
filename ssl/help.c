@@ -19,6 +19,29 @@ void		print_usage(void)
 	nstrprinterror(1, "usage: md5 [-pqrtx] [-s string] [files ...]\n");
 }
 
+void		print_ft_ssl_help(void)
+{
+	nstrprinterror(17,
+			"Standard commands:\n",
+			"\n",
+			"Message Digest commands:\n",
+			"md5\n",
+			"sha256\n",
+			"sha384 - under development\n",
+			"sha512 - under development\n",
+			"Whirlpool - under development\n",
+			"\n",
+			"Encoding commands:\n",
+			"base64\n",
+			"\n",
+			"Cipher commands:\n",
+			"des (alias for des-cbc) - under development\n",
+			"des-ecb\n",
+			"des-cbc - under development\n",
+			"\n"
+			);
+}
+
 void		illegal_hash_option_exit(char c)
 {
 	write(2, "illegal option -- ", 18);

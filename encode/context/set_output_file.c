@@ -16,7 +16,6 @@ int					set_encode_output_file(t_encode_context *ctx,
 	ctx->mode |= 0b10;
 	output_fd = open(output_file_name, O_CREAT | O_WRONLY);
 	ctx->output_fd = output_fd;
-	printf("output_fd: %d\n", output_fd);
 	if (output_fd < 0)
 	{
 		nstrprinterror(5, "Unable to open \'", output_file_name,

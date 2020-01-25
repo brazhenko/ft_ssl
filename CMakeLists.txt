@@ -14,7 +14,7 @@ set(FT_SSL_SRC
 		ssl/help.c
 		ssl/main.c
 		ssl/parse_hash_flags.c
-		ssl/encode_executor.c)
+		ssl/encode_executor.c ssl/wrong_command_exit.c)
 
 set(MD5_SRC
 		hash/md5/calculate_md5_block.c

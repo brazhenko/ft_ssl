@@ -86,5 +86,5 @@ void				base64_encode(t_encode_context *ctx)
 			write(ctx->output_fd, output_buf, BASE64_ENCODE_OUTPUT_LEN);
 		}
 	}
-	write(1, "\n", 1);
+	write(ctx->output_fd, "\n", 1);
 }

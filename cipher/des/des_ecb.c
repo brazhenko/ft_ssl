@@ -12,7 +12,7 @@ int 		pbkdf_md5(t_cipher_context *ctx)
 	memcpy(&final_pass[0] + strlen(final_pass), ctx->salt, sizeof(ctx->salt));
 	// strncat(final_pass, ctx->salt);
 	t_hash_md5 key;
-	if (CPHR_ISSALTSET(ctx))
+	if (cphr_is_salt_set(ctx))
 	{
 		key = calculate_md5_from_mem(final_pass, strlen(ctx->password) + CIPHER_SALT_BYTE_LEN);
 	}
@@ -26,28 +26,25 @@ int 		pbkdf_md5(t_cipher_context *ctx)
 
 void		prepare_des_ecb_encrypt_key(t_cipher_context *ctx)
 {
-	if (CPHR_ISKEYSET(ctx))
+	if (cphr_is_key_set(ctx))
 		return ;
-	if (!CPHR_ISPASSSET(ctx))
+	if (!cphr_is_pass_set(ctx))
 		set_cipher_password_from_stdin(ctx);
-	if (!CPHR_ISSALTSET(ctx))
+	if (!cphr_is_salt_set(ctx))
 		set_cipher_random_pass_salt(ctx, DES_ECB_SALT_BYTE_LEN);
-
-	if (CPHR_ISSALTSET(ctx))
+	if (cphr_is_salt_set(ctx))
 	{
 		write(ctx->output_fd, "Salted__", 8);
 		write(ctx->output_fd, ctx->salt, sizeof(ctx->salt));
 	}
-	// generating key
-	// ft_pbkdf(); ...
 	pbkdf_md5(ctx);
 }
 
 void		prepare_des_ecb_decrypt_key(t_cipher_context *ctx)
 {
-	if (CPHR_ISKEYSET(ctx))
+	if (cphr_is_key_set(ctx))
 		return ;
-	if (!CPHR_ISPASSSET(ctx))
+	if (!cphr_is_pass_set(ctx))
 		set_cipher_password_from_stdin(ctx);
 	try_get_des_salt_from_fd(ctx);
 	pbkdf_md5(ctx);
@@ -56,12 +53,12 @@ void		prepare_des_ecb_decrypt_key(t_cipher_context *ctx)
 
 void		*des_ecb(t_cipher_context *ctx)
 {
-	if (CPHR_ISENCRYPTMODE(ctx))
+	if (cphr_is_encrypt_mode(ctx))
 	{
 		prepare_des_ecb_encrypt_key(ctx);
 		des_ecb_encrypt(ctx);
 	}
-	else if (CPHR_ISDECRYPTMODE(ctx))
+	else if (cphr_is_decrypt_mode(ctx))
 	{
 		prepare_des_ecb_decrypt_key(ctx);
 		des_ecb_decrypt(ctx);

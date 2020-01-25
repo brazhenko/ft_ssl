@@ -10,7 +10,7 @@ ssize_t		des_get_enc_block(t_cipher_context *ctx, LPDESBLOCK block)
 	static size_t i = 0;
 	ssize_t		rc;
 	DESBLOCK	res;
-	//
+
 	static int done = 0;
 	memset(*block, 0, 8);
 	rc = read(ctx->input_fd, block, 8);
@@ -40,6 +40,7 @@ ssize_t		des_get_enc_block(t_cipher_context *ctx, LPDESBLOCK block)
 	}
 	return rc; // TODO make normal file reader HARDCORE
 }
+
 
 ssize_t		des_get_decr_block(t_cipher_context *ctx, LPDESBLOCK block)
 {

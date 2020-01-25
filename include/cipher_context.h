@@ -4,31 +4,10 @@
 #include <limits.h>
 #include <stdlib.h>
 
-/*
-** Cipher context part
-** s_cipher_context.mode = {0, 1, ..., 30, 31} UInt32.
-** BitN    true/false
-** 31 decode/encode
-** 30 outfile/no outfile
-** 29 infile/no infile
-** 28 -a/ not -a ???
-** 27 key/no key
-** 26 pass/no pass
-** 25 salt/no salt
-** 24 vector_ini/no vector_ini
-*/
-
-# define MAX_KEY_BYTE_LEN		64
-# define CIPHER_SALT_BYTE_LEN	8
-# define MAX_IV_DIG_LEN			32
-# define DEFAULT_CIPHER_BUFLEN	64
-# define CPHR_ISENCRYPTMODE(c) 	(!(c->mode & 0b1U))
-# define CPHR_ISDECRYPTMODE(c) 	((c->mode & 	0b1U))
-# define CPHR_ISAFLAG(c)		((c)->mode & (1U << 3U))
-# define CPHR_ISKEYSET(c)		((c)->mode & (1U << 4U))
-# define CPHR_ISPASSSET(c)		((c)->mode & (1U << 5U))
-# define CPHR_ISSALTSET(c)		((c)->mode & (1U << 6U))
-# define CPHR_ISIVSET(c) 		((c)->mode & (1U << 7U))
+# define MAX_KEY_BYTE_LEN		(64)
+# define CIPHER_SALT_BYTE_LEN	(8)
+# define MAX_IV_DIG_LEN			(32)
+# define DEFAULT_CIPHER_BUFLEN	(64)
 
 # define CIPHER_PASSWORD_PROMPT "enter encryption password:"
 # define CIPHER_PASSWORD_VERIFY_PROMPT "Verifying - enter encryption password:"
@@ -48,7 +27,56 @@ struct		s_cipher_context
 	void		*alg_ptr;
 };
 
+/*
+** Cipher context part
+** s_cipher_context.mode = {0, 1, ..., 30, 31} UInt32.
+** BitN    true/false
+** 31 decode/encode
+** 30 outfile/no outfile
+** 29 infile/no infile
+** 28 -a/ not -a (base64)
+** 27 key/no key
+** 26 pass/no pass
+** 25 salt/no salt
+** 24 vector_ini/no vector_ini
+*/
+
 typedef struct s_cipher_context t_cipher_context;
+
+static int 		cphr_is_encrypt_mode(t_cipher_context *ctx)
+{
+	return (!(ctx->mode & 0b1U));
+}
+
+static int 		cphr_is_decrypt_mode(t_cipher_context *ctx)
+{
+	return ((ctx->mode & 0b1U));
+}
+
+static int 		cphr_is_a_flag(t_cipher_context *ctx)
+{
+	return ((ctx)->mode & (1U << 3U));
+}
+
+static int 		cphr_is_key_set(t_cipher_context *ctx)
+{
+	return ((ctx)->mode & (1U << 4U));
+}
+
+static int 		cphr_is_pass_set(t_cipher_context *ctx)
+{
+	return ((ctx)->mode & (1U << 5U));
+}
+
+static int 		cphr_is_salt_set(t_cipher_context *ctx)
+{
+	return ((ctx)->mode & (1U << 6U));
+}
+
+static int 		cphr_is_iv_set(t_cipher_context *ctx)
+{
+	return ((ctx)->mode & (1U << 7U));
+}
 
 t_cipher_context	*init_cipher_context(void *cipher_alg_ptr);
 void				destruct_cipher_context(t_cipher_context *ctx);

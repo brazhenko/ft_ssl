@@ -50,5 +50,7 @@ void		print_usage(void);
 void		illegal_hash_option_exit(char c);
 void		s_param_error_exit(void);
 void		cipher_executor(int ac, char **av, void *(*algo)(t_cipher_context *));
+void		print_ft_ssl_help(void);
+void 		wrong_command_exit(char *av0, char *command);
 
 #endif

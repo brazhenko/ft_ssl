@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "ssl.h"
 #include "des.h"
 
@@ -38,25 +36,6 @@ int			command_executor(int ac, char *av[])
 	else if (strcmp(av[1], "3des") == 0)
 		cipher_executor(ac - 2, av + 2, &des_3des);
 	else
-	{
-		nstrprinterror(19,
-				av[0], ": Error: \'", av[1], "\' is an invalid command.\n",
-				"Standard commands:\n",
-				"\n"
-				"Message Digest commands:\n",
-				"md5\n", "sha256\n",
-				"sha384 - under development\n",
-				"sha512 - under development\n",
-				"Whirlpool - under development\n",
-				"\n",
-				"Encoding commands:\n",
-				"base64\n",
-				"\n",
-				"Cipher commands:\n",
-				"des - under development\n",
-				"des-ecb - under development\n",
-				"des-cbc - under development\n"
-				"\n");
-	}
-	return (0);
+		wrong_command_exit(av[0], av[1]);
+	return (EXIT_SUCCESS);
 }
