@@ -19,9 +19,9 @@
 #define CB2(c1,c2) (((c1)<<1u) | c2)
 #define CB4(c1,c2,c3,c4)(((c1)<<3u)|((c2)<<2u)|((c3)<<1u)|((c4)<<0u))
 
-static int 	s_permutation(LPDESSPREADHALFBLOCK shb, LPDESHALFBLOCK hb)
+static int 	s_permutation(t_lpdesspreadhalfblock shb, t_lpdeshalfblock hb)
 {
-	memset(hb, 0, sizeof(DESHALFBLOCK));
+	memset(hb, 0, sizeof(t_deshalfblock));
 	(*hb)[0] |= s[0][CB2(B0((*shb)[0]), B5((*shb)[0]))]
 	[CB4(B1((*shb)[0]), B2((*shb)[0]), B3((*shb)[0]), B4((*shb)[0]))] << 4u;
 	(*hb)[0] |= s[1][CB2(B6((*shb)[0]), B3((*shb)[1]))]
@@ -54,13 +54,13 @@ static int 	s_permutation(LPDESSPREADHALFBLOCK shb, LPDESHALFBLOCK hb)
 
 /*
 ** feistel()  function gets half of plain text block (32bit), final key
- * (48 bit) and "returns" the encoded block back to [DESHALFBLOCK res].
+ * (48 bit) and "returns" the encoded block back to [t_deshalfblock res].
 */
 
-int 		feistel(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
+int 		feistel(t_lpdeshalfblock hb, t_lpdes48key key, t_lpdeshalfblock res)
 {
-	DESSPREADHALFBLOCK		shb;
-	DESHALFBLOCK			hb2;
+	t_desspreadhalfblock		shb;
+	t_deshalfblock			hb2;
 
 	des_permutation(*hb, shb, des_e_tbl,
 			sizeof(des_e_tbl) / sizeof(des_e_tbl[0]));
@@ -72,12 +72,12 @@ int 		feistel(LPDESHALFBLOCK hb, LPDES48KEY key, LPDESHALFBLOCK res)
 	return (0);
 }
 
-int 	des_round(LPDESBLOCK block, LPDES48KEY key)
+int 	des_round(t_lpdesblock block, t_lpdes48key key)
 {
-	DESHALFBLOCK		tmp;
+	t_deshalfblock		tmp;
 	memset(&tmp, 0, sizeof(tmp));
 	//
-	feistel((LPDESHALFBLOCK)((uint8_t *)block + 4), key, &tmp);
+	feistel((t_lpdeshalfblock)((uint8_t *)block + 4), key, &tmp);
 	mem_xor(tmp, block, tmp, sizeof(tmp));
 	//
 	memcpy(block, ((uint8_t*)block + 4), 4);

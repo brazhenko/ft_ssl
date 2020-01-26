@@ -2,16 +2,16 @@
 #include <string.h>
 
 /*
-**	[DES56KEY key] is spread into 2x28bit blocks
+**	[t_des56key key] is spread into 2x28bit blocks
 **  and they are rotted separately.
 */
 
 # define CHARFIRSTBIT(c) ((c & (1u<<(CHAR_BIT-1u)))>>(CHAR_BIT-1u))
 # define CHARLASTBIT(C) ((c) & 0b1U)
 
-static int		rot_des56key_blocks_left(LPDES56KEY key)
+static int		rot_des56key_blocks_left(t_lpdes56key key)
 {
-	DES56KEY		tmp;
+	t_des56key		tmp;
 
 	tmp[0] = (*key)[0] << 1u;
 	tmp[1] = (*key)[1] << 1u;
@@ -34,7 +34,7 @@ static int		rot_des56key_blocks_left(LPDES56KEY key)
 	return (0);
 }
 
-int 			rot_des56key_blocks_left_n(LPDES56KEY key, uint8_t times)
+int 			rot_des56key_blocks_left_n(t_lpdes56key key, uint8_t times)
 {
 	while (times)
 	{
@@ -45,9 +45,9 @@ int 			rot_des56key_blocks_left_n(LPDES56KEY key, uint8_t times)
 }
 
 // TODO not working still
-static int		rot_des56key_blocks_right(LPDES56KEY key)
+static int		rot_des56key_blocks_right(t_lpdes56key key)
 {
-	DES56KEY		tmp;
+	t_des56key		tmp;
 
 	tmp[0] = (*key)[0] >> 1u;
 	tmp[1] = (*key)[1] >> 1u;
@@ -70,7 +70,7 @@ static int		rot_des56key_blocks_right(LPDES56KEY key)
 	return (0);
 }
 
-int 			rot_des56key_blocks_right_n(LPDES56KEY key, uint8_t times)
+int 			rot_des56key_blocks_right_n(t_lpdes56key key, uint8_t times)
 {
 	while (times)
 	{

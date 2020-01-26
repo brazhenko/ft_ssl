@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-static void		des_cut_padding(t_cipher_context *ctx, LPDESBLOCK block)
+static void		des_cut_padding(t_cipher_context *ctx, t_lpdesblock block)
 {
 	// TODO support --nopadding
 	if (memcmp(((unsigned char *)block) + 7, "\1", 1) == 0)
@@ -28,9 +28,9 @@ static void		des_cut_padding(t_cipher_context *ctx, LPDESBLOCK block)
 
 void 		des_ecb_decrypt(t_cipher_context *ctx)
 {
-	DESBLOCK		block;
-	DES56KEY		key56;
-	DES48KEY		final_key;
+	t_desblock		block;
+	t_des56key		key56;
+	t_des48key		final_key;
 	size_t			round;
 
 

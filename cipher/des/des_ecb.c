@@ -10,15 +10,14 @@ int 		pbkdf_md5(t_cipher_context *ctx)
 	memset(final_pass, 0, sizeof(final_pass));
 	strcpy(final_pass, ctx->password);
 	memcpy(&final_pass[0] + strlen(final_pass), ctx->salt, sizeof(ctx->salt));
-	// strncat(final_pass, ctx->salt);
 	t_hash_md5 key;
 	if (cphr_is_salt_set(ctx))
 	{
-		key = calculate_md5_from_mem(final_pass, strlen(ctx->password) + CIPHER_SALT_BYTE_LEN);
+		key = calculate_md5_from_mem(final_pass, strlen(ctx->password)
+		+ CIPHER_SALT_BYTE_LEN);
 	}
 	else
 		key = calculate_md5_from_mem(final_pass, strlen(ctx->password));
-
 	memcpy(ctx->key, &key, 16);
 	return (0);
 }

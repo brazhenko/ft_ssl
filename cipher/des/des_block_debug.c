@@ -1,7 +1,7 @@
 #include "des.h"
 #include <stdio.h>
 
-int 	debug32(LPDESHALFBLOCK block)
+int 	debug32(t_lpdeshalfblock block)
 {
 	printf("0        ");
 	printf("1        ");
@@ -29,7 +29,7 @@ int 	debug32(LPDESHALFBLOCK block)
 	return 0;
 }
 
-int 	debug48key(LPDES48KEY block)
+int 	debug48key(t_lpdes48key block)
 {
 	printf("0        ");
 	printf("1        ");
@@ -61,7 +61,7 @@ int 	debug48key(LPDES48KEY block)
 	return 0;
 }
 
-int 	debug56key(LPDES56KEY block)
+int 	debug56key(t_lpdes56key block)
 {
 	printf("0        ");
 	printf("1        ");
@@ -95,7 +95,7 @@ int 	debug56key(LPDES56KEY block)
 	return 0;
 }
 
-int 	debug64key(LPDES64KEY block)
+int 	debug64key(t_lpdes64key block)
 {
 	printf("0        ");
 	printf("1        ");

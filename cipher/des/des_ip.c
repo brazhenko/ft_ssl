@@ -1,7 +1,7 @@
 #include "des.h"
 #include <stdio.h>
 
-int 	des_ip_debug(LPDESBLOCK block)
+int 	des_ip_debug(t_lpdesblock block)
 {
 	printf("0        ");
 	printf("1        ");

@@ -11,21 +11,21 @@
 # define DES_CIPHER_ROUND_COUNT (16)
 # define DES_ECB_SALT_BYTE_LEN	(8)
 
-typedef		uint8_t				DESBLOCK[8];
-typedef		DESBLOCK			*LPDESBLOCK;
-typedef		uint8_t 			DESHALFBLOCK[4];
-typedef		DESHALFBLOCK		*LPDESHALFBLOCK;
-typedef		uint8_t				DESSPREADHALFBLOCK[6];
-typedef		DESSPREADHALFBLOCK	*LPDESSPREADHALFBLOCK;
-typedef		uint8_t				DES64KEY[8];
-typedef		DES64KEY			*LPDES64KEY;
-typedef		uint8_t				DES56KEY[7];
-typedef		DES56KEY			*LPDES56KEY;
-typedef		uint8_t				DES48KEY[6];
-typedef		DES48KEY			*LPDES48KEY;
+typedef		uint8_t					t_desblock[8];
+typedef		t_desblock				*t_lpdesblock;
+typedef		uint8_t 				t_deshalfblock[4];
+typedef		t_deshalfblock			*t_lpdeshalfblock;
+typedef		uint8_t					t_desspreadhalfblock[6];
+typedef		t_desspreadhalfblock	*t_lpdesspreadhalfblock;
+typedef		uint8_t					t_des64key[8];
+typedef		t_des64key				*t_lpdes64key;
+typedef		uint8_t					t_des56key[7];
+typedef		t_des56key				*t_lpdes56key;
+typedef		uint8_t					t_des48key[6];
+typedef		t_des48key				*t_lpdes48key;
 
-ssize_t		des_get_enc_block(t_cipher_context *ctx, LPDESBLOCK block);
-ssize_t		des_get_decr_block(t_cipher_context *ctx, LPDESBLOCK block);
+ssize_t		des_get_enc_block(t_cipher_context *ctx, t_lpdesblock block);
+ssize_t		des_get_decr_block(t_cipher_context *ctx, t_lpdesblock block);
 int			try_get_des_salt_from_fd(t_cipher_context *ctx);
 
 void		*des_ecb(t_cipher_context *ctx);
@@ -62,7 +62,7 @@ void 		des_3des_decode(t_cipher_context *ctx);
 
 void 		des_permutation(unsigned char *input, unsigned char *output,
 		const size_t *arr, size_t arr_len);
-void		des_swap_block_halves(LPDESBLOCK bl);
+void		des_swap_block_halves(t_lpdesblock bl);
 
 /* beginning shuffling */
 
@@ -118,14 +118,14 @@ static const uint8_t 	des_key_pd[] = {
 	1, 2, 2, 2, 2, 2, 2, 1
 };
 
-int 			rot_des56key_blocks_left_n(LPDES56KEY key, uint8_t times);
+int 			rot_des56key_blocks_left_n(t_lpdes56key key, uint8_t times);
 
 /* key debug */
 
-int 	debug32(LPDESHALFBLOCK block);
-int 	debug48key(LPDES48KEY block);
-int 	debug56key(LPDES56KEY block);
-int 	debug64key(LPDES64KEY block);
+int 	debug32(t_lpdeshalfblock block);
+int 	debug48key(t_lpdes48key block);
+int 	debug56key(t_lpdes56key block);
+int 	debug64key(t_lpdes64key block);
 
 /* *************** */
 
@@ -206,6 +206,6 @@ static const uint8_t	s[8][4][16] =
 	}
 };
 
-int 	des_round(LPDESBLOCK block, LPDES48KEY key);
+int 	des_round(t_lpdesblock block, t_lpdes48key key);
 
 #endif
