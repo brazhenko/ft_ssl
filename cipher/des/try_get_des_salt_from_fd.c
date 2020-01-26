@@ -6,7 +6,7 @@
 
 /*
 ** try_get_des_salt_from_fd() reads 16 bytes and
-** tries get "Salten__........" pattern. Return 0 if
+** tries get "Salted__........" pattern. Returns 0 if
 ** Success, 1 if not.
 */
 
