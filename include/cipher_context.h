@@ -1,8 +1,8 @@
 #ifndef CIPHER_CONTEXT_H
 #define CIPHER_CONTEXT_H
 
-#include <limits.h>
-#include <stdlib.h>
+# include <limits.h>
+# include <stdlib.h>
 
 # define MAX_KEY_BYTE_LEN		(64)
 # define CIPHER_SALT_BYTE_LEN	(8)

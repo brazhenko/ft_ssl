@@ -64,7 +64,10 @@ void 		des_permutation(unsigned char *input, unsigned char *output,
 		const size_t *arr, size_t arr_len);
 void		des_swap_block_halves(t_lpdesblock bl);
 
-/* beginning shuffling */
+
+/*
+** beginning shuffling
+*/
 
 static const size_t	des_ip_perm[] = {
 	57, 49, 41, 33, 25, 17, 9, 1,
@@ -77,7 +80,9 @@ static const size_t	des_ip_perm[] = {
 	62, 54, 46, 38, 30, 22, 14, 6
 };
 
-/* ending shuffling */
+/*
+** ending shuffling
+*/
 
 static const size_t	des_r_ip_perm[] = {
 	39, 7, 47, 15, 55, 23, 63, 31,
@@ -90,7 +95,9 @@ static const size_t	des_r_ip_perm[] = {
 	32, 0, 40, 8, 48, 16, 56, 24
 };
 
-/* round key compress and shuffle table */
+/*
+** round key compress and shuffle table
+*/
 
 static const size_t	init_key_pm[] = {
 	56, 48, 40, 32, 24, 16, 8, 0,
@@ -102,6 +109,10 @@ static const size_t	init_key_pm[] = {
 	28, 20, 12, 4, 27, 19, 11, 3
 };
 
+/*
+** final key permutation
+*/
+
 static const size_t	final_key_pm[] = {
 	13, 16, 10, 23, 0, 4, 2, 27,
 	14, 5, 20, 9, 22, 18, 11, 3,
@@ -111,7 +122,9 @@ static const size_t	final_key_pm[] = {
 	33, 52, 45, 41, 49, 35, 28, 31
 };
 
-/* ******************** */
+/*
+** key rotation count
+*/
 
 static const uint8_t 	des_key_pd[] = {
 	1, 1, 2, 2, 2, 2, 2, 2,
@@ -120,19 +133,23 @@ static const uint8_t 	des_key_pd[] = {
 
 int 			rot_des56key_blocks_left_n(t_lpdes56key key, uint8_t times);
 
-/* key debug */
+/*
+** key debug
+*/
 
 int 	debug32(t_lpdeshalfblock block);
 int 	debug48key(t_lpdes48key block);
 int 	debug56key(t_lpdes56key block);
 int 	debug64key(t_lpdes64key block);
 
-/* *************** */
 
+/*
+** cipher part
+*/
 
-/* cipher */
-
-/* Des half block spread table */
+/*
+** Des half block spread table
+*/
 
 static const size_t	des_e_tbl[] = {
 		31, 0, 1, 2, 3, 4, 3, 4,
@@ -143,7 +160,9 @@ static const size_t	des_e_tbl[] = {
 		27, 28, 27, 28, 29, 30, 31, 0
 };
 
-/* table P */
+/*
+** table P
+*/
 
 static const size_t	des_p_tbl[] = {
 		15, 6, 19, 20, 28, 11, 27, 16,
@@ -152,7 +171,9 @@ static const size_t	des_p_tbl[] = {
 		18, 12, 29, 5, 21, 10, 3, 24
 };
 
-/*  s-table */
+/*
+** s-table
+*/
 
 static const uint8_t	s[8][4][16] =
 {
