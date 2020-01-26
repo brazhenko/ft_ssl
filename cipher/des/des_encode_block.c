@@ -28,6 +28,7 @@ int 		feistel(t_lpdeshalfblock hb, t_lpdes48key key, t_lpdeshalfblock res)
 int 	des_round(t_lpdesblock block, t_lpdes48key key)
 {
 	t_deshalfblock		tmp;
+
 	memset(&tmp, 0, sizeof(tmp));
 	//
 	feistel((t_lpdeshalfblock)((uint8_t *)block + 4), key, &tmp);

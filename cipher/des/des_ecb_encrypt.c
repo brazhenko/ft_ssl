@@ -21,7 +21,6 @@ void 		des_ecb_encrypt(t_cipher_context *ctx)
 			rot_des56key_blocks_left_n(&key56, des_key_pd[round]);
 			des_permutation(key56, final_key, final_key_pm,
 			sizeof(final_key_pm) / sizeof(final_key_pm[0]));
-
 			des_round(&block, &final_key);
 			round++;
 		}
