@@ -16,8 +16,9 @@ int		try_get_des_salt_from_fd(t_cipher_context *ctx)
 	char 		buf[16];
 
 	rd = read(ctx->input_fd, buf, sizeof(buf));
-	if (rd == sizeof(buf) && !strncmp(buf, "Salten__", 8))
+	if (rd == sizeof(buf) && !strncmp(buf, "Salted__", 8))
 	{
+		ctx->mode |= 0b1000000;
 		memcpy(ctx->salt, &buf[8], sizeof(ctx->salt));
 		return (0);
 	}

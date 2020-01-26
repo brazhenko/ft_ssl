@@ -78,8 +78,16 @@ static int 		cphr_is_iv_set(t_cipher_context *ctx)
 	return ((ctx)->mode & (1U << 7U));
 }
 
+/*
+ * ctor & dtor
+ */
+
 t_cipher_context	*init_cipher_context(void *cipher_alg_ptr);
 void				destruct_cipher_context(t_cipher_context *ctx);
+
+/*
+ * argv states parser
+ */
 
 t_cipher_context	*ci_state_a(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_d(int argc, char **argv, t_cipher_context *ctx);
@@ -90,8 +98,11 @@ t_cipher_context	*ci_state_o(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_p(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_s(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_v(int argc, char **argv, t_cipher_context *ctx);
-
 t_cipher_context	*parse_des_argv(t_cipher_context *ctx, int argc, char **argv);
+
+/*
+ * argv instructions
+ */
 
 int 	set_cipher_input_file(t_cipher_context *ctx,
 		const char *input_file_name);

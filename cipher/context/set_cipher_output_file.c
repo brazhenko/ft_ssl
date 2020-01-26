@@ -13,7 +13,7 @@ int					set_cipher_output_file(t_cipher_context *ctx,
 	memset(ctx->output_file, '\0', PATH_MAX);
 	strcpy(ctx->output_file, output_file_name);
 	ctx->mode |= 0b10;
-	output_fd = open(output_file_name, O_CREAT | O_WRONLY);
+	output_fd = open(output_file_name, O_CREAT | O_WRONLY, 0666);
 	ctx->output_fd = output_fd;
 	if (output_fd < 0)
 	{
