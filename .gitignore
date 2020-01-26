@@ -73,6 +73,7 @@ tests/TimeBenchmarkFiles/1GB
 tests/TimeBenchmarkFiles/2GB
 tests/TimeBenchmarkFiles/4GB
 tests/TimeBenchmarkFiles/50MB
+secret/
 
 # Debug files
 *.dSYM/
