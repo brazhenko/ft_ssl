@@ -7,6 +7,7 @@
 int 		pbkdf_md5(t_cipher_context *ctx)
 {
 	char final_pass[2048];
+
 	memset(final_pass, 0, sizeof(final_pass));
 	strcpy(final_pass, ctx->password);
 	memcpy(&final_pass[0] + strlen(final_pass), ctx->salt, sizeof(ctx->salt));
