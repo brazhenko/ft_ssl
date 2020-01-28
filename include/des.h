@@ -78,7 +78,7 @@ void		des_swap_block_halves(t_lpdesblock bl);
 ** beginning shuffling
 */
 
-static const size_t	des_ip_perm[] = {
+static const size_t	g_des_ip_perm[] = {
 	57, 49, 41, 33, 25, 17, 9, 1,
 	59, 51, 43, 35, 27, 19, 11, 3,
 	61, 53, 45, 37, 29, 21, 13, 5,
@@ -235,6 +235,6 @@ static const uint8_t	s[8][4][16] =
 	}
 };
 
-int 	des_round(t_lpdesblock block, t_lpdes48key key);
+int				des_round(t_lpdesblock block, t_lpdes48key key);
 
 #endif

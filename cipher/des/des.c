@@ -6,8 +6,8 @@ void		des_encrypt_block(t_des64key key, t_lpdesblock block)
 	t_des48key		final_key;
 	size_t			round;
 
-	des_permutation(*block, *block, des_ip_perm,
-			sizeof(des_ip_perm) / sizeof(des_ip_perm[0]));
+	des_permutation(*block, *block, g_des_ip_perm,
+			sizeof(g_des_ip_perm) / sizeof(g_des_ip_perm[0]));
 	des_permutation(key, key56, init_key_pm,
 			sizeof(init_key_pm) / sizeof(init_key_pm[0]));
 	round = 0;
@@ -30,8 +30,8 @@ void		des_decrypt_block(t_des64key key, t_lpdesblock block)
 	t_des48key		final_key;
 	size_t			round;
 
-	des_permutation(*block, *block, des_ip_perm,
-			sizeof(des_ip_perm) / sizeof(des_ip_perm[0]));
+	des_permutation(*block, *block, g_des_ip_perm,
+			sizeof(g_des_ip_perm) / sizeof(g_des_ip_perm[0]));
 	des_permutation(key, key56, init_key_pm,
 			sizeof(init_key_pm) / sizeof(init_key_pm[0]));
 	round = DES_CIPHER_ROUND_COUNT;

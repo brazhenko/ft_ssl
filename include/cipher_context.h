@@ -27,6 +27,8 @@ struct		s_cipher_context
 	void		*alg_ptr;
 };
 
+typedef struct s_cipher_context t_cipher_context;
+
 /*
 ** Cipher context part
 ** s_cipher_context.mode = {0, 1, ..., 30, 31} UInt32.
@@ -41,42 +43,17 @@ struct		s_cipher_context
 ** 24 vector_ini/no vector_ini
 */
 
-typedef struct s_cipher_context t_cipher_context;
+/*
+ * context status methodds
+ */
 
-static int 		cphr_is_encrypt_mode(t_cipher_context *ctx)
-{
-	return (!(ctx->mode & 0b1U));
-}
-
-static int 		cphr_is_decrypt_mode(t_cipher_context *ctx)
-{
-	return ((ctx->mode & 0b1U));
-}
-
-static int 		cphr_is_a_flag(t_cipher_context *ctx)
-{
-	return ((ctx)->mode & (1U << 3U));
-}
-
-static int 		cphr_is_key_set(t_cipher_context *ctx)
-{
-	return ((ctx)->mode & (1U << 4U));
-}
-
-static int 		cphr_is_pass_set(t_cipher_context *ctx)
-{
-	return ((ctx)->mode & (1U << 5U));
-}
-
-static int 		cphr_is_salt_set(t_cipher_context *ctx)
-{
-	return ((ctx)->mode & (1U << 6U));
-}
-
-static int 		cphr_is_iv_set(t_cipher_context *ctx)
-{
-	return ((ctx)->mode & (1U << 7U));
-}
+int 		cphr_is_encrypt_mode(t_cipher_context *ctx);
+int 		cphr_is_decrypt_mode(t_cipher_context *ctx);
+int 		cphr_is_a_flag(t_cipher_context *ctx);
+int 		cphr_is_key_set(t_cipher_context *ctx);
+int 		cphr_is_pass_set(t_cipher_context *ctx);
+int 		cphr_is_salt_set(t_cipher_context *ctx);
+int 		cphr_is_iv_set(t_cipher_context *ctx);
 
 /*
  * ctor & dtor

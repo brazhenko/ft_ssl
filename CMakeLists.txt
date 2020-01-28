@@ -14,7 +14,8 @@ set(FT_SSL_SRC
 		ssl/help.c
 		ssl/main.c
 		ssl/parse_hash_flags.c
-		ssl/encode_executor.c ssl/wrong_command_exit.c)
+		ssl/encode_executor.c
+		ssl/wrong_command_exit.c)
 
 set(MD5_SRC
 		hash/md5/calculate_md5_block.c
@@ -22,7 +23,8 @@ set(MD5_SRC
 		hash/md5/calculate_md5_from_fd.c
 		hash/md5/calculate_md5_from_string.c
 		hash/md5/md5.c
-		hash/md5/print_md5.c hash/md5/calculate_md5_from_mem.c)
+		hash/md5/print_md5.c
+		hash/md5/calculate_md5_from_mem.c)
 
 set(SHA256_SRC
 		hash/sha256/calc_sha256_buf_padding.c
@@ -75,9 +77,7 @@ set(DES_SRC
 		cipher/des/des_ofb_decode.c
 		cipher/context/set_cipher_bufsize.c
 		cipher/des/des_get_block.c
-		cipher/des/des_ip.c
 		cipher/des/des_key_gen.c
-		cipher/des/des_block_debug.c
 		cipher/des/des_encode_block.c
 		cipher/context/set_cipher_key.c
 		ssl/cipher_executor.c
@@ -93,7 +93,14 @@ set(DES_SRC
 		cipher/pbkdf/pbkdf_md5.c
 		include/pbkdf.h
 		cipher/des/des.c
-		cipher/des/des_cut_padding.c)
+		cipher/des/des_cut_padding.c
+		cipher/context/cphr_is_a_flag.c
+		cipher/context/cphr_is_decrypt_mode.c
+		cipher/context/cphr_is_encrypt_mode.c
+		cipher/context/cphr_is_iv_set.c
+		cipher/context/cphr_is_key_set.c
+		cipher/context/cphr_is_pass_set.c
+		cipher/context/cphr_is_salt_set.c)
 
 SET(UTILITIES_SRC
 		ssl/utilities/is_flag.c
