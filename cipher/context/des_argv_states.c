@@ -241,7 +241,7 @@ t_cipher_context	*ci_state_p(int argc, char **argv, t_cipher_context *ctx)
 t_cipher_context	*ci_state_s(int argc, char **argv, t_cipher_context *ctx)
 {
 	if (!(*argv))
-		token_needs_arg_exit("-s");
+		token_needs_arg_exit("-g_s");
 	set_cipher_pass_salt(ctx, *argv);
 	argv++;
 	argc--;

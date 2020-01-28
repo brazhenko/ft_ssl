@@ -1,0 +1,649 @@
+Norme: ./cipher/context/set_cipher_bufsize.c
+Error: file must end with a single empty line
+
+Error (line 7, col 0): no newline after block
+
+Norme: ./cipher/context/destruct_cipher_context.c
+Error: file must end with a single empty line
+
+Error (line 11, col 0): no newline after block
+Norme: ./cipher/context/init_cipher_context.c
+Error: file must end with a single empty line
+
+Error (line 17, col 0): no newline after block
+Norme: ./cipher/context/set_cipher_input_file.c
+Error: file must end with a single empty line
+
+Error (line 8): Space before function name
+Error (line 8, col 3): bad spacing
+Error (line 11, col 4): bad spacing
+Error (line 25, col 0): no newline after block
+Norme: ./cipher/context/set_cipher_output_file.c
+Error: file must end with a single empty line
+
+Error (line 11, col 4): bad spacing
+Error (line 25, col 0): no newline after block
+Norme: ./cipher/context/set_cipher_init_vector.c
+Error: file must end with a single empty line
+
+Error (line 7, col 21): global named hex2bin is not well prefixed
+Error (line 39): Space before function name
+Error (line 39, col 3): bad spacing
+Error (line 61, col 0): no newline after block
+Norme: ./cipher/context/set_cipher_key.c
+Error: file must end with a single empty line
+
+Error (line 5, col 21): global named hex2bin is not well prefixed
+Error (line 58): bad indentation
+Error (line 58): C++ comment
+Error (line 61): Empty line
+Error (line 66, col 0): no newline after block
+Norme: ./cipher/context/set_cipher_password_from_stdin.c
+Error: file must end with a single empty line
+
+Error (line 6): Space before function name
+Error (line 6, col 3): bad spacing
+Error (line 32, col 0): no newline after block
+Norme: ./cipher/context/set_cipher_random_pass_salt.c
+
+Error (line 13): Space before function name
+Error (line 13, col 3): bad spacing
+Error (line 15, col 4): bad spacing
+Error (line 25): Empty line
+Norme: ./cipher/context/set_cipher_pass_salt.c
+Error: global scope bad aligned
+
+Error (line 7, col 21): global named hex2bin is not well prefixed
+Error (line 43): multiple empty lines
+Error (line 44): bad spacing before set_cipher_pass_salt
+Norme: ./cipher/des/des_3des.c
+Error: file must end with a single empty line
+
+Error (line 13, col 0): no newline after block
+Norme: ./cipher/des/des_3des_encode.c
+Error: file must end with a single empty line
+
+Error (line 3): Space before function name
+Error (line 3, col 4): bad spacing
+Error (line 6, col 0): no empty line before block
+Error (line 6, col 0): no newline after block
+Norme: ./cipher/des/des.c
+Error: file must end with a single empty line
+
+Error (line 40): bad indentation
+Error (line 40): C++ comment
+Error (line 44, col 39): missing space around -
+Error (line 50, col 0): no newline after block
+Norme: ./cipher/des/des_cbc.c
+Error: file must end with a single empty line
+
+Error (line 46): Empty line
+Error (line 47, col 0): no empty line before block
+Error (line 62, col 0): no newline after block
+Norme: ./cipher/des/des_cbc_decrypt.c
+
+Error (line 6): Space before function name
+Error (line 6, col 4): bad spacing
+Error (line 18): line has 99 characters
+Error (line 18): C++ comment
+Norme: ./cipher/des/des_cbc_encrypt.c
+
+Error (line 6): Space before function name
+Error (line 6, col 4): bad spacing
+Norme: ./cipher/des/des_cfb.c
+Error: file must end with a single empty line
+
+Error (line 13, col 0): no newline after block
+Norme: ./cipher/des/des_cfb_decode.c
+Error: file must end with a single empty line
+
+Error (line 1): C++ comment
+Error (line 2): C++ comment
+Error (line 3): C++ comment
+Norme: ./cipher/des/des_cfb_encode.c
+Error: file must end with a single empty line
+
+Error (line 1): C++ comment
+Error (line 2): C++ comment
+Error (line 3): C++ comment
+Norme: ./cipher/des/des_ctr.c
+Error: file must end with a single empty line
+
+Error (line 13, col 0): no newline after block
+Norme: ./cipher/des/des_ctr_decode.c
+Error: file must end with a single empty line
+
+Error (line 1): C++ comment
+Error (line 2): C++ comment
+Error (line 3): C++ comment
+
+
+Norme: ./cipher/des/des_cut_padding.c
+Error: file must end with a single empty line
+
+Error (line 7): bad indentation
+Error (line 7): C++ comment
+Error (line 22): line has 87 characters
+Error (line 24, col 0): no newline after block
+Norme: ./cipher/des/des_ecb.c
+Error: file must end with a single empty line
+
+Error (line 45, col 0): no newline after block
+Norme: ./cipher/des/des_ecb_decrypt.c
+
+Error (line 4): Space before function name
+Error (line 4, col 4): bad spacing
+Error (line 12): line has 105 characters
+Error (line 12): C++ comment
+Norme: ./cipher/des/des_ecb_encrypt.c
+
+Error (line 4): Space before function name
+Error (line 4, col 4): bad spacing
+Norme: ./cipher/des/des_encode_block.c
+Error: global scope bad aligned
+
+Error (line 13): Space before function name
+Error (line 13): declarations in feistel are bad aligned
+Error (line 13, col 3): bad spacing
+Error (line 28): Space before function name
+Error (line 28, col 3): bad spacing
+Error (line 33): C++ comment
+Error (line 36): C++ comment
+Norme: ./cipher/des/des_get_block.c
+Error: file must end with a single empty line
+
+Error (line 10): declarations in des_get_enc_block must be at the top of the function
+Error (line 10): declarations must be followed by one empty line in des_get_enc_block
+Error (line 21): 2 instructions
+Error (line 21): for detected
+Error (line 21, col 11): j is instanciated during declaration
+Error (line 22): bad indentation
+Error (line 38, col 19): space before ,
+Error (line 42, col 0): no newline after block
+
+Norme: ./cipher/des/des_key_gen.c
+Error: file must end with a single empty line
+
+Error (line 9): wrong number of spaces in preprocessor indentation
+Error (line 10): wrong number of spaces in preprocessor indentation
+Error (line 27): C++ comment
+Error (line 33): Empty line
+Error (line 37): Space before function name
+Error (line 37, col 3): bad spacing
+Error (line 47): C++ comment
+Error (line 48): bad spacing before rot_des56key_blocks_right
+Error (line 63): C++ comment
+Error (line 69): Empty line
+Error (line 73): Space before function name
+Error (line 73, col 3): bad spacing
+Error (line 81, col 0): no newline after block
+Norme: ./cipher/des/des_ofb.c
+Error: file must end with a single empty line
+
+Error (line 13, col 0): no newline after block
+Norme: ./cipher/des/des_ofb_decode.c
+Error: file must end with a single empty line
+
+Error (line 3): Space before function name
+Error (line 3, col 4): bad spacing
+Error (line 6, col 0): no empty line before block
+Error (line 6, col 0): no newline after block
+Norme: ./cipher/des/des_ofb_encode.c
+Error: file must end with a single empty line
+
+Error (line 3): Space before function name
+Error (line 3, col 4): bad spacing
+Error (line 6, col 0): no empty line before block
+Error (line 6, col 0): no newline after block
+
+Norme: ./cipher/context/des_argv_states.c
+Error: global scope bad aligned
+
+Error: 12 functions in the file
+Error (line 6, col 4): space after pointer
+Error (line 12, col 4): space after pointer
+Error (line 12, col 5): bad spacing
+Error (line 111): function ci_state_i has 27 lines
+Error (line 146): function ci_state_k has 27 lines
+Error (line 177): function ci_state_o has 27 lines
+Error (line 208): function ci_state_p has 29 lines
+Error (line 241): function ci_state_s has 27 lines
+Error (line 272): bad spacing after ci_state_v
+Error (line 272): function ci_state_v has 27 lines
+Error (line 303): multiple empty lines
+Error (line 304): bad spacing before parse_des_argv
+Error (line 304): line has 82 characters
+Norme: ./cipher/des/des_3des_decode.c
+Error: file must end with a single empty line
+
+Error (line 3): Space before function name
+Error (line 3, col 4): bad spacing
+Error (line 6, col 0): no empty line before block
+Error (line 6, col 0): no newline after block
+Norme: ./cipher/des/des_ctr_encode.c
+Error: file must end with a single empty line
+
+Error (line 1): C++ comment
+Error (line 2): C++ comment
+Error (line 3): C++ comment
+Norme: ./cipher/des/des_permutation.c
+
+Error (line 21): Space before function name
+Error (line 21, col 4): bad spacing
+Norme: ./cipher/des/des_swap_block_halves.c
+
+Norme: ./encode/base64/base64.c
+
+Error (line 4): multiple empty lines
+Error (line 5): bad spacing before base64
+Norme: ./cipher/des/try_get_des_salt_from_fd.c
+Error: file must end with a single empty line
+
+Error (line 16, col 5): bad spacing
+Error (line 37, col 0): no newline after block
+Norme: ./cipher/pbkdf/pbkdf_md5.c
+Error: file must end with a single empty line
+
+Error (line 3): Space before function name
+Error (line 3): declarations in pbkdf_md5 must be at the top of the function
+Error (line 3): declarations must be followed by one empty line in pbkdf_md5
+Error (line 3): declarations in pbkdf_md5 are bad aligned
+Error (line 3, col 3): bad spacing
+Error (line 25, col 0): no newline after block
+Norme: ./encode/context/argv_errors.c
+
+Error (line 5): Space before function name
+Error (line 5, col 4): bad spacing
+Norme: ./encode/context/destruct_encode_context.c
+Error: file must end with a single empty line
+
+Error (line 7, col 0): no newline after block
+Norme: ./encode/base64/base64_decode.c
+Error (line 32): function base64_decode_block has 39 lines
+Norme: ./encode/base64/base64_encode.c
+Norme: ./encode/context/init_encode_context.c
+Error: file must end with a single empty line
+
+Error (line 5): Space before function name
+Error (line 5, col 16): bad spacing
+Error (line 14, col 0): no newline after block
+Norme: ./encode/context/set_decode_mode.c
+Error: file must end with a single empty line
+
+Error (line 3): Space before function name
+Error (line 3, col 3): bad spacing
+Error (line 7, col 0): no newline after block
+Norme: ./encode/context/set_encode_mode.c
+Error: file must end with a single empty line
+
+Error (line 3): Space before function name
+Error (line 3, col 3): bad spacing
+Error (line 7, col 0): no newline after block
+Norme: ./encode/context/parse_encode_argv.c
+Error: file must end with a single empty line
+
+Error (line 26, col 0): no newline after block
+Norme: ./cipher/des/s_permutation.h
+Error: global scope bad aligned
+
+Error (line 4): wrong number of spaces in preprocessor indentation
+Error (line 5): wrong number of spaces in preprocessor indentation
+Error (line 6): wrong number of spaces in preprocessor indentation
+Error (line 7): wrong number of spaces in preprocessor indentation
+Error (line 14): definition of t forbidden in .h
+Error (line 19): definition of cb2 forbidden in .h
+Error (line 19): Space before function name
+Error (line 19, col 14): bad spacing
+Error (line 24): definition of cb4 forbidden in .h
+Error (line 24): Space before function name
+Error (line 24, col 14): bad spacing
+Error (line 29): definition of s_permutation forbidden in .h
+Error (line 29): Space before function name
+Error (line 29, col 10): bad spacing
+Error (line 33): line has 85 characters
+Error (line 37): line has 85 characters
+Error (line 41): line has 85 characters
+Error (line 45): line has 85 characters
+Norme: ./encode/context/set_input_file.c
+Error: file must end with a single empty line
+
+Error (line 11, col 4): bad spacing
+Error (line 25, col 0): no newline after block
+Norme: ./encode/encode_usage.c
+Error: file must end with a single empty line
+
+Error (line 7, col 27): space before ,
+Error (line 16): missing void in function encode_print_usage_exit
+Error (line 20, col 0): no newline after block
+Norme: ./encode/context/set_output_file.c
+Error: file must end with a single empty line
+
+Error (line 12, col 4): bad spacing
+Error (line 26, col 0): no newline after block
+Norme: ./encode/context/encode_argv_states.c
+Error: file must end with a single empty line
+
+Error (line 6): line has 82 characters
+Error (line 26): line has 82 characters
+Error (line 46): line has 82 characters
+Error (line 73): line has 82 characters
+Error (line 98, col 0): no newline after block
+Norme: ./hash/md5/calculate_md5_buf_padding.c
+Norme: ./hash/md5/calculate_md5_from_fd.c
+Norme: ./hash/md5/calculate_md5_from_mem.c
+Norme: ./hash/md5/calculate_md5_from_string.c
+Norme: ./hash/md5/md5.c
+Norme: ./hash/sha256/calc_sha256_buf_padding.c
+Norme: ./hash/md5/print_md5.c
+Norme: ./hash/sha256/calc_sha256_from_string.c
+Norme: ./hash/sha256/calc_sha256_from_fd.c
+Norme: ./hash/sha256/print_sha256.c
+Norme: ./hash/Whirlpool/whirlpool.c
+Norme: ./include/base64.h
+
+Error (line 7, col 18): global named base64_arr is not well prefixed
+Error (line 18, col 18): global named base64_dec_arr is not well prefixed
+Error (line 19): C++ comment
+Error (line 21): C++ comment
+Error (line 23): C++ comment
+Error (line 24, col 15): bad spacing
+Error (line 24, col 35): bad spacing
+Error (line 25): C++ comment
+Error (line 25): must begin only by tabulations
+Error (line 25, col 5): bad spacing
+Error (line 25, col 10): bad spacing
+Error (line 25, col 15): bad spacing
+Error (line 25, col 20): bad spacing
+Error (line 25, col 25): bad spacing
+Error (line 25, col 30): bad spacing
+Error (line 25, col 35): bad spacing
+Error (line 26): C++ comment
+Error (line 26): must begin only by tabulations
+Error (line 26, col 5): bad spacing
+Error (line 27): C++ comment
+Error (line 27, col 5): bad spacing
+Error (line 27, col 10): bad spacing
+Error (line 27, col 15): bad spacing
+Error (line 27, col 20): bad spacing
+Error (line 27, col 25): bad spacing
+Error (line 27, col 30): bad spacing
+Error (line 27, col 35): bad spacing
+Error (line 28): must begin only by tabulations
+Error (line 28, col 5): bad spacing
+Error (line 28, col 10): bad spacing
+Error (line 28, col 15): bad spacing
+Error (line 28, col 20): bad spacing
+Error (line 28, col 25): bad spacing
+Error (line 28, col 30): bad spacing
+Error (line 28, col 35): bad spacing
+Error (line 29): C++ comment
+Error (line 29): must begin only by tabulations
+Error (line 29, col 5): bad spacing
+Error (line 29, col 10): bad spacing
+Error (line 29, col 15): bad spacing
+Error (line 29, col 20): bad spacing
+Error (line 29, col 25): bad spacing
+Error (line 29, col 30): bad spacing
+Error (line 29, col 35): bad spacing
+Error (line 30): must begin only by tabulations
+Error (line 30, col 5): bad spacing
+Error (line 30, col 10): bad spacing
+Error (line 31): C++ comment
+Error (line 31, col 5): bad spacing
+Error (line 31, col 10): bad spacing
+Error (line 31, col 15): bad spacing
+Error (line 31, col 20): bad spacing
+Error (line 31, col 25): bad spacing
+Error (line 31, col 30): bad spacing
+Error (line 31, col 35): bad spacing
+Error (line 32): must begin only by tabulations
+Error (line 32, col 5): bad spacing
+Error (line 32, col 10): bad spacing
+Error (line 32, col 15): bad spacing
+Error (line 32, col 20): bad spacing
+Error (line 32, col 25): bad spacing
+Error (line 32, col 30): bad spacing
+Error (line 32, col 35): bad spacing
+Error (line 33): C++ comment
+Error (line 33): must begin only by tabulations
+Error (line 33, col 5): bad spacing
+Error (line 33, col 10): bad spacing
+Error (line 33, col 15): bad spacing
+Error (line 33, col 20): bad spacing
+Error (line 33, col 25): bad spacing
+Error (line 33, col 30): bad spacing
+Error (line 33, col 35): bad spacing
+Error (line 34): must begin only by tabulations
+Error (line 34, col 5): bad spacing
+Error (line 34, col 10): bad spacing
+Error (line 61, col 4): bad spacing
+Error (line 62, col 4): bad spacing
+Norme: ./hash/sha256/sha256.c
+Norme: ./include/cipher_context.h
+Error: global scope bad aligned
+Error: 7 functions in the file
+
+Error (line 2): wrong number of spaces in preprocessor indentation
+Error (line 17, col 5): bad spacing
+Error (line 18, col 5): bad spacing
+Error (line 19, col 4): bad spacing
+Error (line 22, col 8): bad spacing
+Error (line 26, col 9): bad spacing
+Error (line 44): must have tabulations between s_cipher_context and t_cipher_context
+Error (line 46): Space before function name
+Error (line 46): definition of cphr_is_encrypt_mode forbidden in .h
+Error (line 46, col 10): bad spacing
+Error (line 51): Space before function name
+Error (line 51): definition of cphr_is_decrypt_mode forbidden in .h
+Error (line 51, col 10): bad spacing
+Error (line 56): Space before function name
+Error (line 56): definition of cphr_is_a_flag forbidden in .h
+Error (line 56, col 10): bad spacing
+Error (line 61): Space before function name
+Error (line 61): definition of cphr_is_key_set forbidden in .h
+Error (line 61, col 10): bad spacing
+Error (line 66): Space before function name
+Error (line 66): definition of cphr_is_pass_set forbidden in .h
+Error (line 66, col 10): bad spacing
+Error (line 71): Space before function name
+Error (line 71): definition of cphr_is_salt_set forbidden in .h
+Error (line 71, col 10): bad spacing
+Error (line 76): Space before function name
+Error (line 76): definition of cphr_is_iv_set forbidden in .h
+Error (line 76, col 10): bad spacing
+Error (line 81): comment not well formatted
+Error (line 88): comment not well formatted
+Error (line 101): line has 83 characters
+Error (line 103): comment not well formatted
+Error (line 107, col 3): bad spacing
+Error (line 112, col 4): bad spacing
+Error (line 114, col 3): bad spacing
+Error (line 115, col 3): bad spacing
+Error (line 116, col 3): bad spacing
+Norme: ./include/encode_context.h
+Error: global scope bad aligned
+
+Error (line 2): wrong number of spaces in preprocessor indentation
+Error (line 17, col 5): bad spacing
+Error (line 18, col 5): bad spacing
+Error (line 19, col 4): bad spacing
+Error (line 21, col 9): bad spacing
+Error (line 27): must have tabulations between s_encode_context and t_encode_context
+Error (line 29, col 16): bad spacing
+Error (line 31, col 3): bad spacing
+Error (line 32, col 3): bad spacing
+Error (line 35, col 3): bad spacing
+Error (line 52, col 4): bad spacing
+Norme: ./include/md5.h
+Error (line 18): parameterized macros are forbidden
+Error (line 19): parameterized macros are forbidden
+Error (line 20): parameterized macros are forbidden
+Error (line 21): parameterized macros are forbidden
+Error (line 23): parameterized macros are forbidden
+Error (line 25): parameterized macros are forbidden
+Error (line 27): parameterized macros are forbidden
+Error (line 29): parameterized macros are forbidden
+Error (line 31): parameterized macros are forbidden
+Error (line 52): define must be a constant value
+Error (line 53): define must be a constant value
+Norme: ./include/pbkdf.h
+
+Error (line 6, col 3): bad spacing
+Norme: ./include/sha256.h
+Error (line 25): parameterized macros are forbidden
+Error (line 26): parameterized macros are forbidden
+Error (line 27): parameterized macros are forbidden
+Error (line 28): parameterized macros are forbidden
+Error (line 30): parameterized macros are forbidden
+Error (line 31): parameterized macros are forbidden
+Error (line 32): parameterized macros are forbidden
+Error (line 33): parameterized macros are forbidden
+Error (line 35): multiple empty lines
+Norme: ./include/sha384.h
+Norme: ./include/ssl.h
+Error (line 26): define must be a constant value
+Error (line 27): define must be a constant value
+Error (line 28): define must be a constant value
+Error (line 29): define must be a constant value
+Error (line 30): define must be a constant value
+Error (line 31): define must be a constant value
+Error (line 32): define must be a constant value
+Error (line 33): define must be a constant value
+Error (line 37): must have tabulations between uint32_t and t_reg32
+Error (line 37, col 16): bad spacing
+Error (line 39): # include "sha256.h" should be before line 37
+Error (line 40): # include "md5.h" should be before line 37
+Error (line 41): # include "base64.h" should be before line 37
+Error (line 48): line has 86 characters
+Error (line 52): line has 83 characters
+Error (line 54, col 4): bad spacing
+Norme: ./include/utilities.h
+Error (line 16): wrong number of spaces in preprocessor indentation
+Error (line 18): parameterized macros are forbidden
+Error (line 34, col 4): bad spacing
+
+Norme: ./include/des.h
+Error: global scope bad aligned
+
+Error (line 2): wrong number of spaces in preprocessor indentation
+Error (line 9): define must be a constant value
+Error (line 10): define must be a constant value
+Error (line 11): define must be a constant value
+Error (line 12): define must be a constant value
+Error (line 14): must have only one space between customtype and t_desblock.
+Error (line 15): must have only one space between customtype and t_lpdesblock.
+Error (line 16): must have tabulations between uint8_t and t_deshalfblock
+Error (line 16): must have only one space between customtype and t_deshalfblock.
+Error (line 16, col 16): bad spacing
+Error (line 17): must have only one space between customtype and t_lpdeshalfblock.
+Error (line 18): must have only one space between customtype and t_desspreadhalfblock.
+Error (line 19): must have only one space between customtype and t_lpdesspreadhalfblock.
+Error (line 20): must have only one space between customtype and t_des64key.
+Error (line 21): must have only one space between customtype and t_lpdes64key.
+Error (line 22): must have only one space between customtype and t_des56key.
+Error (line 23): must have only one space between customtype and t_lpdes56key.
+Error (line 24): must have only one space between customtype and t_des48key.
+Error (line 25): must have only one space between customtype and t_lpdes48key.
+Error (line 32): comment not well formatted
+Error (line 39): multiple empty lines
+Error (line 41, col 4): bad spacing
+Error (line 42, col 4): bad spacing
+Error (line 45, col 4): bad spacing
+Error (line 46, col 4): bad spacing
+Error (line 49, col 4): bad spacing
+Error (line 50, col 4): bad spacing
+Error (line 53, col 4): bad spacing
+Error (line 54, col 4): bad spacing
+Error (line 57, col 4): bad spacing
+Error (line 58, col 4): bad spacing
+Error (line 61, col 4): bad spacing
+Error (line 62, col 4): bad spacing
+Error (line 72, col 4): bad spacing
+Error (line 76): multiple empty lines
+Error (line 81, col 20): global named des_ip_perm is not well prefixed
+Error (line 96, col 20): global named des_r_ip_perm is not well prefixed
+Error (line 111, col 20): global named init_key_pm is not well prefixed
+Error (line 125, col 20): global named final_key_pm is not well prefixed
+Error (line 138, col 20): bad spacing
+Error (line 138, col 22): global named des_key_pd is not well prefixed
+Error (line 143, col 3): bad spacing
+Error (line 149, col 3): bad spacing
+Error (line 150, col 3): bad spacing
+Error (line 151, col 3): bad spacing
+Error (line 152, col 3): bad spacing
+Error (line 162, col 20): global named des_e_tbl is not well prefixed
+Error (line 163): bad indentation
+Error (line 164): bad indentation
+Error (line 165): bad indentation
+Error (line 166): bad indentation
+Error (line 167): bad indentation
+Error (line 168): bad indentation
+Error (line 175, col 20): global named des_p_tbl is not well prefixed
+Error (line 176): bad indentation
+Error (line 177): bad indentation
+Error (line 178): bad indentation
+Error (line 179): bad indentation
+Error (line 186, col 21): global named s is not well prefixed
+Error (line 238, col 3): bad spacing
+
+Norme: ./ssl/cipher_executor.c
+Error: file must end with a single empty line
+
+Error (line 5): line has 82 characters
+Error (line 13, col 0): no newline after block
+Norme: ./ssl/command_executor.c
+Norme: ./ssl/encode_executor.c
+
+Error (line 3): declarations must be followed by one empty line in encode_executor
+Norme: ./ssl/hash_executor.c
+Norme: ./ssl/help.c
+Error (line 42, col 3): space before )
+Norme: ./ssl/main.c
+Norme: ./ssl/parse_hash_flags.c
+Norme: ./ssl/utilities/is_flag.c
+Norme: ./ssl/utilities/mem_xor.c
+Error: file must end with a single empty line
+
+Error (line 8): Space before function name
+Error (line 8): declarations in mem_xor must be at the top of the function
+Error (line 8): declarations must be followed by one empty line in mem_xor
+Error (line 8): declarations in mem_xor are bad aligned
+Error (line 8, col 4): bad spacing
+Error (line 26, col 0): no newline after block
+Norme: ./hash/md5/calculate_md5_block.c
+Norme: ./hash/sha384/sha384.c
+Norme: ./include/whirlpool.h
+Norme: ./ssl/utilities/print_uint64_bits.c
+Error: file must end with a single empty line
+
+Error (line 4): Space before function name
+Error (line 6, col 5): bad spacing
+Error (line 18, col 0): no newline after block
+Norme: ./ssl/utilities/nstrjoin.c
+Norme: ./ssl/utilities/print_uint32_bits.c
+Error: file must end with a single empty line
+
+Error (line 4): Space before function name
+Error (line 6, col 5): bad spacing
+Error (line 18, col 0): no newline after block
+Norme: ./ssl/utilities/print_hex_memory.c
+Error: file must end with a single empty line
+
+Error (line 5): wrong number of spaces in preprocessor indentation
+Error (line 7, col 17): bad spacing
+Error (line 7, col 19): global named hex_digits is not well prefixed
+Error (line 13): multiple empty lines
+Error (line 14): bad spacing before print_hex_memory
+Error (line 14): declarations in print_hex_memory are bad aligned
+Error (line 16, col 5): bad spacing
+Error (line 31, col 0): no newline after block
+Norme: ./ssl/wrong_command_exit.c
+Error: file must end with a single empty line
+
+Error (line 3): Space before function name
+Error (line 3, col 4): bad spacing
+Error (line 9, col 0): no newline after block
+Norme: ./ssl/utilities/xmalloc.c
+Error: file must end with a single empty line
+
+Error (line 15, col 0): no newline after block

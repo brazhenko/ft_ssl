@@ -15,12 +15,12 @@ int 		feistel(t_lpdeshalfblock hb, t_lpdes48key key, t_lpdeshalfblock res)
 	t_desspreadhalfblock		shb;
 	t_deshalfblock			hb2;
 
-	des_permutation(*hb, shb, des_e_tbl,
-			sizeof(des_e_tbl) / sizeof(des_e_tbl[0]));
+	des_permutation(*hb, shb, g_des_e_tbl,
+			sizeof(g_des_e_tbl) / sizeof(g_des_e_tbl[0]));
 	mem_xor(shb, key, shb, sizeof(shb));
 	s_permutation(&shb, &hb2);
-	des_permutation(hb2, hb2, des_p_tbl,
-			sizeof(des_p_tbl) / sizeof(des_p_tbl[0]));
+	des_permutation(hb2, hb2, g_des_p_tbl,
+			sizeof(g_des_p_tbl) / sizeof(g_des_p_tbl[0]));
 	memcpy(res, hb2, sizeof(hb2));
 	return (0);
 }

@@ -6,8 +6,8 @@
 # include <limits.h>
 # include <unistd.h>
 
-# define DES_CIPHER_BLOCK_LEN	(64/(CHAR_BIT))
 # define DES_CIPHER_BIT_LEN		(64)
+# define DES_CIPHER_BLOCK_LEN	(DES_CIPHER_BIT_LEN/(CHAR_BIT))
 # define DES_CIPHER_ROUND_COUNT (16)
 # define DES_SALT_BYTE_LEN		(8)
 
@@ -93,7 +93,7 @@ static const size_t	g_des_ip_perm[] = {
 ** ending shuffling
 */
 
-static const size_t	des_r_ip_perm[] = {
+static const size_t	g_des_r_ip_perm[] = {
 	39, 7, 47, 15, 55, 23, 63, 31,
 	38, 6, 46, 14, 54, 22, 62, 30,
 	37, 5, 45, 13, 53, 21, 61, 29,
@@ -108,7 +108,7 @@ static const size_t	des_r_ip_perm[] = {
 ** round key compress and shuffle table
 */
 
-static const size_t	init_key_pm[] = {
+static const size_t	g_init_key_pm[] = {
 	56, 48, 40, 32, 24, 16, 8, 0,
 	57, 49, 41, 33, 25, 17, 9, 1,
 	58, 50, 42, 34, 26, 18, 10, 2,
@@ -122,7 +122,7 @@ static const size_t	init_key_pm[] = {
 ** final key permutation
 */
 
-static const size_t	final_key_pm[] = {
+static const size_t	g_final_key_pm[] = {
 	13, 16, 10, 23, 0, 4, 2, 27,
 	14, 5, 20, 9, 22, 18, 11, 3,
 	25, 7, 15, 6, 26, 19, 12, 1,
@@ -135,21 +135,12 @@ static const size_t	final_key_pm[] = {
 ** key rotation count
 */
 
-static const uint8_t 	des_key_pd[] = {
+static const uint8_t 	g_des_key_pd[] = {
 	1, 1, 2, 2, 2, 2, 2, 2,
 	1, 2, 2, 2, 2, 2, 2, 1
 };
 
 int 			rot_des56key_blocks_left_n(t_lpdes56key key, uint8_t times);
-
-/*
-** key debug
-*/
-
-int 	debug32(t_lpdeshalfblock block);
-int 	debug48key(t_lpdes48key block);
-int 	debug56key(t_lpdes56key block);
-int 	debug64key(t_lpdes64key block);
 
 /*
 ** cipher part
@@ -159,7 +150,7 @@ int 	debug64key(t_lpdes64key block);
 ** Des half block spread table
 */
 
-static const size_t	des_e_tbl[] = {
+static const size_t	g_des_e_tbl[] = {
 		31, 0, 1, 2, 3, 4, 3, 4,
 		5, 6, 7, 8, 7, 8, 9, 10,
 		11, 12, 11, 12, 13, 14, 15, 16,
@@ -172,7 +163,7 @@ static const size_t	des_e_tbl[] = {
 ** table P
 */
 
-static const size_t	des_p_tbl[] = {
+static const size_t	g_des_p_tbl[] = {
 		15, 6, 19, 20, 28, 11, 27, 16,
 		0, 14, 22, 25, 4, 17, 30, 9,
 		1, 7, 23, 13, 31, 26, 2, 8,
@@ -183,7 +174,7 @@ static const size_t	des_p_tbl[] = {
 ** s-table
 */
 
-static const uint8_t	s[8][4][16] =
+static const uint8_t	g_s[8][4][16] =
 {
 	{
 		{14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7},
