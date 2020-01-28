@@ -9,7 +9,7 @@
 # define DES_CIPHER_BLOCK_LEN	(64/(CHAR_BIT))
 # define DES_CIPHER_BIT_LEN		(64)
 # define DES_CIPHER_ROUND_COUNT (16)
-# define DES_ECB_SALT_BYTE_LEN	(8)
+# define DES_SALT_BYTE_LEN		(8)
 
 typedef		uint8_t					t_desblock[8];
 typedef		t_desblock				*t_lpdesblock;
@@ -28,13 +28,20 @@ ssize_t		des_get_enc_block(t_cipher_context *ctx, t_lpdesblock block);
 ssize_t		des_get_decr_block(t_cipher_context *ctx, t_lpdesblock block);
 int			try_get_des_salt_from_fd(t_cipher_context *ctx);
 
+/*
+ * MAIN
+ */
+
+void		des_encrypt_block(t_des64key key, t_lpdesblock block);
+void		des_decrypt_block(t_des64key key, t_lpdesblock block);
+
 void		*des_ecb(t_cipher_context *ctx);
 void 		des_ecb_encrypt(t_cipher_context *ctx);
 void 		des_ecb_decrypt(t_cipher_context *ctx);
 
 void		*des_cbc(t_cipher_context *ctx);
-void 		des_cbc_encode(t_cipher_context *ctx);
-void 		des_cbc_decode(t_cipher_context *ctx);
+void 		des_cbc_encrypt(t_cipher_context *ctx);
+void 		des_cbc_decrypt(t_cipher_context *ctx);
 
 void		*des_cfb(t_cipher_context *ctx);
 void 		des_cfb_encode(t_cipher_context *ctx);

@@ -1,5 +1,7 @@
-#include "des.h"
-#include <string.h>
+#include <cipher_context.h>
+#include <des.h>
+#include <utilities.h>
+#include "string.h"
 
 static void		des_cut_padding(t_cipher_context *ctx, t_lpdesblock block)
 {
@@ -22,14 +24,18 @@ static void		des_cut_padding(t_cipher_context *ctx, t_lpdesblock block)
 		(*block)[0] = 0;
 }
 
-void 		des_ecb_decrypt(t_cipher_context *ctx)
+void 		des_cbc_decrypt(t_cipher_context *ctx)
 {
 	t_desblock		block;
+	t_desblock		tmp;
 
 	while (des_get_decr_block(ctx, &block))
 	{
-		des_decrypt_block(ctx->key, &block);
-		des_cut_padding(ctx, &block);
-		write(ctx->output_fd, block, strlen((char *)block) <= 8 ? strlen((char *)block) : 8); //TODO fix
+		memcpy(tmp, block, 8);
+		des_decrypt_block(ctx->key, &tmp);
+		mem_xor(&tmp, ctx->vector_ini, &tmp, DES_CIPHER_BLOCK_LEN);
+		memcpy(ctx->vector_ini, block, DES_CIPHER_BLOCK_LEN);
+		des_cut_padding(ctx, &tmp);
+		write(ctx->output_fd, tmp, strlen((char *)tmp) <= 8 ? strlen((char *)tmp) : 8); //TODO fix
 	}
 }

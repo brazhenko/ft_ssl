@@ -63,8 +63,8 @@ set(DES_SRC
 		cipher/des/des_3des.c
 		cipher/des/des_3des_encode.c
 		cipher/des/des_3des_decode.c
-		cipher/des/des_cbc_encode.c
-		cipher/des/des_cbc_decode.c
+		cipher/des/des_cbc_encrypt.c
+		cipher/des/des_cbc_decrypt.c
 		cipher/des/des_cfb_encode.c
 		cipher/des/des_cfb_decode.c
 		cipher/des/des_ctr_encode.c
@@ -84,7 +84,7 @@ set(DES_SRC
 		cipher/context/set_cipher_pass_salt.c
 		cipher/context/destruct_cipher_context.c
 		cipher/des/des_permutation.c
-		cipher/des/des_swap_block_halves.c cipher/context/set_cipher_init_vector.c cipher/context/set_cipher_password_from_stdin.c cipher/context/set_cipher_random_pass_salt.c cipher/des/try_get_des_salt_from_fd.c cipher/des/s_permutation.h)
+		cipher/des/des_swap_block_halves.c cipher/context/set_cipher_init_vector.c cipher/context/set_cipher_password_from_stdin.c cipher/context/set_cipher_random_pass_salt.c cipher/des/try_get_des_salt_from_fd.c cipher/des/s_permutation.h cipher/pbkdf/pbkdf_md5.c include/pbkdf.h cipher/des/des.c)
 
 SET(UTILITIES_SRC
 		ssl/utilities/is_flag.c

@@ -2,6 +2,7 @@
 #include "utilities.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static const uint8_t	hex2bin[] =
 {
@@ -46,9 +47,9 @@ int 			set_cipher_init_vector(t_cipher_context *ctx, char *arg)
 	while (arg[i])
 	{
 		bin = hex2bin[arg[i]];
-		if (bin)
+		if (bin || arg[i] == '0')
 		{
-			ctx->key[i / 2] |= (bin << (4u * (1u - i % 2u)));
+			ctx->vector_ini[i / 2] |= (bin << (4u * (1u - i % 2u)));
 		}
 		else
 			cipher_iv_non_hex_exit();
