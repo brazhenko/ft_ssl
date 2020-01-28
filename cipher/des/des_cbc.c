@@ -1,9 +1,7 @@
 #include "des.h"
 #include <stddef.h>
-#include <stdio.h>
 #include <utilities.h>
 #include "pbkdf.h"
-#include "des.h"
 
 void		prepare_des_cbc_encrypt_key_iv(t_cipher_context *ctx)
 {
@@ -21,7 +19,7 @@ void		prepare_des_cbc_encrypt_key_iv(t_cipher_context *ctx)
 	{
 		if (!cphr_is_iv_set(ctx))
 		{
-			puts("no iv");
+			nstrprinterror(1, "no iv set\n");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -41,7 +39,7 @@ void		prepare_des_cbc_decrypt_key_iv(t_cipher_context *ctx)
 	{
 		if (!cphr_is_iv_set(ctx))
 		{
-			puts("no iv");
+			nstrprinterror(1, "no iv set\n");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -53,25 +51,12 @@ void		*des_cbc(t_cipher_context *ctx)
 	if (cphr_is_encrypt_mode(ctx))
 	{
 		prepare_des_cbc_encrypt_key_iv(ctx);
-//			puts("SALT");
-//			print_hex_memory(ctx->salt, 8);
-//			puts("KEY");
-//			print_hex_memory(ctx->key, 8);
-//			puts("IV");
-//			print_hex_memory(ctx->vector_ini, 8);
 		des_cbc_encrypt(ctx);
 	}
 	else if (cphr_is_decrypt_mode(ctx))
 	{
 		prepare_des_cbc_decrypt_key_iv(ctx);
-//			puts("SALT");
-//			print_hex_memory(ctx->salt, 8);
-//			puts("KEY");
-//			print_hex_memory(ctx->key, 8);
-//			puts("IV");
-//			print_hex_memory(ctx->vector_ini, 8);
 		des_cbc_decrypt(ctx);
 	}
-
 	return (NULL);
 }

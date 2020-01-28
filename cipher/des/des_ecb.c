@@ -26,9 +26,7 @@ void		prepare_des_ecb_decrypt_key(t_cipher_context *ctx)
 	if (!cphr_is_pass_set(ctx))
 		set_cipher_password_from_stdin(ctx);
 	try_get_des_salt_from_fd(ctx);
-	print_hex_memory(ctx->salt, 8);
 	pbkdf_md5(ctx);
-	print_hex_memory(ctx->key, 8);
 }
 
 void		*des_ecb(t_cipher_context *ctx)

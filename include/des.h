@@ -36,6 +36,7 @@ void		des_cut_padding(t_cipher_context *ctx, t_lpdesblock block);
 void		des_encrypt_block(t_des64key key, t_lpdesblock block);
 void		des_decrypt_block(t_des64key key, t_lpdesblock block);
 
+
 void		*des_ecb(t_cipher_context *ctx);
 void 		des_ecb_encrypt(t_cipher_context *ctx);
 void 		des_ecb_decrypt(t_cipher_context *ctx);
@@ -149,7 +150,6 @@ int 	debug32(t_lpdeshalfblock block);
 int 	debug48key(t_lpdes48key block);
 int 	debug56key(t_lpdes56key block);
 int 	debug64key(t_lpdes64key block);
-
 
 /*
 ** cipher part

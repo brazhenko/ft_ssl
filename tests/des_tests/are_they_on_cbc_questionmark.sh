@@ -21,3 +21,4 @@ else
       echo -e "${RED}Failed!${NC}"
 fi
 
+2
