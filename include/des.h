@@ -27,6 +27,7 @@ typedef		t_des48key				*t_lpdes48key;
 ssize_t		des_get_enc_block(t_cipher_context *ctx, t_lpdesblock block);
 ssize_t		des_get_decr_block(t_cipher_context *ctx, t_lpdesblock block);
 int			try_get_des_salt_from_fd(t_cipher_context *ctx);
+void		des_cut_padding(t_cipher_context *ctx, t_lpdesblock block);
 
 /*
  * MAIN

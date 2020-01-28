@@ -4,3 +4,4 @@
 ./you_shall_not_pass_test.sh
 ./des_eptively_easy.sh
 ./des_cbc_encrypt_test.sh
+./are_they_on_cbc_questionmark.sh

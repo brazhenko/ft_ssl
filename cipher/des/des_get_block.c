@@ -14,8 +14,8 @@ ssize_t		des_get_enc_block(t_cipher_context *ctx, t_lpdesblock block)
 
 	if (end_reading)
 		return (0);
-	memset(*block, 0, 8);
-	rc = read(ctx->input_fd, block, sizeof(*block));
+	memset(*block, 0, DES_CIPHER_BLOCK_LEN);
+	rc = read(ctx->input_fd, block, DES_CIPHER_BLOCK_LEN);
 	if (rc != 8)
 	{
 		for (int j = rc; j < 8; ++j)

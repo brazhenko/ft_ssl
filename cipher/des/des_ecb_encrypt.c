@@ -11,12 +11,3 @@ void 		des_ecb_encrypt(t_cipher_context *ctx)
 		write(ctx->output_fd, block, sizeof(block));
 	}
 }
-
-
-
-
-
-
-
-
-
