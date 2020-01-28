@@ -25,7 +25,7 @@ cmake . && make
 * sha256
 #### Cipher commands
 * des-ecb
-* des-cbc (coming soon)
+* des-cbc
 #### Encoding commands
 * base64
 #### Standard commands
