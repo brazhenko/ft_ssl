@@ -84,7 +84,16 @@ set(DES_SRC
 		cipher/context/set_cipher_pass_salt.c
 		cipher/context/destruct_cipher_context.c
 		cipher/des/des_permutation.c
-		cipher/des/des_swap_block_halves.c cipher/context/set_cipher_init_vector.c cipher/context/set_cipher_password_from_stdin.c cipher/context/set_cipher_random_pass_salt.c cipher/des/try_get_des_salt_from_fd.c cipher/des/s_permutation.h cipher/pbkdf/pbkdf_md5.c include/pbkdf.h cipher/des/des.c cipher/des/des_cut_padding.c)
+		cipher/des/des_swap_block_halves.c
+		cipher/context/set_cipher_init_vector.c
+		cipher/context/set_cipher_password_from_stdin.c
+		cipher/context/set_cipher_random_pass_salt.c
+		cipher/des/try_get_des_salt_from_fd.c
+		cipher/des/s_permutation.h
+		cipher/pbkdf/pbkdf_md5.c
+		include/pbkdf.h
+		cipher/des/des.c
+		cipher/des/des_cut_padding.c)
 
 SET(UTILITIES_SRC
 		ssl/utilities/is_flag.c
@@ -95,12 +104,12 @@ SET(UTILITIES_SRC
 		ssl/utilities/mem_xor.c ssl/utilities/print_hex_memory.c)
 
 add_executable(
-				${PROJECT_NAME}
-				${FT_SSL_SRC}
-				${MD5_SRC}
-				${SHA256_SRC}
-				${BASE64_SRC}
-				${DES_SRC}
-				${UTILITIES_SRC}
+		${PROJECT_NAME}
+		${FT_SSL_SRC}
+		${MD5_SRC}
+		${SHA256_SRC}
+		${BASE64_SRC}
+		${DES_SRC}
+		${UTILITIES_SRC}
 )
 
