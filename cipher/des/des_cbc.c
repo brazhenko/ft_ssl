@@ -43,7 +43,6 @@ void		prepare_des_cbc_decrypt_key_iv(t_cipher_context *ctx)
 			exit(EXIT_FAILURE);
 		}
 	}
-
 }
 
 void		*des_cbc(t_cipher_context *ctx)

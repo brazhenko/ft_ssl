@@ -11,27 +11,6 @@ Error (line 3, col 4): bad spacing
 Error (line 6, col 0): no empty line before block
 Error (line 6, col 0): no newline after block
 
-
-
-Norme: ./cipher/des/des_cbc.c
-Error: file must end with a single empty line
--
-Error (line 46): Empty line
-Error (line 47, col 0): no empty line before block
-Error (line 62, col 0): no newline after block
-
-Norme: ./cipher/des/des_cbc_decrypt.c
--
-Error (line 6): Space before function name
-Error (line 6, col 4): bad spacing
-Error (line 18): line has 99 characters
-Error (line 18): C++ comment
-
-
-Norme: ./cipher/des/des_cbc_encrypt.c
--
-Error (line 6): Space before function name
-Error (line 6, col 4): bad spacing
 Norme: ./cipher/des/des_cfb.c
 Error: file must end with a single empty line
 -

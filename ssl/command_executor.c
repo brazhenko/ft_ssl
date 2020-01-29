@@ -27,14 +27,14 @@ int			command_executor(int ac, char *av[])
 		cipher_executor(ac - 2, av + 2, &des_ecb);
 	else if (strcmp(av[1], "des-cbc") == 0)
 		cipher_executor(ac - 2, av + 2, &des_cbc);
-	else if (strcmp(av[1], "des-cfb") == 0)
-		cipher_executor(ac - 2, av + 2, &des_cfb);
-	else if (strcmp(av[1], "des-ofb") == 0)
-		cipher_executor(ac - 2, av + 2, &des_ofb);
-	else if (strcmp(av[1], "des-ctr") == 0)
-		cipher_executor(ac - 2, av + 2, &des_ctr);
-	else if (strcmp(av[1], "3des") == 0)
-		cipher_executor(ac - 2, av + 2, &des_3des);
+//	else if (strcmp(av[1], "des-cfb") == 0)
+//		cipher_executor(ac - 2, av + 2, &des_cfb);
+//	else if (strcmp(av[1], "des-ofb") == 0)
+//		cipher_executor(ac - 2, av + 2, &des_ofb);
+//	else if (strcmp(av[1], "des-ctr") == 0)
+//		cipher_executor(ac - 2, av + 2, &des_ctr);
+//	else if (strcmp(av[1], "3des") == 0)
+//		cipher_executor(ac - 2, av + 2, &des_3des);
 	else
 		wrong_command_exit(av[0], av[1]);
 	return (EXIT_SUCCESS);

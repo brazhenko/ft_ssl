@@ -59,22 +59,10 @@ set(DES_SRC
 		cipher/context/set_cipher_output_file.c
 		cipher/des/des_ecb.c
 		cipher/des/des_cbc.c
-		cipher/des/des_cfb.c
-		cipher/des/des_ofb.c
-		cipher/des/des_ctr.c
-		cipher/des/des_3des.c
-		cipher/des/des_3des_encode.c
-		cipher/des/des_3des_decode.c
 		cipher/des/des_cbc_encrypt.c
 		cipher/des/des_cbc_decrypt.c
-		cipher/des/des_cfb_encode.c
-		cipher/des/des_cfb_decode.c
-		cipher/des/des_ctr_encode.c
-		cipher/des/des_ctr_decode.c
 		cipher/des/des_ecb_encrypt.c
 		cipher/des/des_ecb_decrypt.c
-		cipher/des/des_ofb_encode.c
-		cipher/des/des_ofb_decode.c
 		cipher/context/set_cipher_bufsize.c
 		cipher/des/des_get_block.c
 		cipher/des/des_key_gen.c

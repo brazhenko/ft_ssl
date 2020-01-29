@@ -3,7 +3,7 @@
 #include "utilities.h"
 #include "string.h"
 
-void 		des_cbc_encrypt(t_cipher_context *ctx)
+void		des_cbc_encrypt(t_cipher_context *ctx)
 {
 	t_desblock		block;
 

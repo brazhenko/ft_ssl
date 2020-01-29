@@ -3,6 +3,10 @@
 #include <utilities.h>
 #include "string.h"
 
+/*
+** TODO improve output
+*/
+
 void 		des_cbc_decrypt(t_cipher_context *ctx)
 {
 	t_desblock		block;
@@ -15,6 +19,7 @@ void 		des_cbc_decrypt(t_cipher_context *ctx)
 		mem_xor(&tmp, ctx->vector_ini, &tmp, DES_CIPHER_BLOCK_LEN);
 		memcpy(ctx->vector_ini, block, DES_CIPHER_BLOCK_LEN);
 		des_cut_padding(ctx, &tmp);
-		write(ctx->output_fd, tmp, strlen((char *)tmp) <= 8 ? strlen((char *)tmp) : 8); //TODO fix
+		write(ctx->output_fd, tmp,
+		strlen((char *)tmp) <= 8 ? strlen((char *)tmp) : 8);
 	}
 }
