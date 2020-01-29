@@ -3,7 +3,7 @@
 #include <stdatomic.h>
 #include <utilities.h>
 
-#include "s_permutation.h"
+#include "s_permutation.c"
 
 /*
 ** feistel()  function gets half of plain text block (32bit), final key

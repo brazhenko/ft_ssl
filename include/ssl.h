@@ -34,7 +34,7 @@
 
 # define BUFLEN			5120
 
-typedef uint32_t 		t_reg32;
+typedef uint32_t			t_reg32;
 
 # include "sha256.h"
 # include "md5.h"

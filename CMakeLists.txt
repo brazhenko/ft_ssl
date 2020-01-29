@@ -77,7 +77,7 @@ set(DES_SRC
 		cipher/context/set_cipher_password_from_stdin.c
 		cipher/context/set_cipher_random_pass_salt.c
 		cipher/des/try_get_des_salt_from_fd.c
-		cipher/des/s_permutation.h
+		cipher/des/s_permutation.c
 		cipher/pbkdf/pbkdf_md5.c
 		include/pbkdf.h
 		cipher/des/des.c

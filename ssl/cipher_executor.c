@@ -2,7 +2,8 @@
 #include "base64.h"
 #include "des.h"
 
-void		cipher_executor(int ac, char **av, void *(*algo)(t_cipher_context *))
+void		cipher_executor(int ac, char **av,
+		void *(*algo)(t_cipher_context *))
 {
 	t_cipher_context		*ctx;
 

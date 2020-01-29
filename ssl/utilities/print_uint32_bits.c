@@ -1,10 +1,10 @@
 #include <unistd.h>
 #include <string.h>
 
-void print_uint32_bits(unsigned num)
+void		print_uint32_bits(unsigned num)
 {
-	char 	arr[33];
-	size_t	i;
+	char		arr[33];
+	size_t		i;
 
 	memset(arr, 0, sizeof(arr));
 	arr[32] = '\n';

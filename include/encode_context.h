@@ -1,5 +1,5 @@
 #ifndef ENCODE_CONTEXT_H
-#define ENCODE_CONTEXT_H
+# define ENCODE_CONTEXT_H
 
 # include <sys/syslimits.h>
 
@@ -14,26 +14,26 @@
 
 struct		s_encode_context
 {
-	char 		input_file[PATH_MAX];
-	char 		output_file[PATH_MAX];
-	int 		input_fd;
+	char		input_file[PATH_MAX];
+	char		output_file[PATH_MAX];
+	int			input_fd;
 	int			output_fd;
-	unsigned  	mode;
+	unsigned	mode;
 };
 
 # define ISENCODEMODE(c) 	(!(c->mode & 0b1))
-# define ISDECODEMODE(c) 	((c->mode & 	0b1))
+# define ISDECODEMODE(c) 	((c->mode & 0b1))
 
-typedef struct s_encode_context t_encode_context;
+typedef struct s_encode_context	t_encode_context;
 
-t_encode_context 	*init_encode_context(void);
+t_encode_context	*init_encode_context(void);
 void				destruct_encode_context(t_encode_context *ctx);
-int 				set_encode_decode_mode(t_encode_context *ctx);
-int 				set_encode_encode_mode(t_encode_context *ctx);
+int					set_encode_decode_mode(t_encode_context *ctx);
+int					set_encode_encode_mode(t_encode_context *ctx);
 int					set_encode_input_file(t_encode_context *ctx,
 									const char *input_file_name);
-int 				set_encode_output_file(t_encode_context *ctx,
-									const char *output_file_name);
+int					set_encode_output_file(t_encode_context *ctx,
+		const char *output_file_name);
 
 /*
 ** encode FSM part (argv parser)
@@ -49,7 +49,7 @@ t_encode_context	*encode_state_o(int ac, char **av, t_encode_context *ctx);
 ** encode help, encode etc.
 */
 
-void 				encode_option_requires_argument_exit(const char *opt);
+void				encode_option_requires_argument_exit(const char *opt);
 void				encode_invalid_option_exit(const char *opt);
 void				encode_usage(void);
 void				encode_print_usage_exit(void);

@@ -11,18 +11,18 @@
 # define DES_CIPHER_ROUND_COUNT (16)
 # define DES_SALT_BYTE_LEN		(8)
 
-typedef		uint8_t t_desblock[8];
-typedef		t_desblock *t_lpdesblock;
-typedef		uint8_t t_deshalfblock[4];
-typedef		t_deshalfblock *t_lpdeshalfblock;
-typedef		uint8_t t_desspreadhalfblock[6];
-typedef		t_desspreadhalfblock *t_lpdesspreadhalfblock;
-typedef		uint8_t t_des64key[8];
-typedef		t_des64key *t_lpdes64key;
-typedef		uint8_t t_des56key[7];
-typedef		t_des56key *t_lpdes56key;
-typedef		uint8_t t_des48key[6];
-typedef		t_des48key *t_lpdes48key;
+typedef uint8_t					t_desblock[8];
+typedef t_desblock				*t_lpdesblock;
+typedef uint8_t					t_deshalfblock[4];
+typedef t_deshalfblock			*t_lpdeshalfblock;
+typedef uint8_t					t_desspreadhalfblock[6];
+typedef t_desspreadhalfblock	*t_lpdesspreadhalfblock;
+typedef uint8_t					t_des64key[8];
+typedef t_des64key				*t_lpdes64key;
+typedef uint8_t					t_des56key[7];
+typedef t_des56key				*t_lpdes56key;
+typedef uint8_t					t_des48key[6];
+typedef t_des48key 				*t_lpdes48key;
 
 ssize_t		des_get_enc_block(t_cipher_context *ctx, t_lpdesblock block);
 ssize_t		des_get_decr_block(t_cipher_context *ctx, t_lpdesblock block);
@@ -65,11 +65,12 @@ void		des_3des_decode(t_cipher_context *ctx);
 */
 
 /*
-** The only function used for bit permutation in des implementation.
+** The only functions used for bit permutation in des implementation.
 */
 
 void		des_permutation(unsigned char *input, unsigned char *output,
 		const size_t *arr, size_t arr_len);
+static int 	s_permutation(t_lpdesspreadhalfblock shb, t_lpdeshalfblock hb);
 void		des_swap_block_halves(t_lpdesblock bl);
 
 /*

@@ -13,9 +13,8 @@
 #ifndef UTILITIES_H
 # define UTILITIES_H
 
-#include <stdint.h>
+# include <stdint.h>
 # include <stddef.h>
-# define MAX(x, y) ((x) > (y) ? (x) : (y))
 
 static const char		g_hex_arr[] = {
 	'0', '1', '2', '3',
@@ -31,6 +30,7 @@ int		is_flag(const char *str);
 void	*xmalloc(size_t size);
 void	print_uint32_bits(unsigned num);
 void	print_uint64_bits(uint64_t num);
-void 	*mem_xor(void *left, void *right, void *out, size_t len);
+void	*mem_xor(void *left, void *right, void *out, size_t len);
 void	print_hex_memory(void *mem, size_t size);
+
 #endif

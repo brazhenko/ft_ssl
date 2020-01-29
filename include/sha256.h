@@ -32,7 +32,6 @@
 # define SHA256_S2(x) ((RSHIFT((x), 7)) ^ (RSHIFT((x), 18)) ^ (RROT((x), 3)))
 # define SHA256_S3(x) ((RSHIFT((x), 17)) ^ (RSHIFT((x), 19)) ^ (RROT((x), 10)))
 
-
 /*
 **	Array of SHA-256 algorithm constants
 */

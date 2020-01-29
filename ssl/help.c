@@ -38,8 +38,7 @@ void		print_ft_ssl_help(void)
 			"des (alias for des-cbc) - under development\n",
 			"des-ecb\n",
 			"des-cbc - under development\n",
-			"\n"
-			);
+			"\n");
 }
 
 void		illegal_hash_option_exit(char c)
