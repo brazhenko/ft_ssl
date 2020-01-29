@@ -1,5 +1,5 @@
 #ifndef DES_H
-#define DES_H
+# define DES_H
 
 # include <stdint.h>
 # include "cipher_context.h"
@@ -11,18 +11,18 @@
 # define DES_CIPHER_ROUND_COUNT (16)
 # define DES_SALT_BYTE_LEN		(8)
 
-typedef		uint8_t					t_desblock[8];
-typedef		t_desblock				*t_lpdesblock;
-typedef		uint8_t 				t_deshalfblock[4];
-typedef		t_deshalfblock			*t_lpdeshalfblock;
-typedef		uint8_t					t_desspreadhalfblock[6];
-typedef		t_desspreadhalfblock	*t_lpdesspreadhalfblock;
-typedef		uint8_t					t_des64key[8];
-typedef		t_des64key				*t_lpdes64key;
-typedef		uint8_t					t_des56key[7];
-typedef		t_des56key				*t_lpdes56key;
-typedef		uint8_t					t_des48key[6];
-typedef		t_des48key				*t_lpdes48key;
+typedef		uint8_t t_desblock[8];
+typedef		t_desblock *t_lpdesblock;
+typedef		uint8_t t_deshalfblock[4];
+typedef		t_deshalfblock *t_lpdeshalfblock;
+typedef		uint8_t t_desspreadhalfblock[6];
+typedef		t_desspreadhalfblock *t_lpdesspreadhalfblock;
+typedef		uint8_t t_des64key[8];
+typedef		t_des64key *t_lpdes64key;
+typedef		uint8_t t_des56key[7];
+typedef		t_des56key *t_lpdes56key;
+typedef		uint8_t t_des48key[6];
+typedef		t_des48key *t_lpdes48key;
 
 ssize_t		des_get_enc_block(t_cipher_context *ctx, t_lpdesblock block);
 ssize_t		des_get_decr_block(t_cipher_context *ctx, t_lpdesblock block);
@@ -30,36 +30,35 @@ int			try_get_des_salt_from_fd(t_cipher_context *ctx);
 void		des_cut_padding(t_cipher_context *ctx, t_lpdesblock block);
 
 /*
- * MAIN
- */
+** MAIN
+*/
 
 void		des_encrypt_block(t_des64key key, t_lpdesblock block);
 void		des_decrypt_block(t_des64key key, t_lpdesblock block);
 
-
 void		*des_ecb(t_cipher_context *ctx);
-void 		des_ecb_encrypt(t_cipher_context *ctx);
-void 		des_ecb_decrypt(t_cipher_context *ctx);
+void		des_ecb_encrypt(t_cipher_context *ctx);
+void		des_ecb_decrypt(t_cipher_context *ctx);
 
 void		*des_cbc(t_cipher_context *ctx);
-void 		des_cbc_encrypt(t_cipher_context *ctx);
-void 		des_cbc_decrypt(t_cipher_context *ctx);
+void		des_cbc_encrypt(t_cipher_context *ctx);
+void		des_cbc_decrypt(t_cipher_context *ctx);
 
 void		*des_cfb(t_cipher_context *ctx);
-void 		des_cfb_encode(t_cipher_context *ctx);
-void 		des_cfb_decode(t_cipher_context *ctx);
+void		des_cfb_encode(t_cipher_context *ctx);
+void		des_cfb_decode(t_cipher_context *ctx);
 
 void		*des_ofb(t_cipher_context *ctx);
-void 		des_ofb_encode(t_cipher_context *ctx);
-void 		des_ofb_decode(t_cipher_context *ctx);
+void		des_ofb_encode(t_cipher_context *ctx);
+void		des_ofb_decode(t_cipher_context *ctx);
 
 void		*des_ctr(t_cipher_context *ctx);
-void 		des_ctr_encode(t_cipher_context *ctx);
-void 		des_ctr_decode(t_cipher_context *ctx);
+void		des_ctr_encode(t_cipher_context *ctx);
+void		des_ctr_decode(t_cipher_context *ctx);
 
 void		*des_3des(t_cipher_context *ctx);
-void 		des_3des_encode(t_cipher_context *ctx);
-void 		des_3des_decode(t_cipher_context *ctx);
+void		des_3des_encode(t_cipher_context *ctx);
+void		des_3des_decode(t_cipher_context *ctx);
 
 /*
 ** des algorithm part
@@ -69,10 +68,9 @@ void 		des_3des_decode(t_cipher_context *ctx);
 ** The only function used for bit permutation in des implementation.
 */
 
-void 		des_permutation(unsigned char *input, unsigned char *output,
+void		des_permutation(unsigned char *input, unsigned char *output,
 		const size_t *arr, size_t arr_len);
 void		des_swap_block_halves(t_lpdesblock bl);
-
 
 /*
 ** beginning shuffling
@@ -135,12 +133,12 @@ static const size_t	g_final_key_pm[] = {
 ** key rotation count
 */
 
-static const uint8_t 	g_des_key_pd[] = {
+static const uint8_t	g_des_key_pd[] = {
 	1, 1, 2, 2, 2, 2, 2, 2,
 	1, 2, 2, 2, 2, 2, 2, 1
 };
 
-int 			rot_des56key_blocks_left_n(t_lpdes56key key, uint8_t times);
+int						rot_des56key_blocks_left_n(t_lpdes56key key, uint8_t times);
 
 /*
 ** cipher part
@@ -151,12 +149,12 @@ int 			rot_des56key_blocks_left_n(t_lpdes56key key, uint8_t times);
 */
 
 static const size_t	g_des_e_tbl[] = {
-		31, 0, 1, 2, 3, 4, 3, 4,
-		5, 6, 7, 8, 7, 8, 9, 10,
-		11, 12, 11, 12, 13, 14, 15, 16,
-		15, 16, 17, 18, 19, 20, 19, 20,
-		21, 22, 23, 24, 23, 24, 25, 26,
-		27, 28, 27, 28, 29, 30, 31, 0
+	31, 0, 1, 2, 3, 4, 3, 4,
+	5, 6, 7, 8, 7, 8, 9, 10,
+	11, 12, 11, 12, 13, 14, 15, 16,
+	15, 16, 17, 18, 19, 20, 19, 20,
+	21, 22, 23, 24, 23, 24, 25, 26,
+	27, 28, 27, 28, 29, 30, 31, 0
 };
 
 /*
@@ -164,10 +162,10 @@ static const size_t	g_des_e_tbl[] = {
 */
 
 static const size_t	g_des_p_tbl[] = {
-		15, 6, 19, 20, 28, 11, 27, 16,
-		0, 14, 22, 25, 4, 17, 30, 9,
-		1, 7, 23, 13, 31, 26, 2, 8,
-		18, 12, 29, 5, 21, 10, 3, 24
+	15, 6, 19, 20, 28, 11, 27, 16,
+	0, 14, 22, 25, 4, 17, 30, 9,
+	1, 7, 23, 13, 31, 26, 2, 8,
+	18, 12, 29, 5, 21, 10, 3, 24
 };
 
 /*

@@ -49,14 +49,14 @@ static void		base64_decode_block(
 		if (isbase64alpha(buf[i]))
 		{
 			if ((i - wsoffset) % 4 == 0)
-				tmp[0] = base64_dec_arr[buf[i]];
+				tmp[0] = g_base64_dec_arr[buf[i]];
 			else if ((i - wsoffset) % 4 == 1)
-				tmp[1] = base64_dec_arr[buf[i]];
+				tmp[1] = g_base64_dec_arr[buf[i]];
 			else if ((i - wsoffset) % 4 == 2)
-				tmp[2] = base64_dec_arr[buf[i]];
+				tmp[2] = g_base64_dec_arr[buf[i]];
 			else if ((i - wsoffset) % 4 == 3)
 			{
-				tmp[3] = base64_dec_arr[buf[i]];
+				tmp[3] = g_base64_dec_arr[buf[i]];
 				output_buf[tmp_num * 3] =
 						((tmp[0] & 0b111111u) << 2u) + ((tmp[1] >> 4u) & 0b11u);
 				output_buf[tmp_num * 3 + 1] =

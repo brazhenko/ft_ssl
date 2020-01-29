@@ -23,16 +23,16 @@ static size_t		encode_base64_block(unsigned char *buf,
 	while (i < rd)
 	{
 		if (i % 3 == 0)
-			output_buf[i + i / 3] = base64_arr[buf[i] >> 2u];
+			output_buf[i + i / 3] = g_base64_arr[buf[i] >> 2u];
 		else if (i % 3 == 1)
-			output_buf[i + (i - 1) / 3] = base64_arr[
+			output_buf[i + (i - 1) / 3] = g_base64_arr[
 										((buf[i - 1] & 0b11u) << 4u) |
 										(buf[i] >> 4u)];
 		else if (i % 3 == 2)
 		{
 			output_buf[i + (i - 2) / 3] =
-					base64_arr[((buf[i - 1] & 0b1111u) << 2u) | (buf[i] >> 6u)];
-			output_buf[i + (i - 2) / 3 + 1] = base64_arr[buf[i] & 0b111111u];
+					g_base64_arr[((buf[i - 1] & 0b1111u) << 2u) | (buf[i] >> 6u)];
+			output_buf[i + (i - 2) / 3 + 1] = g_base64_arr[buf[i] & 0b111111u];
 		}
 		i++;
 	}
@@ -51,7 +51,7 @@ static void			encode_base64_block_with_padding(
 	i = encode_base64_block(buf, output_buf, rd);
 	if (i % 3 == 1)
 	{
-		output_buf[i + (i - 1) / 3] = base64_arr[
+		output_buf[i + (i - 1) / 3] = g_base64_arr[
 				((buf[i - 1] & 0b11u) << 4u)
 				];
 		output_buf[i + (i - 1) / 3 + 1] = '=';
@@ -60,7 +60,7 @@ static void			encode_base64_block_with_padding(
 	else if (i % 3 == 2)
 	{
 		output_buf[i + (i - 2) / 3] =
-				base64_arr[((buf[i - 1] & 0b1111u) << 2u)];
+				g_base64_arr[((buf[i - 1] & 0b1111u) << 2u)];
 		output_buf[i + (i - 2) / 3 + 1] = '=';
 	}
 }

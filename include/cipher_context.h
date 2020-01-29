@@ -1,5 +1,5 @@
 #ifndef CIPHER_CONTEXT_H
-#define CIPHER_CONTEXT_H
+# define CIPHER_CONTEXT_H
 
 # include <limits.h>
 # include <stdlib.h>
@@ -14,20 +14,20 @@
 
 struct		s_cipher_context
 {
-	char 		input_file[PATH_MAX];
-	char 		output_file[PATH_MAX];
-	int 		input_fd;
+	char		input_file[PATH_MAX];
+	char		output_file[PATH_MAX];
+	int			input_fd;
 	int			output_fd;
 	size_t		bufsize;
-	uint8_t 	key[MAX_KEY_BYTE_LEN];
+	uint8_t		key[MAX_KEY_BYTE_LEN];
 	char		password[PASS_MAX];
 	char		salt[CIPHER_SALT_BYTE_LEN];
 	char		vector_ini[MAX_IV_DIG_LEN];
-	unsigned  	mode;
+	unsigned	mode;
 	void		*alg_ptr;
 };
 
-typedef struct s_cipher_context t_cipher_context;
+typedef struct s_cipher_context		t_cipher_context;
 
 /*
 ** Cipher context part
@@ -44,27 +44,27 @@ typedef struct s_cipher_context t_cipher_context;
 */
 
 /*
- * context status methodds
- */
+** context status methods
+*/
 
-int 		cphr_is_encrypt_mode(t_cipher_context *ctx);
-int 		cphr_is_decrypt_mode(t_cipher_context *ctx);
-int 		cphr_is_a_flag(t_cipher_context *ctx);
-int 		cphr_is_key_set(t_cipher_context *ctx);
-int 		cphr_is_pass_set(t_cipher_context *ctx);
-int 		cphr_is_salt_set(t_cipher_context *ctx);
-int 		cphr_is_iv_set(t_cipher_context *ctx);
+int			cphr_is_encrypt_mode(t_cipher_context *ctx);
+int			cphr_is_decrypt_mode(t_cipher_context *ctx);
+int			cphr_is_a_flag(t_cipher_context *ctx);
+int			cphr_is_key_set(t_cipher_context *ctx);
+int			cphr_is_pass_set(t_cipher_context *ctx);
+int			cphr_is_salt_set(t_cipher_context *ctx);
+int			cphr_is_iv_set(t_cipher_context *ctx);
 
 /*
- * ctor & dtor
- */
+** ctor & dtor
+*/
 
 t_cipher_context	*init_cipher_context(void *cipher_alg_ptr);
 void				destruct_cipher_context(t_cipher_context *ctx);
 
 /*
- * argv states parser
- */
+** argv states parser
+*/
 
 t_cipher_context	*ci_state_a(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_d(int argc, char **argv, t_cipher_context *ctx);
@@ -75,21 +75,22 @@ t_cipher_context	*ci_state_o(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_p(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_s(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_v(int argc, char **argv, t_cipher_context *ctx);
-t_cipher_context	*parse_des_argv(t_cipher_context *ctx, int argc, char **argv);
+t_cipher_context	*parse_des_argv(t_cipher_context *ctx,
+														int argc, char **argv);
 
 /*
- * argv instructions
- */
+** argv instructions
+*/
 
-int 	set_cipher_input_file(t_cipher_context *ctx,
+int		set_cipher_input_file(t_cipher_context *ctx,
 		const char *input_file_name);
 int		set_cipher_output_file(t_cipher_context *ctx,
 		const char *output_file_name);
 int		set_cipher_bufsize(t_cipher_context *ctx, const char *argv);
-void 	set_cipher_key(t_cipher_context *ctx, char *arg);
+void	set_cipher_key(t_cipher_context *ctx, char *arg);
 void	set_cipher_pass_salt(t_cipher_context *ctx, char *arg);
-int 	set_cipher_init_vector(t_cipher_context *ctx, char *arg);
-int 	set_cipher_password_from_stdin(t_cipher_context *ctx);
-int 	set_cipher_random_pass_salt(t_cipher_context *ctx, size_t bytelen);
+int		set_cipher_init_vector(t_cipher_context *ctx, char *arg);
+int		set_cipher_password_from_stdin(t_cipher_context *ctx);
+int		set_cipher_random_pass_salt(t_cipher_context *ctx, size_t bytelen);
 
 #endif

@@ -3,7 +3,7 @@
 #include <readpassphrase.h>
 #include "utilities.h"
 
-int 		set_cipher_password_from_stdin(t_cipher_context *ctx)
+int			set_cipher_password_from_stdin(t_cipher_context *ctx)
 {
 	char		tmp[PASS_MAX];
 

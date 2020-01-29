@@ -24,6 +24,10 @@ void		des_encrypt_block(t_des64key key, t_lpdesblock block)
 			sizeof(g_des_r_ip_perm) / sizeof(g_des_r_ip_perm[0]));
 }
 
+/*
+** TODO fix right rotation!
+*/
+
 void		des_decrypt_block(t_des64key key, t_lpdesblock block)
 {
 	t_des56key		key56;
@@ -37,11 +41,10 @@ void		des_decrypt_block(t_des64key key, t_lpdesblock block)
 	round = DES_CIPHER_ROUND_COUNT;
 	while (round > 0)
 	{
-		// TODO fix right rotation!
 		des_permutation(key56, final_key, g_final_key_pm,
 				sizeof(g_final_key_pm) / sizeof(g_final_key_pm[0]));
 		des_round(block, &final_key);
-		rot_des56key_blocks_left_n(&key56, 28-g_des_key_pd[round - 1]);
+		rot_des56key_blocks_left_n(&key56, 28 - g_des_key_pd[round - 1]);
 		round--;
 	}
 	des_swap_block_halves(block);

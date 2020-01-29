@@ -3,6 +3,6 @@
 
 # include "cipher_context.h"
 
-int 		pbkdf_md5(t_cipher_context *ctx);
+int			pbkdf_md5(t_cipher_context *ctx);
 
 #endif

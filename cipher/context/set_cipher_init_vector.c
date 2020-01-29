@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static const uint8_t	hex2bin[] =
+static const uint8_t	g_hex2bin[] =
 {
 	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
 	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
@@ -36,7 +36,7 @@ static void		cipher_iv_non_hex_exit(void)
 	exit(EXIT_FAILURE);
 }
 
-int 			set_cipher_init_vector(t_cipher_context *ctx, char *arg)
+int				set_cipher_init_vector(t_cipher_context *ctx, char *arg)
 {
 	size_t		i;
 	uint8_t		bin;
@@ -46,7 +46,7 @@ int 			set_cipher_init_vector(t_cipher_context *ctx, char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		bin = hex2bin[arg[i]];
+		bin = g_hex2bin[arg[i]];
 		if (bin || arg[i] == '0')
 		{
 			ctx->vector_ini[i / 2] |= (bin << (4u * (1u - i % 2u)));

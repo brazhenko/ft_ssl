@@ -2,7 +2,7 @@
 #include <string.h>
 #include <utilities.h>
 
-static const uint8_t	hex2bin[] =
+static const uint8_t	g_hex2bin[] =
 {
 	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
 	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
@@ -48,17 +48,15 @@ void			set_cipher_key(t_cipher_context *ctx, char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		bin = hex2bin[arg[i]];
+		bin = g_hex2bin[arg[i]];
 		if (bin || arg[i] == '0')
 		{
 			ctx->key[i / 2] |= (bin << (4u * (1u - i % 2u)));
 		}
 		else
 		{
-			// printf("THIS IS NOT HEX: %c\n", arg[i]);
 			cipher_key_non_hex_exit();
 		}
-
 		i++;
 		if (i == MAX_KEY_BYTE_LEN)
 			cipher_hex_key_too_long_exit();

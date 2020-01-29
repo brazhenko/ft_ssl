@@ -6,13 +6,13 @@
 #include "utilities.h"
 
 /*
- * Reads from /dev/urandom some random data and puts it to [ctx]->salt.
- * [size_t byte_len] must be not more that sizeof(ctx->salt).
- */
+** Reads from /dev/urandom some random data and puts it to [ctx]->salt.
+** [size_t byte_len] must be not more that sizeof(ctx->salt).
+*/
 
-int 	set_cipher_random_pass_salt(t_cipher_context *ctx, size_t byte_len)
+int		set_cipher_random_pass_salt(t_cipher_context *ctx, size_t byte_len)
 {
-	int 		fd;
+	int			fd;
 
 	fd = open("/dev/urandom", O_RDONLY);
 	memset(ctx->salt, 0, sizeof(ctx->salt));
@@ -22,7 +22,6 @@ int 	set_cipher_random_pass_salt(t_cipher_context *ctx, size_t byte_len)
 		exit(EXIT_FAILURE);
 	}
 	read(fd, ctx->salt, byte_len);
-
 	ctx->mode |= 0b1000000;
 	return (0);
 }

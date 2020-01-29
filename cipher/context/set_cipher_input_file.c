@@ -5,10 +5,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-int 		set_cipher_input_file(t_cipher_context *ctx,
+int		set_cipher_input_file(t_cipher_context *ctx,
 								const char *input_file_name)
 {
-	int 	input_fd;
+	int			input_fd;
 
 	memset(ctx->input_file, '\0', PATH_MAX);
 	strcpy(ctx->input_file, input_file_name);

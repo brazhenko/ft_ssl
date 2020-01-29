@@ -4,7 +4,7 @@
 #include <string.h>
 #include <utilities.h>
 
-static const uint8_t	hex2bin[] =
+static const uint8_t	g_hex2bin[] =
 {
 	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
 	0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
@@ -40,8 +40,7 @@ static void		cipher_salt_non_hex_exit(void)
 ** Translates hex salt [char *arg] to binary and puts it to ctx->salt.
 */
 
-
-void		set_cipher_pass_salt(t_cipher_context *ctx, char *arg)
+void			set_cipher_pass_salt(t_cipher_context *ctx, char *arg)
 {
 	size_t		i;
 	uint8_t		bin;
@@ -53,7 +52,7 @@ void		set_cipher_pass_salt(t_cipher_context *ctx, char *arg)
 	{
 		if (i == CIPHER_SALT_BYTE_LEN * 2)
 			cipher_hex_salt_too_long_exit();
-		bin = hex2bin[arg[i]];
+		bin = g_hex2bin[arg[i]];
 		if (bin || arg[i] == '0')
 		{
 			ctx->salt[i / 2] |= (bin << (4u * (1u - i % 2u)));
