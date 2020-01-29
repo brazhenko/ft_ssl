@@ -4,7 +4,6 @@
 #include <utilities.h>
 #include <errno.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 int					set_encode_output_file(t_encode_context *ctx,
 		const char *output_file_name)

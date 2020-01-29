@@ -9,7 +9,7 @@ void*				token_needs_arg_exit(char *token)
 	exit(EXIT_FAILURE);
 }
 
-void* 				unexpected_token_exit(char *token)
+void*				unexpected_token_exit(char *token)
 {
 	nstrprinterror(3, "unexpected token near ", token, "\n");
 	exit(EXIT_FAILURE);
@@ -300,8 +300,8 @@ t_cipher_context	*ci_state_v(int argc, char **argv, t_cipher_context *ctx)
 		return (unexpected_token_exit(*argv));
 }
 
-
-t_cipher_context	*parse_des_argv(t_cipher_context *ctx, int argc, char **argv)
+t_cipher_context	*parse_des_argv(t_cipher_context *ctx,
+								int argc, char **argv)
 {
 	if (!*argv)
 		return (ctx);

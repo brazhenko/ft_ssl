@@ -1,7 +1,5 @@
 #include "base64.h"
 #include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 t_encode_context	*parse_encode_argv(int argc, char **argv)
 {

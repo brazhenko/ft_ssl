@@ -2,7 +2,7 @@
 #include <string.h>
 #include "utilities.h"
 
-t_encode_context 	*init_encode_context(void)
+t_encode_context	*init_encode_context(void)
 {
 	t_encode_context		*ret;
 

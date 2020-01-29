@@ -4,7 +4,7 @@
 void		encode_usage(void)
 {
 	nstrprinterror(8, "Usage:  ft_ssl ",
-			"[encoding_algorithm] " ,
+			"[encoding_algorithm] ",
 			"[-hed] [-i in_file] [-o out_file]\n",
 			"\t-h\tdisplay this message\n",
 			"\t-e\tencodes input (default)\n",
@@ -13,7 +13,7 @@ void		encode_usage(void)
 			"\t-o\toutput file (default stdout)\n");
 }
 
-void		encode_print_usage_exit()
+void		encode_print_usage_exit(void)
 {
 	encode_usage();
 	exit(EXIT_SUCCESS);

@@ -160,20 +160,26 @@ Error (line 26): line has 82 characters
 Error (line 46): line has 82 characters
 Error (line 73): line has 82 characters
 Error (line 98, col 0): no newline after block
-Norme: ./encode/context/init_encode_context.c
-Error: file must end with a single empty line
--
-Error (line 5): Space before function name
-Error (line 5, col 16): bad spacing
-Error (line 14, col 0): no newline after block
-Norme: ./encode/context/parse_encode_argv.c
-Error: file must end with a single empty line
--
-Error (line 26, col 0): no newline after block
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Norme: ./cipher/context/des_argv_states.c
 Error: global scope bad aligned
 -
-Error: 12 functions in the file
 Error (line 6, col 4): space after pointer
 Error (line 12, col 4): space after pointer
 Error (line 12, col 5): bad spacing
@@ -184,44 +190,6 @@ Error (line 208): function ci_state_p has 29 lines
 Error (line 241): function ci_state_s has 27 lines
 Error (line 272): bad spacing after ci_state_v
 Error (line 272): function ci_state_v has 27 lines
-Error (line 303): multiple empty lines
-Error (line 304): bad spacing before parse_des_argv
-Error (line 304): line has 82 characters
-Norme: ./encode/context/set_encode_mode.c
-Error: file must end with a single empty line
--
-Error (line 3): Space before function name
-Error (line 3, col 3): bad spacing
-Error (line 7, col 0): no newline after block
-Norme: ./cipher/des/des_cbc.c
--
-Norme: ./encode/context/set_input_file.c
-Error: file must end with a single empty line
--
-Error (line 11, col 4): bad spacing
-Error (line 25, col 0): no newline after block
-Norme: ./encode/encode_usage.c
-Error: file must end with a single empty line
--
-Error (line 7, col 27): space before ,
-Error (line 16): missing void in function encode_print_usage_exit
-Error (line 20, col 0): no newline after block
-Norme: ./encode/context/set_output_file.c
-Error: file must end with a single empty line
--
-Error (line 12, col 4): bad spacing
-Error (line 26, col 0): no newline after block
-Norme: ./hash/md5/calculate_md5_buf_padding.c
-Norme: ./hash/md5/calculate_md5_from_fd.c
-
-
-
-
-
-
-
-
-
 
 
 
