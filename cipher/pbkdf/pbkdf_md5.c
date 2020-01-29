@@ -1,13 +1,13 @@
 #include <md5.h>
 
-int 		pbkdf_md5(t_cipher_context *ctx)
+int			pbkdf_md5(t_cipher_context *ctx)
 {
-	char final_pass[2048];
+	char			final_pass[2048];
+	t_hash_md5		key;
 
 	memset(final_pass, 0, sizeof(final_pass));
 	strcpy(final_pass, ctx->password);
 	memcpy(&final_pass[0] + strlen(final_pass), ctx->salt, sizeof(ctx->salt));
-	t_hash_md5 key;
 	if (cphr_is_salt_set(ctx))
 	{
 		key = calculate_md5_from_mem(final_pass, strlen(ctx->password)

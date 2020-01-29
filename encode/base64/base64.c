@@ -1,7 +1,6 @@
 #include "base64.h"
 #include <stddef.h>
 
-
 void		*base64(t_encode_context *ctx)
 {
 	if (ISENCODEMODE(ctx))

@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-t_encode_context	*encode_state_d(int argc, char **argv, t_encode_context *ctx)
+t_encode_context	*encode_state_d(int argc, char **argv,
+		t_encode_context *ctx)
 {
 	set_encode_decode_mode(ctx);
 	if (!(*argv))
@@ -23,7 +24,8 @@ t_encode_context	*encode_state_d(int argc, char **argv, t_encode_context *ctx)
 	return (ctx);
 }
 
-t_encode_context	*encode_state_e(int argc, char **argv, t_encode_context *ctx)
+t_encode_context	*encode_state_e(int argc, char **argv,
+		t_encode_context *ctx)
 {
 	set_encode_encode_mode(ctx);
 	if (!(*argv))
@@ -43,7 +45,8 @@ t_encode_context	*encode_state_e(int argc, char **argv, t_encode_context *ctx)
 	return (ctx);
 }
 
-t_encode_context	*encode_state_i(int argc, char **argv, t_encode_context *ctx)
+t_encode_context	*encode_state_i(int argc, char **argv,
+		t_encode_context *ctx)
 {
 	if (!(*argv))
 	{
@@ -70,7 +73,8 @@ t_encode_context	*encode_state_i(int argc, char **argv, t_encode_context *ctx)
 	return (ctx);
 }
 
-t_encode_context	*encode_state_o(int argc, char **argv, t_encode_context *ctx)
+t_encode_context	*encode_state_o(int argc, char **argv,
+		t_encode_context *ctx)
 {
 	if (!(*argv))
 	{

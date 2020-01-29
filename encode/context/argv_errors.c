@@ -2,7 +2,7 @@
 #include "utilities.h"
 #include "base64.h"
 
-void 		encode_option_requires_argument_exit(const char *opt)
+void		encode_option_requires_argument_exit(const char *opt)
 {
 	nstrprinterror(3, "option requires an argument -- ", opt, "\n");
 	encode_usage();

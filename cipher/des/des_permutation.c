@@ -18,7 +18,7 @@
 ** if parameters are wrong behaviour is undefined
 */
 
-void 		des_permutation(unsigned char *input,
+void			des_permutation(unsigned char *input,
 							unsigned char *output,
 							const size_t *arr,
 							size_t arr_len)

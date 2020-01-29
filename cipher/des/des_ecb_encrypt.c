@@ -1,7 +1,6 @@
 #include "des.h"
-#include <string.h>
 
-void 		des_ecb_encrypt(t_cipher_context *ctx)
+void			des_ecb_encrypt(t_cipher_context *ctx)
 {
 	t_desblock		block;
 

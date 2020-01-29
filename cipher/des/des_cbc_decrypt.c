@@ -7,7 +7,7 @@
 ** TODO improve output
 */
 
-void 		des_cbc_decrypt(t_cipher_context *ctx)
+void			des_cbc_decrypt(t_cipher_context *ctx)
 {
 	t_desblock		block;
 	t_desblock		tmp;

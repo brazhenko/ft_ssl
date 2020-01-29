@@ -31,7 +31,7 @@ static size_t		encode_base64_block(unsigned char *buf,
 		else if (i % 3 == 2)
 		{
 			output_buf[i + (i - 2) / 3] =
-					g_base64_arr[((buf[i - 1] & 0b1111u) << 2u) | (buf[i] >> 6u)];
+				g_base64_arr[((buf[i - 1] & 0b1111u) << 2u) | (buf[i] >> 6u)];
 			output_buf[i + (i - 2) / 3 + 1] = g_base64_arr[buf[i] & 0b111111u];
 		}
 		i++;

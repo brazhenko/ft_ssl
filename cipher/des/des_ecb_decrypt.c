@@ -1,7 +1,11 @@
 #include "des.h"
 #include <string.h>
 
-void 		des_ecb_decrypt(t_cipher_context *ctx)
+/*
+** TODO think about normal output
+*/
+
+void		des_ecb_decrypt(t_cipher_context *ctx)
 {
 	t_desblock		block;
 
@@ -9,6 +13,7 @@ void 		des_ecb_decrypt(t_cipher_context *ctx)
 	{
 		des_decrypt_block(ctx->key, &block);
 		des_cut_padding(ctx, &block);
-		write(ctx->output_fd, block, strlen((char *)block) <= 8 ? strlen((char *)block) : 8); //TODO fix
+		write(ctx->output_fd, block,
+		strlen((char *)block) <= 8 ? strlen((char *)block) : 8);
 	}
 }

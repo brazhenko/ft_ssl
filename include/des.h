@@ -70,7 +70,7 @@ void		des_3des_decode(t_cipher_context *ctx);
 
 void		des_permutation(unsigned char *input, unsigned char *output,
 		const size_t *arr, size_t arr_len);
-static int 	s_permutation(t_lpdesspreadhalfblock shb, t_lpdeshalfblock hb);
+int 		s_permutation(t_lpdesspreadhalfblock shb, t_lpdeshalfblock hb);
 void		des_swap_block_halves(t_lpdesblock bl);
 
 /*
