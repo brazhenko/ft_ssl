@@ -1,5 +1,3 @@
-#include "ssl.h"
-#include "base64.h"
 #include "des.h"
 
 void		cipher_executor(int ac, char **av,

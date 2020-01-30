@@ -11,7 +11,7 @@
 int			feistel(t_lpdeshalfblock hb, t_lpdes48key key, t_lpdeshalfblock res)
 {
 	t_desspreadhalfblock		shb;
-	t_deshalfblock			hb2;
+	t_deshalfblock				hb2;
 
 	des_permutation(*hb, shb, g_des_e_tbl,
 			sizeof(g_des_e_tbl) / sizeof(g_des_e_tbl[0]));

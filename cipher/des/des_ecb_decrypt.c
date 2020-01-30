@@ -8,8 +8,9 @@
 void		des_ecb_decrypt(t_cipher_context *ctx)
 {
 	t_desblock		block;
+	ssize_t			rd;
 
-	while (des_get_decr_block(ctx, &block))
+	while ((rd = des_get_decr_block(ctx, &block)))
 	{
 		des_decrypt_block(ctx->key, &block);
 		des_cut_padding(ctx, &block);
