@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:33:58 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 11:33:58 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 17:20:19 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <des.h>
 #include <utilities.h>
 #include "string.h"
+#include <stdio.h>
 
 /*
 ** TODO improve output
@@ -23,14 +24,16 @@ void			des_cbc_decrypt(t_cipher_context *ctx)
 {
 	t_desblock		block;
 	t_desblock		tmp;
+	ssize_t			rd;
 
-	while (des_get_decr_block(ctx, &block))
+	while ((rd = des_get_decr_block(ctx, &block)))
 	{
 		memcpy(tmp, block, DES_CIPHER_BLOCK_LEN);
 		des_decrypt_block(ctx->key, &tmp);
 		mem_xor(&tmp, ctx->vector_ini, &tmp, DES_CIPHER_BLOCK_LEN);
 		memcpy(ctx->vector_ini, block, DES_CIPHER_BLOCK_LEN);
-		des_cut_padding(ctx, &tmp);
+		if (rd == 1)
+			des_cut_padding(ctx, &tmp);
 		write(ctx->output_fd, tmp,
 		strlen((char *)tmp) <= 8 ? strlen((char *)tmp) : 8);
 	}

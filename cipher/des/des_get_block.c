@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:32:39 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 11:53:29 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 17:19:40 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <utilities.h>
+#include <stdio.h>
 
 /*
 ** des_get_enc_block() returns padded(if needed) block from fd
@@ -21,9 +22,9 @@
 
 ssize_t		des_get_enc_block(t_cipher_context *ctx, t_lpdesblock block)
 {
-	ssize_t			rc;
-	static int		end_reading = 0;
-	int 			j;
+	ssize_t				rc;
+	static int			end_reading = 0;
+	int 				j;
 
 	if (end_reading)
 		return (0);
@@ -42,18 +43,50 @@ ssize_t		des_get_enc_block(t_cipher_context *ctx, t_lpdesblock block)
 	return (1);
 }
 
+static void	wrong_block_size_exit(void)
+{
+	nstrprinterror(1, "wrong block size, cipher text is corrupted\n");
+	exit(EXIT_FAILURE);
+}
+
+/*
+ * des_get_decr_block() returns 8 if usual block,
+ * 1 if last, 0 if no blocks left.
+ */
+
 ssize_t		des_get_decr_block(t_cipher_context *ctx, t_lpdesblock block)
 {
-	ssize_t		rc;
+	ssize_t				rc;
+	static int			start = 0;
+	static t_desblock	tmp_block;
+	static size_t		tmp_size = 0;
 
 	memset(*block, 0, 8);
-	rc = read(ctx->input_fd, block, 8);
-	if (rc == 0)
-		return (rc);
-	if (rc != 8)
+	// printf("__________________\n");
+	if (!start)
 	{
-		nstrprinterror(1, "wrong block size, cipher text is corrupted\n");
-		exit(EXIT_FAILURE);
+		start = 1;
+		rc = read(ctx->input_fd, block, 8);
+		// printf("%d %zu\n", __LINE__, rc);
+		if (rc == 0)
+			return (0);
+		else if (rc != 8)
+			wrong_block_size_exit();
+		tmp_size = read(ctx->input_fd, tmp_block, 8);
+		// printf("%d %zu\n", __LINE__, tmp_size);
+		if (tmp_size == 0)
+			return (1);
+		return (8);
 	}
-	return (rc);
+	if (tmp_size == 0)
+		return (0);
+	else if (tmp_size != 8)
+		wrong_block_size_exit();
+	memcpy(block, tmp_block, 8);
+	tmp_size = read(ctx->input_fd, tmp_block, 8);
+	// printf("%d %zu\n", __LINE__, tmp_size);
+	if (tmp_size == 0)
+		return (1);
+	//printf("__________________\n");
+	return (tmp_size);
 }
