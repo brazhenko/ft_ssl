@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:37:42 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 11:37:42 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 11:37:55 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,17 @@
 ** 29 infile/no infile
 */
 
-struct		s_encode_context
+typedef struct		s_encode_context
 {
 	char		input_file[PATH_MAX];
 	char		output_file[PATH_MAX];
 	int			input_fd;
 	int			output_fd;
 	unsigned	mode;
-};
+}					t_encode_context;
 
 # define ISENCODEMODE(c) 	(!(c->mode & 0b1))
 # define ISDECODEMODE(c) 	((c->mode & 0b1))
-
-typedef struct s_encode_context	t_encode_context;
 
 t_encode_context	*init_encode_context(void);
 void				destruct_encode_context(t_encode_context *ctx);

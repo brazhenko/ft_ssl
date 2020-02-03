@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   des.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/28 23:03:13 by lreznak-          #+#    #+#             */
+/*   Updated: 2020/02/03 11:56:48 by a17641238        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DES_H
 # define DES_H
 
@@ -22,7 +34,7 @@ typedef t_des64key				*t_lpdes64key;
 typedef uint8_t					t_des56key[7];
 typedef t_des56key				*t_lpdes56key;
 typedef uint8_t					t_des48key[6];
-typedef t_des48key 				*t_lpdes48key;
+typedef t_des48key				*t_lpdes48key;
 
 ssize_t		des_get_enc_block(t_cipher_context *ctx, t_lpdesblock block);
 ssize_t		des_get_decr_block(t_cipher_context *ctx, t_lpdesblock block);
@@ -70,7 +82,7 @@ void		des_3des_decode(t_cipher_context *ctx);
 
 void		des_permutation(unsigned char *input, unsigned char *output,
 		const size_t *arr, size_t arr_len);
-int 		s_permutation(t_lpdesspreadhalfblock shb, t_lpdeshalfblock hb);
+int			s_permutation(t_lpdesspreadhalfblock shb, t_lpdeshalfblock hb);
 void		des_swap_block_halves(t_lpdesblock bl);
 
 /*
@@ -139,7 +151,7 @@ static const uint8_t	g_des_key_pd[] = {
 	1, 2, 2, 2, 2, 2, 2, 1
 };
 
-int						rot_des56key_blocks_left_n(t_lpdes56key key, uint8_t times);
+int			rot_des56key_blocks_left_n(t_lpdes56key key, uint8_t times);
 
 /*
 ** cipher part
@@ -225,6 +237,6 @@ static const uint8_t	g_s[8][4][16] =
 	}
 };
 
-int				des_round(t_lpdesblock block, t_lpdes48key key);
+int			des_round(t_lpdesblock block, t_lpdes48key key);
 
 #endif

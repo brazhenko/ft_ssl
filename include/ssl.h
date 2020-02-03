@@ -13,6 +13,10 @@
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
+# include "sha256.h"
+# include "md5.h"
+# include "base64.h"
+
 # include <string.h>
 # include <stdlib.h>
 # include <stdint.h>
@@ -36,21 +40,19 @@
 
 typedef uint32_t			t_reg32;
 
-# include "sha256.h"
-# include "md5.h"
-# include "base64.h"
-
 void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);
 void		hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int));
 void		encode_executor(int ac, char *av[],
 		void *(*algo)(t_encode_context *ctx));
-int			parse_hash_flags(char *str, int *flags, void *(*hash_algo)(char *, int));
+int			parse_hash_flags(char *str, int *flags,
+					void *(*hash_algo)(char *, int));
 void		print_usage(void);
 void		illegal_hash_option_exit(char c);
 void		s_param_error_exit(void);
-void		cipher_executor(int ac, char **av, void *(*algo)(t_cipher_context *));
+void		cipher_executor(int ac, char **av,
+					void *(*algo)(t_cipher_context *));
 void		print_ft_ssl_help(void);
-void 		wrong_command_exit(char *av0, char *command);
+void		wrong_command_exit(char *av0, char *command);
 
 #endif

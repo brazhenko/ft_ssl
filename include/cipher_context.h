@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 17:27:07 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 09:49:18 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 11:43:26 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define CIPHER_PASSWORD_PROMPT "enter encryption password:"
 # define CIPHER_PASSWORD_VERIFY_PROMPT "Verifying - enter encryption password:"
 
-struct		s_cipher_context
+typedef struct		s_cipher_context
 {
 	char		input_file[PATH_MAX];
 	char		output_file[PATH_MAX];
@@ -37,9 +37,7 @@ struct		s_cipher_context
 	char		vector_ini[MAX_IV_DIG_LEN];
 	unsigned	mode;
 	void		*alg_ptr;
-};
-
-typedef struct s_cipher_context		t_cipher_context;
+}					t_cipher_context;
 
 /*
 ** Cipher context part
