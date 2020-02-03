@@ -6,18 +6,23 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:24:20 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 10:24:20 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 11:32:15 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher_context.h"
 #include "string.h"
 
+static void			s_action(char *arg, t_cipher_context *ctx)
+{
+	if (!(arg))
+		token_needs_arg_exit("-s");
+	set_cipher_pass_salt(ctx, arg);
+}
+
 t_cipher_context	*ci_state_s(int argc, char **argv, t_cipher_context *ctx)
 {
-	if (!(*argv))
-		token_needs_arg_exit("-s");
-	set_cipher_pass_salt(ctx, *argv);
+	s_action(*argv, ctx);
 	argv++;
 	argc--;
 	if (!*argv)

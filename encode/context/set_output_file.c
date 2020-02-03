@@ -20,7 +20,7 @@
 int					set_encode_output_file(t_encode_context *ctx,
 		const char *output_file_name)
 {
-	int 	output_fd;
+	int		output_fd;
 
 	memset(ctx->output_file, '\0', PATH_MAX);
 	strcpy(ctx->output_file, output_file_name);

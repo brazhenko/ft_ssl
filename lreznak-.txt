@@ -23,10 +23,8 @@ Error: 12 functions in the file
 Error: 42 header not at top of the file
 Error (line 6, col 4): space after pointer
 Error (line 12, col 4): space after pointer
-Error (line 111): function ci_state_i has 27 lines
-Error (line 146): function ci_state_k has 27 lines
-Error (line 177): function ci_state_o has 27 lines
-Error (line 208): function ci_state_p has 29 lines
+
+Error (line 208): function ci_state_p has 29 lines   пше
 Error (line 241): function ci_state_s has 27 lines
 Error (line 272): function ci_state_v has 27 lines
 

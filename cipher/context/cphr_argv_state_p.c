@@ -6,20 +6,25 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:24:16 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 10:24:16 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 10:39:39 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher_context.h"
 #include <string.h>
 
-t_cipher_context	*ci_state_p(int argc, char **argv, t_cipher_context *ctx)
+static void			p_action(char *arg, t_cipher_context *ctx)
 {
-	if (!(*argv))
+	if (!(arg))
 		token_needs_arg_exit("-p");
 	memset(ctx->password, 0, sizeof(ctx->password));
-	strcpy(ctx->password, *argv);
+	strcpy(ctx->password, arg);
 	ctx->mode |= 0b100000;
+}
+
+t_cipher_context	*ci_state_p(int argc, char **argv, t_cipher_context *ctx)
+{
+	p_action(*argv, ctx);
 	argv++;
 	argc--;
 	if (!*argv)

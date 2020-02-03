@@ -59,13 +59,13 @@ typedef struct s_cipher_context		t_cipher_context;
 ** context status methods
 */
 
-int			cphr_is_encrypt_mode(t_cipher_context *ctx);
-int			cphr_is_decrypt_mode(t_cipher_context *ctx);
-int			cphr_is_a_flag(t_cipher_context *ctx);
-int			cphr_is_key_set(t_cipher_context *ctx);
-int			cphr_is_pass_set(t_cipher_context *ctx);
-int			cphr_is_salt_set(t_cipher_context *ctx);
-int			cphr_is_iv_set(t_cipher_context *ctx);
+int					cphr_is_encrypt_mode(t_cipher_context *ctx);
+int					cphr_is_decrypt_mode(t_cipher_context *ctx);
+int					cphr_is_a_flag(t_cipher_context *ctx);
+int					cphr_is_key_set(t_cipher_context *ctx);
+int					cphr_is_pass_set(t_cipher_context *ctx);
+int					cphr_is_salt_set(t_cipher_context *ctx);
+int					cphr_is_iv_set(t_cipher_context *ctx);
 
 /*
 ** ctor & dtor
@@ -90,21 +90,22 @@ t_cipher_context	*ci_state_v(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*parse_cphr_argv(t_cipher_context *ctx,
 														int argc, char **argv);
 
-void*				token_needs_arg_exit(char *token);
-void*				unexpected_token_exit(char *token);
+void				*token_needs_arg_exit(char *token);
+void				*unexpected_token_exit(char *token);
 /*
 ** argv instructions
 */
 
-int		set_cipher_input_file(t_cipher_context *ctx,
-		const char *input_file_name);
-int		set_cipher_output_file(t_cipher_context *ctx,
-		const char *output_file_name);
-int		set_cipher_bufsize(t_cipher_context *ctx, const char *argv);
-void	set_cipher_key(t_cipher_context *ctx, char *arg);
-void	set_cipher_pass_salt(t_cipher_context *ctx, char *arg);
-int		set_cipher_init_vector(t_cipher_context *ctx, char *arg);
-int		set_cipher_password_from_stdin(t_cipher_context *ctx);
-int		set_cipher_random_pass_salt(t_cipher_context *ctx, size_t bytelen);
+int					set_cipher_input_file(t_cipher_context *ctx,
+											const char *input_file_name);
+int					set_cipher_output_file(t_cipher_context *ctx,
+											const char *output_file_name);
+int					set_cipher_bufsize(t_cipher_context *ctx, const char *argv);
+void				set_cipher_key(t_cipher_context *ctx, char *arg);
+void				set_cipher_pass_salt(t_cipher_context *ctx, char *arg);
+int					set_cipher_init_vector(t_cipher_context *ctx, char *arg);
+int					set_cipher_password_from_stdin(t_cipher_context *ctx);
+int					set_cipher_random_pass_salt(t_cipher_context *ctx,
+												size_t bytelen);
 
 #endif

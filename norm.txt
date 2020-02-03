@@ -1,0 +1,33 @@
+
+Norme: ./cipher/des/des_key_gen.c
+Error (line 60): comment not well formatted
+
+
+Norme: ./cipher/des/des_swap_block_halves.c
+Error (line 16): comment not well formatted
+
+
+Norme: ./encode/base64/base64_decode.c
+Error (line 32): function base64_decode_block has 39 lines
+
+
+
+Norme: ./include/encode_context.h
+Error: global scope bad aligned
+
+Norme: ./include/des.h
+Error: global scope bad aligned
+Error: 42 header not at top of the file
+Error (line 25, col 18): bad spacing
+Error (line 73, col 3): bad spacing
+Error (line 142): line has 85 characters
+
+
+
+Norme: ./include/ssl.h
+Error (line 39): # include "sha256.h" should be before line 37
+Error (line 40): # include "md5.h" should be before line 37
+Error (line 41): # include "base64.h" should be before line 37
+Error (line 48): line has 86 characters
+Error (line 52): line has 83 characters
+Error (line 54, col 4): bad spacing

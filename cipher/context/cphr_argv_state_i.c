@@ -6,18 +6,23 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:24:01 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 10:24:01 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 10:35:47 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher_context.h"
 #include <string.h>
 
+static void			i_action(char *arg, t_cipher_context *ctx)
+{
+	if (!(arg))
+		token_needs_arg_exit("-i");
+	set_cipher_input_file(ctx, arg);
+}
+
 t_cipher_context	*ci_state_i(int argc, char **argv, t_cipher_context *ctx)
 {
-	if (!(*argv))
-		token_needs_arg_exit("-i");
-	set_cipher_input_file(ctx, *argv);
+	i_action(*argv, ctx);
 	argv++;
 	argc--;
 	if (!*argv)

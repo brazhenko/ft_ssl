@@ -6,18 +6,23 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:24:11 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 10:24:11 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 10:38:34 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cipher_context.h"
 #include <string.h>
 
+static void			o_action(char *arg, t_cipher_context *ctx)
+{
+	if (!(arg))
+		token_needs_arg_exit("-o");
+	set_cipher_output_file(ctx, arg);
+}
+
 t_cipher_context	*ci_state_o(int argc, char **argv, t_cipher_context *ctx)
 {
-	if (!(*argv))
-		token_needs_arg_exit("-o");
-	set_cipher_output_file(ctx, *argv);
+	o_action(*argv, ctx);
 	argv++;
 	argc--;
 	if (!*argv)
