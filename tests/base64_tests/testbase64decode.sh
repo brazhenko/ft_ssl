@@ -18,7 +18,7 @@ echo -e "${BLUE}Base64 File tests${NC}"
 for entry in "testfiles"/*
 do
   base64 -i $entry | base64 -D > orig
-  base64 -i $entry | ./$bin base64 -d > my
+  base64 -i $entry | $bin base64 -d > my
 
   echo -n "$entry "
   DIFF=$(diff my orig)

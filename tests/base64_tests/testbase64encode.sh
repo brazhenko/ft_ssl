@@ -18,7 +18,7 @@ echo -e "${BLUE}Base64 File tests${NC}"
 for entry in "testfiles"/*
 do
   base64 -i $entry > orig
-  ./$bin base64 -i $entry > my
+  $bin base64 -i $entry > my
 
   echo -n "$entry "
   DIFF=$(diff my orig)
@@ -38,7 +38,7 @@ echo -e "${BLUE}Base64 checklist test${NC}"
 s="repeat after me 'encoding is not encryption'"
 echo -n $s
 echo $s |  base64  > orig
-echo $s | ./$bin base64  > my
+echo $s | $bin base64  > my
 DIFF=$(diff my orig)
 
 if [ "$DIFF" == "" ]
