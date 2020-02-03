@@ -37,7 +37,7 @@ static int		reset_get_block_from_fd(size_t *iter, size_t *len,
 static void		move_iter(char **ret_block,
 				char *buffer, size_t *iter, ssize_t rd)
 {
-	if (*iter < rd)
+	if ((ssize_t)(*iter) < rd)
 	{
 		*ret_block = &buffer[*iter];
 		*iter = *iter + 64;
@@ -52,7 +52,7 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 	static ssize_t	rd = 0;
 	static int		padded = 0;
 
-	if (iter == rd)
+	if ((ssize_t)iter == rd)
 	{
 		bzero(buffer, BUFLEN + 64);
 		if ((rd = read(fd, buffer, BUFLEN)) == -1)

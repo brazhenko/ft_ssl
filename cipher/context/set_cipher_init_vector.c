@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 17:37:40 by a17641238         #+#    #+#             */
-/*   Updated: 2020/01/30 17:37:40 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 20:02:18 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				set_cipher_init_vector(t_cipher_context *ctx, char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		bin = g_hex2bin[arg[i]];
+		bin = g_hex2bin[(uint8_t)arg[i]];
 		if (bin || arg[i] == '0')
 		{
 			ctx->vector_ini[i / 2] |= (bin << (4u * (1u - i % 2u)));

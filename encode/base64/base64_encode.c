@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 03:17:13 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/01/07 03:17:20 by lreznak-         ###   ########.fr       */
+/*   Updated: 2020/02/03 19:59:34 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static size_t		encode_base64_block(unsigned char *buf,
 	size_t		i;
 
 	i = 0;
-	while (i < rd)
+	while ((ssize_t)i < rd)
 	{
 		if (i % 3 == 0)
 			output_buf[i + i / 3] = g_base64_arr[buf[i] >> 2u];
@@ -48,6 +48,7 @@ static void			encode_base64_block_with_padding(
 {
 	size_t		i;
 
+	(void)ctx;
 	i = encode_base64_block(buf, output_buf, rd);
 	if (i % 3 == 1)
 	{

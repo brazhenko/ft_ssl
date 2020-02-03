@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 23:17:34 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/10/28 23:17:35 by lreznak-         ###   ########.fr       */
+/*   Updated: 2020/02/03 19:57:42 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int		reset_get_block_from_fd(size_t *iter, size_t *len,
 void			move_iter(char **ret_block,
 				char *buffer, size_t *iter, ssize_t rd)
 {
-	if (*iter < rd)
+	if ((ssize_t)(*iter) < rd)
 	{
 		*ret_block = &buffer[*iter];
 		*iter = *iter + 64;
@@ -47,7 +47,7 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 	static ssize_t	rd = 0;
 	static int		padded = 0;
 
-	if (iter == rd)
+	if ((ssize_t)iter == rd)
 	{
 		bzero(buffer, BUFLEN + 64);
 		if ((rd = read(fd, buffer, BUFLEN)) == -1)

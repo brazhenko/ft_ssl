@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 05:57:01 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/02/03 13:52:18 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 20:00:06 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ static void			base64_decode_block(
 	char		tmp[4];
 	size_t		arr[3];
 
+	(void)ctx;
 	arr[2] = 0;
 	arr[1] = 0;
 	arr[0] = 0;
-	while (arr[2] < rd)
+	while ((ssize_t)arr[2] < rd)
 	{
 		if (isbase64alpha(buf[arr[2]]))
 			dec(buf, out, tmp, arr);
@@ -88,6 +89,7 @@ void				base64_decode(t_encode_context *ctx)
 	uint8_t			input_buf[BASE64_DECODE_READ_LEN];
 	char			output_buf[BASE64_DECODE_OUTPUT_LEN];
 
+	(void)ctx;
 	while (memset(input_buf, 0, sizeof(input_buf)) &&
 		(rd = read(ctx->input_fd, input_buf, BASE64_DECODE_READ_LEN)) > 0)
 	{
