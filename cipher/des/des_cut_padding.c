@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 17:38:23 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 18:02:00 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 18:58:28 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ size_t		des_cut_padding(t_cipher_context *ctx, t_lpdesblock block)
 		(*block)[(i = 0)] = 0;
 	else
 	{
-		printf("%u-%u-%u-%u-%u-%u-%u-%u\n____%s____\n", (*block)[0],
-				(*block)[1], (*block)[2], (*block)[3], (*block)[4], (*block)[5], (*block)[6], (*block)[7], *block);
-
+		i = 8;
 		corrupted_last_block_exit();
 	}
 	return (i);

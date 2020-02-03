@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:32:39 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 17:19:40 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 18:54:38 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,15 @@ ssize_t		des_get_decr_block(t_cipher_context *ctx, t_lpdesblock block)
 	static size_t		tmp_size = 0;
 
 	memset(*block, 0, 8);
-	// printf("__________________\n");
 	if (!start)
 	{
 		start = 1;
 		rc = read(ctx->input_fd, block, 8);
-		// printf("%d %zu\n", __LINE__, rc);
 		if (rc == 0)
 			return (0);
 		else if (rc != 8)
 			wrong_block_size_exit();
 		tmp_size = read(ctx->input_fd, tmp_block, 8);
-		// printf("%d %zu\n", __LINE__, tmp_size);
 		if (tmp_size == 0)
 			return (1);
 		return (8);
@@ -82,11 +79,9 @@ ssize_t		des_get_decr_block(t_cipher_context *ctx, t_lpdesblock block)
 		return (0);
 	else if (tmp_size != 8)
 		wrong_block_size_exit();
-	memcpy(block, tmp_block, 8);
-	tmp_size = read(ctx->input_fd, tmp_block, 8);
-	// printf("%d %zu\n", __LINE__, tmp_size);
+	memcpy(block, tmp_block, sizeof(tmp_block));
+	tmp_size = read(ctx->input_fd, tmp_block, sizeof(tmp_block));
 	if (tmp_size == 0)
 		return (1);
-	//printf("__________________\n");
 	return (tmp_size);
 }

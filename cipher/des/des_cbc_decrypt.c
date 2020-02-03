@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:33:58 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 17:53:36 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 19:00:40 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ void			des_cbc_decrypt(t_cipher_context *ctx)
 		memcpy(ctx->vector_ini, block, DES_CIPHER_BLOCK_LEN);
 		if (rd == 1)
 		{
-			cut = des_cut_padding(ctx, &block);
-			write(ctx->output_fd, block, cut);
+			cut = des_cut_padding(ctx, &tmp);
+			write(ctx->output_fd, tmp, cut);
 		}
 		else
-			write(ctx->output_fd, block, sizeof(block));
+		{
+			write(ctx->output_fd, tmp, sizeof(block));
+		}
+
 	}
 }
