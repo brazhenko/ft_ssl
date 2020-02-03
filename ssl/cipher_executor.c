@@ -18,7 +18,7 @@ void		cipher_executor(int ac, char **av,
 	t_cipher_context		*ctx;
 
 	ctx = init_cipher_context(algo);
-	ctx = parse_des_argv(ctx, ac, av);
+	ctx = parse_cphr_argv(ctx, ac, av);
 	algo(ctx);
 	destruct_cipher_context(ctx);
 }

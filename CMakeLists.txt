@@ -88,7 +88,16 @@ set(DES_SRC
 		cipher/context/cphr_is_iv_set.c
 		cipher/context/cphr_is_key_set.c
 		cipher/context/cphr_is_pass_set.c
-		cipher/context/cphr_is_salt_set.c)
+		cipher/context/cphr_is_salt_set.c
+		cipher/context/cphr_argv_state_a.c
+		cipher/context/cphr_argv_state_d.c
+		cipher/context/cphr_argv_state_e.c
+		cipher/context/cphr_argv_state_i.c
+		cipher/context/cphr_argv_state_k.c
+		cipher/context/cphr_argv_state_o.c
+		cipher/context/cphr_argv_state_p.c
+		cipher/context/cphr_argv_state_s.c
+		cipher/context/cphr_argv_state_v.c)
 
 SET(UTILITIES_SRC
 		ssl/utilities/is_flag.c

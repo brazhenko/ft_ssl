@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 17:27:07 by a17641238         #+#    #+#             */
-/*   Updated: 2020/01/30 17:27:07 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 09:49:18 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,11 @@ t_cipher_context	*ci_state_o(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_p(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_s(int argc, char **argv, t_cipher_context *ctx);
 t_cipher_context	*ci_state_v(int argc, char **argv, t_cipher_context *ctx);
-t_cipher_context	*parse_des_argv(t_cipher_context *ctx,
+t_cipher_context	*parse_cphr_argv(t_cipher_context *ctx,
 														int argc, char **argv);
 
+void*				token_needs_arg_exit(char *token);
+void*				unexpected_token_exit(char *token);
 /*
 ** argv instructions
 */

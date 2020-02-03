@@ -1,24 +1,14 @@
 #include "cipher_context.h"
 #include <string.h>
-#include <stdlib.h>
-#include <utilities.h>
 
-void*				token_needs_arg_exit(char *token)
-{
-	nstrprinterror(2, token, " needs argument\n");
-	exit(EXIT_FAILURE);
-}
+/*
+** sets ctx to decrypt mode
+*/
 
-void*				unexpected_token_exit(char *token)
+t_cipher_context	*ci_state_d(int argc, char **argv, t_cipher_context *ctx)
 {
-	nstrprinterror(3, "unexpected token near ", token, "\n");
-	exit(EXIT_FAILURE);
-}
-
-t_cipher_context	*parse_cphr_argv(t_cipher_context *ctx,
-								int argc, char **argv)
-{
-	if (!*argv)
+	ctx->mode |= 0b1;
+	if (!(*argv))
 		return (ctx);
 	else if (strcmp(*argv, "-a") == 0)
 		return (ci_state_a(argc - 1, argv + 1, ctx));
