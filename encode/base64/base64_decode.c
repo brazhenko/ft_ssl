@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 05:57:01 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/01/07 05:57:02 by lreznak-         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:23:22 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,51 +29,53 @@ static bool		isbase64alpha(char c)
 			(c == '='));
 }
 
+void				dec(uint8_t *buf, char *out, char *tmp, size_t *arr)
+{
+	if ((arr[2] - arr[0]) % 4 == 0)
+		tmp[0] = g_base64_dec_arr[buf[arr[2]]];
+	else if ((arr[2] - arr[0]) % 4 == 1)
+		tmp[1] = g_base64_dec_arr[buf[arr[2]]];
+	else if ((arr[2] - arr[0]) % 4 == 2)
+		tmp[2] = g_base64_dec_arr[buf[arr[2]]];
+	else if ((arr[2] - arr[0]) % 4 == 3)
+	{
+		tmp[3] = g_base64_dec_arr[buf[arr[2]]];
+		out[arr[1] * 3] = ((tmp[0] & 0b111111u) << 2u) + ((tmp[1] >> 4u) & 0b11u);
+		out[arr[1] * 3 + 1] = ((tmp[1] & 0b1111u) << 4u) + ((tmp[2] >> 2u) & 0b1111u);
+		out[arr[1] * 3 + 2] = ((tmp[2] & 0b11) << 6u) + ((tmp[3] >> 0u) & 0b111111);
+		arr[1]++;
+	}
+}
+
+/*
+ * arr[3]: arr[0] - white_space offset, arr[1] - temporary num, arr[2] - i
+ */
+
 static void		base64_decode_block(
 		uint8_t *buf,
-		char *output_buf,
+		char *out,
 		ssize_t rd,
 		t_encode_context *ctx
 )
 {
 	char		tmp[4];
-	size_t		i;
-	size_t		tmp_num;
-	size_t		wsoffset;
+	size_t		arr[3];
 
-	i = 0;
-	tmp_num = 0;
-	wsoffset = 0;
-	while (i < rd)
+	arr[2] = 0;
+	arr[1] = 0;
+	arr[0] = 0;
+	while (arr[2] < rd)
 	{
-		if (isbase64alpha(buf[i]))
-		{
-			if ((i - wsoffset) % 4 == 0)
-				tmp[0] = g_base64_dec_arr[buf[i]];
-			else if ((i - wsoffset) % 4 == 1)
-				tmp[1] = g_base64_dec_arr[buf[i]];
-			else if ((i - wsoffset) % 4 == 2)
-				tmp[2] = g_base64_dec_arr[buf[i]];
-			else if ((i - wsoffset) % 4 == 3)
-			{
-				tmp[3] = g_base64_dec_arr[buf[i]];
-				output_buf[tmp_num * 3] =
-						((tmp[0] & 0b111111u) << 2u) + ((tmp[1] >> 4u) & 0b11u);
-				output_buf[tmp_num * 3 + 1] =
-						((tmp[1] & 0b1111u) << 4u) + ((tmp[2] >> 2u) & 0b1111u);
-				output_buf[tmp_num * 3 + 2] =
-						((tmp[2] & 0b11) << 6u) + ((tmp[3] >> 0u) & 0b111111);
-				tmp_num++;
-			}
-		}
-		else if (isspace(buf[i]))
-			wsoffset++;
+		if (isbase64alpha(buf[arr[2]]))
+			dec(buf, out, tmp, arr);
+		else if (isspace(buf[arr[2]]))
+			arr[0]++;
 		else
 		{
 			nstrprinterror(1, "Invalid character in input stream.\n");
 			exit(EXIT_FAILURE);
 		}
-		i++;
+		arr[2]++;
 	}
 }
 

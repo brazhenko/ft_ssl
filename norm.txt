@@ -1,21 +1,11 @@
 Norme: ./cipher/des/des_encode_block.c
 Error (line 18): comment not well formatted
 
-Norme: ./cipher/des/des_swap_block_halves.c
-Error (line 16): comment not well formatted
-
 Norme: ./cipher/des/des_key_gen.c
 Error (line 60): comment not well formatted
 
+Norme: ./cipher/des/des_swap_block_halves.c
+Error (line 16): comment not well formatted
+
 Norme: ./encode/base64/base64_decode.c
 Error (line 32): function base64_decode_block has 39 lines
-
-
-Norme: ./include/des.h
-Error: global scope bad aligned
-
-Norme: ./include/ssl.h
-Error (line 39): # include "sha256.h" should be before line 37
-Error (line 40): # include "md5.h" should be before line 37
-Error (line 41): # include "base64.h" should be before line 37
-

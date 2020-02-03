@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 23:03:13 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/10/28 23:03:15 by lreznak-         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:17:59 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@
 # define FARGS_APPEARED	0b0000000001000000
 # define RESET_FLAG     0b1111111101110011
 
-# define BUFLEN			5120
 
-typedef uint32_t			t_reg32;
 
 void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);

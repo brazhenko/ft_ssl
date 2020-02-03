@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 23:03:00 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/10/28 23:03:01 by lreznak-         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:20:49 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,24 @@
 
 # include <stdint.h>
 # include <stdlib.h>
-# include "ssl.h"
+
+# define BUFLEN			5120
 
 /*
 **	All macros defined below take 32-bit (8-byte) arguments and return
 **	32-bit (8-byte) value.
 */
+
+# ifndef T_REG32
+#  define T_REG32
+typedef uint32_t		t_reg32;
+# endif
+
+typedef struct	s_hash_sha256
+{
+	t_reg32	hash[8];
+	int		error;
+}				t_hash_sha256;
 
 # define RSHIFT(x, n) (((x) >> (n)) | (((x) << (32 - (n)))))
 # define RROT(x, n) ((x) >> (n))
@@ -55,11 +67,6 @@ static const t_reg32 g_sha256_constants[64] = {
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-typedef struct	s_hash_sha256
-{
-	t_reg32	hash[8];
-	int		error;
-}				t_hash_sha256;
 
 void			*sha256(char *str, int flags);
 int				init_sha256_hash(t_hash_sha256 *hash);
