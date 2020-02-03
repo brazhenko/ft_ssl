@@ -2,7 +2,7 @@
 
 if [ "" == "$bin" ]
   then
-    bin="../../cmake-build-debug/ft_ssl"
+    exit 0
 fi
 
 # Colors
