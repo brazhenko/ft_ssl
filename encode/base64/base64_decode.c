@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 05:57:01 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/02/03 13:23:22 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 13:52:18 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,19 @@ void				dec(uint8_t *buf, char *out, char *tmp, size_t *arr)
 	else if ((arr[2] - arr[0]) % 4 == 3)
 	{
 		tmp[3] = g_base64_dec_arr[buf[arr[2]]];
-		out[arr[1] * 3] = ((tmp[0] & 0b111111u) << 2u) + ((tmp[1] >> 4u) & 0b11u);
-		out[arr[1] * 3 + 1] = ((tmp[1] & 0b1111u) << 4u) + ((tmp[2] >> 2u) & 0b1111u);
-		out[arr[1] * 3 + 2] = ((tmp[2] & 0b11) << 6u) + ((tmp[3] >> 0u) & 0b111111);
+		out[arr[1] * 3] = ((tmp[0] & 0b111111u) << 2u) +
+				((tmp[1] >> 4u) & 0b11u);
+		out[arr[1] * 3 + 1] = ((tmp[1] & 0b1111u) << 4u) +
+				((tmp[2] >> 2u) & 0b1111u);
+		out[arr[1] * 3 + 2] = ((tmp[2] & 0b11) << 6u) +
+				((tmp[3] >> 0u) & 0b111111);
 		arr[1]++;
 	}
 }
 
 /*
- * arr[3]: arr[0] - white_space offset, arr[1] - temporary num, arr[2] - i
- */
+** arr[3]: arr[0] - white_space offset, arr[1] - temporary num, arr[2] - i
+*/
 
 static void		base64_decode_block(
 		uint8_t *buf,
