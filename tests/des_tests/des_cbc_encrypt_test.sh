@@ -20,7 +20,7 @@ do
   KEY=$(python3 generate_random_key.py)
   IV=$(python3 generate_random_key.py)
   openssl des-cbc -K $KEY -iv $IV -in $entry | base64 > orig
-  ./$bin des-cbc -i $entry -k $KEY -v $IV | base64 > my
+  $bin des-cbc -i $entry -k $KEY -v $IV | base64 > my
 
   echo -n -e  "$entry " "\t" "$KEY " "\t" "$IV "
   DIFF=$(diff my orig)
@@ -42,7 +42,7 @@ do
   SALT=$(python3 generate_random_salt.py)
   PASSW=$(python3 generate_random_password.py)
   openssl des-cbc -S $SALT -pass "pass:$PASSW" -in $entry | base64 > orig
-  ./$bin des-cbc -s $SALT -p $PASSW -i $entry | base64 > my
+  $bin des-cbc -s $SALT -p $PASSW -i $entry | base64 > my
 
   echo -n -e  "$entry " "\t"
   printf "pass: %-25s salt: %-25s " $PASSW $SALT

@@ -20,7 +20,7 @@ do
   KEY=$(python3 generate_random_key.py)
   IV=$(python3 generate_random_key.py)
   openssl des-cbc -K $KEY -iv $IV -in $entry | openssl  des-cbc -d  -K $KEY -iv $IV | base64 > orig
-  openssl des-cbc -K $KEY -iv $IV -in $entry | ./$bin des-cbc -d -k $KEY -v $IV | base64 > my
+  openssl des-cbc -K $KEY -iv $IV -in $entry | $bin des-cbc -d -k $KEY -v $IV | base64 > my
   echo -n -e  "$entry " "\t" "$KEY " "\t" "$IV "
   DIFF=$(diff my orig)
   if [ "$DIFF" == "" ]

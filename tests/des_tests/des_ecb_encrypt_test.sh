@@ -19,7 +19,7 @@ for entry in "test_files"/*
 do
   KEY=$(python3 generate_random_key.py)
   openssl des-ecb -K $KEY -in $entry | base64 > orig
-  ./$bin des-ecb -i $entry -k $KEY | base64 > my
+  $bin des-ecb -i $entry -k $KEY | base64 > my
 
   echo -n -e  "$entry " "\t" "$KEY "
   DIFF=$(diff my orig)
@@ -40,7 +40,7 @@ done
 #do
 #  KEY=$(python3 generate_random_key.py)
 #  openssl des-ecb -K $KEY -in $entry | base64 > orig
-#  ./$bin des-ecb -i $entry -k $KEY | base64 > my
+#  $bin des-ecb -i $entry -k $KEY | base64 > my
 #
 #  echo -n -e  "$entry " "\t" "$KEY "
 #  DIFF=$(diff my orig)
@@ -63,7 +63,7 @@ do
   PASSW=$(python3 generate_random_password.py)
   # openssl des-ecb -K $KEY -in $entry | base64 > orig
   openssl des-ecb -S $SALT -pass "pass:$PASSW" -in $entry | base64 > orig
-  ./$bin des-ecb -s $SALT -p $PASSW -i $entry | base64 > my
+  $bin des-ecb -s $SALT -p $PASSW -i $entry | base64 > my
 
   echo -n -e  "$entry " "\t"
   printf "pass: %-25s salt: %-25s " $PASSW $SALT
