@@ -13,6 +13,7 @@
 #include <stddef.h>
 #include <utilities.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #define HEX_DIGITS_PER_BYTE 2
 
@@ -39,4 +40,5 @@ void	print_hex_memory(void *mem, size_t size)
 	}
 	write(STDOUT_FILENO, print_buffer, size * HEX_DIGITS_PER_BYTE);
 	write(STDOUT_FILENO, "\n", 1);
+	free(print_buffer);
 }
