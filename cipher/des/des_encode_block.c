@@ -17,7 +17,7 @@
 
 /*
 ** feistel()  function gets half of plain text block (32bit), final key
- * (48 bit) and "returns" the encoded block back to [t_deshalfblock res].
+** (48 bit) and "returns" the encoded block back to [t_deshalfblock res].
 */
 
 int			feistel(t_lpdeshalfblock hb, t_lpdes48key key, t_lpdeshalfblock res)

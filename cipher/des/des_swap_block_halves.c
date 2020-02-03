@@ -14,8 +14,8 @@
 #include <string.h>
 
 /*
- * des_swap_block_halves() gets des block pointer and swaps its 32bit halves
- */
+** des_swap_block_halves() gets des block pointer and swaps its 32bit halves
+*/
 
 void		des_swap_block_halves(t_lpdesblock bl)
 {

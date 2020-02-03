@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 23:03:00 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/02/03 13:20:49 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 19:28:23 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@
 
 # ifndef T_REG32
 #  define T_REG32
+
 typedef uint32_t		t_reg32;
+
 # endif
 
 typedef struct	s_hash_sha256
@@ -66,7 +68,6 @@ static const t_reg32 g_sha256_constants[64] = {
 	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
-
 
 void			*sha256(char *str, int flags);
 int				init_sha256_hash(t_hash_sha256 *hash);

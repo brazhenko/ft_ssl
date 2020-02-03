@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <utilities.h>
 
-static bool		isbase64alpha(char c)
+static bool			isbase64alpha(char c)
 {
 	return (('A' <= c && c <= 'Z') ||
 			('a' <= c && c <= 'z') ||
@@ -54,7 +54,7 @@ void				dec(uint8_t *buf, char *out, char *tmp, size_t *arr)
 ** arr[3]: arr[0] - white_space offset, arr[1] - temporary num, arr[2] - i
 */
 
-static void		base64_decode_block(
+static void			base64_decode_block(
 		uint8_t *buf,
 		char *out,
 		ssize_t rd,
@@ -82,7 +82,7 @@ static void		base64_decode_block(
 	}
 }
 
-void			base64_decode(t_encode_context *ctx)
+void				base64_decode(t_encode_context *ctx)
 {
 	ssize_t			rd;
 	uint8_t			input_buf[BASE64_DECODE_READ_LEN];

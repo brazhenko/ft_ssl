@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 17:38:23 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 19:16:19 by lreznak-         ###   ########.fr       */
+/*   Updated: 2020/02/03 19:16:28 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	corrupted_last_block_exit(void)
 
 size_t		des_cut_padding(t_cipher_context *ctx, t_lpdesblock block)
 {
-	size_t		i;
-	
 	if (memcmp(((unsigned char *)block) + 7, "\1", 1) == 0)
 		return (7);
 	else if (memcmp(((unsigned char *)block) + 6, "\2\2", 2) == 0)

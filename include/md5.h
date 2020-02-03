@@ -6,15 +6,15 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 23:02:47 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/02/03 13:20:55 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/02/03 19:25:46 by lreznak-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MD5_H
 # define FT_MD5_H
 
-#include <stdint.h>
-#include <stddef.h>
+# include <stdint.h>
+# include <stddef.h>
 
 # define FUNC_F(x, y, z) (((x) & (y)) | ((~(x)) & (z)))
 # define FUNC_G(x, y, z) (((x) & (z)) | (~(z) & (y)))
@@ -55,7 +55,9 @@ static const unsigned g_md5_vals[64] = {
 
 # ifndef T_REG32
 #  define T_REG32
+
 typedef uint32_t		t_reg32;
+
 # endif
 
 typedef struct			s_hash_md5

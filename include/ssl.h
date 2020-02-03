@@ -36,8 +36,6 @@
 # define FARGS_APPEARED	0b0000000001000000
 # define RESET_FLAG     0b1111111101110011
 
-
-
 void		*md5(char *str, int flags);
 int			command_executor(int ac, char *av[]);
 void		hash_executor(int ac, char *av[], void *(*hash_algo)(char *, int));
