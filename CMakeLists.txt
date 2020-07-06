@@ -107,7 +107,7 @@ SET(UTILITIES_SRC
 		ssl/utilities/xmalloc.c
 		ssl/utilities/print_uint32_bits.c
 		ssl/utilities/print_uint64_bits.c
-		ssl/utilities/mem_xor.c ssl/utilities/print_hex_memory.c)
+		ssl/utilities/mem_xor.c ssl/utilities/print_hex_memory.c ssl/utilities/solovay_strassen_test.c)
 
 add_executable(
 		${PROJECT_NAME}

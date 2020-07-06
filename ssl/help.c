@@ -21,23 +21,26 @@ void		print_usage(void)
 
 void		print_ft_ssl_help(void)
 {
-	nstrprinterror(17,
-			"Standard commands:\n",
-			"\n",
-			"Message Digest commands:\n",
-			"md5\n",
-			"sha256\n",
-			"sha384 - under development\n",
-			"sha512 - under development\n",
-			"Whirlpool - under development\n",
-			"\n",
-			"Encoding commands:\n",
-			"base64\n",
-			"\n",
-			"Cipher commands:\n",
-			"des (alias for des-cbc) - under development\n",
-			"des-ecb\n",
-			"des-cbc - under development\n",
+	nstrprinterror(1,
+			"Standard commands:\n"
+			"genrsa\n"
+            "rsa\n"
+            "rsautl\n"
+			"\n"
+			"Message Digest commands:\n"
+			"md5\n"
+			"sha256\n"
+			"sha384 - under development\n"
+			"sha512 - under development\n"
+			"Whirlpool - under development\n"
+			"\n"
+			"Encoding commands:\n"
+			"base64\n"
+			"\n"
+			"Cipher commands:\n"
+			"des (alias for des-cbc)\n"
+			"des-ecb\n"
+			"des-cbc\n"
 			"\n");
 }
 

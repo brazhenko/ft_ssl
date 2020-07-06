@@ -27,6 +27,12 @@ int			command_executor(int ac, char *av[])
 		cipher_executor(ac - 2, av + 2, &des_ecb);
 	else if (strcmp(av[1], "des-cbc") == 0)
 		cipher_executor(ac - 2, av + 2, &des_cbc);
+	else if (strcmp(av[1], "genrsa") == 0)
+	    ;
+	else if (strcmp(av[1], "des-rsa") == 0)
+	    ;
+    else if (strcmp(av[1], "rsa") == 0)
+        ;
 	else
 		wrong_command_exit(av[0], av[1]);
 	return (EXIT_SUCCESS);
