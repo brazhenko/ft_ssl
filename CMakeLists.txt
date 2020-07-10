@@ -109,6 +109,10 @@ SET(UTILITIES_SRC
 		ssl/utilities/print_uint64_bits.c
 		ssl/utilities/mem_xor.c ssl/utilities/print_hex_memory.c ssl/utilities/solovay_strassen_test.c)
 
+SET(BIGINT_SRC
+		multiprecision_lib/multiprecision.h multiprecision_lib/multiprecision1.c)
+
+
 add_executable(
 		${PROJECT_NAME}
 		${FT_SSL_SRC}
@@ -117,5 +121,6 @@ add_executable(
 		${BASE64_SRC}
 		${DES_SRC}
 		${UTILITIES_SRC}
+		${BIGINT_SRC}
 )
 
