@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 23:03:21 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/10/28 23:03:23 by lreznak-         ###   ########.fr       */
+/*   Updated: 2020/07/11 22:08:37 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,10 @@ void	print_uint32_bits(unsigned num);
 void	print_uint64_bits(uint64_t num);
 void	*mem_xor(void *left, void *right, void *out, size_t len);
 void	print_hex_memory(void *mem, size_t size);
+size_t	max1(size_t l, size_t r);
+size_t		min1(size_t l, size_t r);
+int			miller_rabin_test(uint64_t n, int k);
+uint64_t 	mod_pow(uint64_t n, uint64_t pw, uint64_t mod);
+uint64_t 	fast_mod_pow(uint64_t base, uint64_t pw, uint64_t mod);
 
 #endif

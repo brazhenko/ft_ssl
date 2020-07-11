@@ -107,10 +107,13 @@ SET(UTILITIES_SRC
 		ssl/utilities/xmalloc.c
 		ssl/utilities/print_uint32_bits.c
 		ssl/utilities/print_uint64_bits.c
-		ssl/utilities/mem_xor.c ssl/utilities/print_hex_memory.c ssl/utilities/solovay_strassen_test.c)
+		ssl/utilities/mem_xor.c ssl/utilities/print_hex_memory.c ssl/utilities/solovay_strassen_test.c ssl/utilities/smax.c)
 
 SET(BIGINT_SRC
 		multiprecision_lib/multiprecision.h multiprecision_lib/multiprecision1.c)
+
+SET(TEST
+		include/tests.h tests/tests.c)
 
 
 add_executable(
@@ -122,5 +125,6 @@ add_executable(
 		${DES_SRC}
 		${UTILITIES_SRC}
 		${BIGINT_SRC}
+		${TEST}
 )
 

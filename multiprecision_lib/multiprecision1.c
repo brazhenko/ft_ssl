@@ -9,15 +9,20 @@
 
 t_big_int		*mk_big_int(int init_value)
 {
+	return (mk_big_int_cell_count_init(init_value, INIT_CELLS_COUNT));
+}
+
+t_big_int		*mk_big_int_cell_count_init(int init_value, size_t cell_count)
+{
 	t_big_int		*ret;
 	long long		tmp;
 
 	tmp = init_value;
 	ret = xmalloc(sizeof(*ret));
 	memset(ret, 0, sizeof(*ret));
-	ret->array = xmalloc(sizeof(uint64_t) * INIT_CELLS_COUNT);
-	memset(ret->array, 0, sizeof(uint64_t) * INIT_CELLS_COUNT);
-	ret->cell_count = INIT_CELLS_COUNT;
+	ret->array = xmalloc(sizeof(uint64_t) * cell_count);
+	memset(ret->array, 0, sizeof(uint64_t) * cell_count);
+	ret->cell_count = cell_count;
 	if (tmp < 0)
 	{
 		tmp = -tmp;
@@ -68,4 +73,33 @@ int 			big_int_cmp(t_big_int *le, t_big_int *ri)
 		i--;
 	}
 	return (0);
+}
+
+t_big_int		*big_int_add(const t_big_int *le, const t_big_int *ri)
+{
+	const size_t	max_digit = max1(le->used_cell_count, ri->used_cell_count);
+	const size_t	min_digit = min1(le->used_cell_count, ri->used_cell_count);
+	t_big_int		*ret;
+	size_t			i;
+	uint64_t		rest;
+
+	ret = mk_big_int_cell_count_init(0,
+			1 + max_digit);
+	i = 0;
+	rest = 0;
+	while (i < min_digit)
+	{
+		ret->array[i] = le->array[i] + le->array[i] + rest;
+		rest = ret->array[i++] >> VALUABLE_BITS_PER_CELL;
+	}
+	if (le->used_cell_count < ri->used_cell_count)
+		le = ri;
+	while (i < max_digit)
+	{
+		ret->array[i] = le->array[i] + rest;
+		rest = ret->array[i++] >>VALUABLE_BITS_PER_CELL;
+	}
+	if (rest)
+		ret->array[i] = rest;
+	return ret;
 }

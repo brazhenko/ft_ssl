@@ -11,9 +11,11 @@
 /* ************************************************************************** */
 
 #include "ssl.h"
+#include "tests.h"
 
 int			main(int ac, char **av, char **en)
 {
+	testAll();
 	(void)en;
 	if (ac == 1)
 	{
