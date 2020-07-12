@@ -6,12 +6,13 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 20:39:11 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/07/10 18:35:02 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/07/12 11:58:28 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ssl.h"
 #include "des.h"
+#include "rsa.h"
 
 int			command_executor(int ac, char *av[])
 {
@@ -28,10 +29,10 @@ int			command_executor(int ac, char *av[])
 	else if (strcmp(av[1], "des-cbc") == 0)
 		cipher_executor(ac - 2, av + 2, &des_cbc);
 	else if (strcmp(av[1], "genrsa") == 0)
+	    genrsa(ac - 2, av + 2);
+	else if (strcmp(av[1], "rsautl") == 0)
 	    ;
-	else if (strcmp(av[1], "des-rsa") == 0)
-	    ;
-    else if (strcmp(av[1], "rsa") == 0)
+	else if (strcmp(av[1], "rsa") == 0)
         ;
 	else
 		wrong_command_exit(av[0], av[1]);

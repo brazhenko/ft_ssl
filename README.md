@@ -1,6 +1,6 @@
 # ft_ssl
 
-ft_ssl is a C pet-project from 42 course (tasks are available [here](ft_ssl_md5.en.pdf) and [here](ft_ssl_des.pdf)) written in order to know more about
+ft_ssl is a C pet-project from 42 course (tasks are available [here](ft_ssl_md5.en.pdf), [here](ft_ssl_des.pdf) and [here](ft_ssl_rsa.pdf)) written in order to know more about
 cryptography and security. Some standard, cipher and hashing OPENSSL's commands
 are recoded here. Its output is compatible with OPENSSL's one.
 

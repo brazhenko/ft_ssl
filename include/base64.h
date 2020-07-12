@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:32:39 by a17641238         #+#    #+#             */
-/*   Updated: 2020/02/03 11:40:37 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/07/12 15:38:15 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <sys/syslimits.h>
 # include "encode_context.h"
+#include <stddef.h>
+#include <fcntl.h>
+#include <zconf.h>
 
 static const char g_base64_arr[] = {
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -69,6 +72,10 @@ static const char g_base64_dec_arr[] = {
 
 # define BASE64_DECODE_READ_LEN		(84)
 # define BASE64_DECODE_OUTPUT_LEN	((BASE64_DECODE_READ_LEN)/4*3)
+
+size_t		encode_base64_block(unsigned char *buf,
+		char *output_buf,
+		ssize_t rd);
 
 void		base64_encode(t_encode_context *ctx);
 void		base64_decode(t_encode_context *ctx);

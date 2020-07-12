@@ -3,22 +3,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <limits.h>
-
-/*
-** greatest common divisor algorithm
-*/
-
-static uint64_t gcd(uint64_t a, uint64_t b)
-{
-    while (a != b)
-    {
-        if (a > b)
-            a = a - b;
-        else
-            b = b - a;
-    }
-    return (a);
-}
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
 
 /*
 ** n - number to test for primality
@@ -84,7 +72,7 @@ uint64_t 	mod_pow(uint64_t n, uint64_t pw, uint64_t mod)
 	return ret;
 }
 
-int miller_rabin_test(uint64_t n, int k)
+int			miller_rabin_test(uint64_t n, int k)
 {
 	uint64_t a;
 	static int fd = 0;
@@ -131,4 +119,66 @@ int miller_rabin_test(uint64_t n, int k)
 	}
 
     return 100 - (int)((1./fast_mod_pow(2, k, INT_MAX)*100));
+}
+
+int			miller_rabin_test_fd(uint64_t n, int k, int fd)
+{
+	uint64_t a;
+	uint64_t s, t;
+	uint64_t	x;
+
+	if (n == 2 || n == 3)
+		return (100);
+	if (n % 2 == 0 || n < 2)
+		return (0);
+
+	t = n - 1;
+	s = 0;
+	while (t % 2 == 0)
+	{
+		t /= 2;
+		s++;
+	}
+
+	// k rounds
+	while (k--)
+	{
+		if (read(fd, &a, sizeof(a)) != sizeof(a))
+		{
+			perror("cannot read random data");
+			exit(EXIT_FAILURE);
+		}
+		a = interval(a, 2, n-2);
+		x = fast_mod_pow(a, t, n);
+		if (x == 1 || x == n - 1)
+			continue ;
+		for (uint64_t j = 0; j + 1 < s; j++)
+		{
+			x = fast_mod_pow(x, 2, n);
+			if (x == 1)
+				return (0);
+			if (x == n - 1)
+				break ;
+		}
+		if (x == n - 1)
+			continue ;
+		return (0);
+	}
+
+	return 100 - (int)((1./fast_mod_pow(2, k, INT_MAX)*100));
+}
+
+bool		is_prime(uint64_t num)
+{
+	const int 	fd = open("/dev/urandom", O_RDONLY);
+	const int 	round_count = (int)ceil(log2(num));
+	bool		ret;
+	if (fd < 0)
+	{
+		perror("cannot open random device");
+		exit(EXIT_FAILURE);
+	}
+	ret = miller_rabin_test_fd(num, round_count, fd) != 0;
+	close(fd);
+	return ret;
 }

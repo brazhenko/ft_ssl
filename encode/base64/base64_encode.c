@@ -13,7 +13,7 @@
 #include "ssl.h"
 #include "base64.h"
 
-static size_t		encode_base64_block(unsigned char *buf,
+size_t		encode_base64_block(unsigned char *buf,
 							char *output_buf,
 							ssize_t rd)
 {

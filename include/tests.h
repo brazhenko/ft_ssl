@@ -2117,6 +2117,7 @@ static void testMillerRabin()
 	assert(miller_rabin_test(1, 10) == 0);
 	assert(miller_rabin_test(0, 10) == 0);
 	assert(miller_rabin_test(98, 20) == 0);
+	assert(miller_rabin_test(2047, 20) == 0);
 
 	hardPrimeTest();
 	hardCompositeTest();

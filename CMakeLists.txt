@@ -112,6 +112,8 @@ SET(UTILITIES_SRC
 SET(BIGINT_SRC
 		multiprecision_lib/multiprecision.h multiprecision_lib/multiprecision1.c)
 
+SET(RSA_SRC include/rsa.h rsa/genrsa.c)
+
 SET(TEST
 		include/tests.h tests/tests.c)
 
@@ -125,6 +127,7 @@ add_executable(
 		${DES_SRC}
 		${UTILITIES_SRC}
 		${BIGINT_SRC}
+		${RSA_SRC}
 		${TEST}
 )
 
