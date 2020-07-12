@@ -14,7 +14,7 @@ typedef struct	s_rsa_priv_key
 	int			version;
 	__int128	modulus_n;
 	__int128	public_exponent_e;
-	__int128	privateExponent_d;
+	__int128	private_exponent_d;
 	__int128	p;
 	__int128	q;
 	__int128	exp1;
@@ -23,5 +23,6 @@ typedef struct	s_rsa_priv_key
 }				t_rsa_priv_key;
 
 void	genrsa(int ac, char **av);
+void	generate_2_primes_for_key(t_rsa_priv_key *k);
 
 #endif //FT_SSL_RSA_H

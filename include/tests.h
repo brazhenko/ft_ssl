@@ -8,6 +8,7 @@
 #include <ntsid.h>
 #include <time.h>
 #include "utilities.h"
+#include "rsa.h"
 
 # define VAR(AA, CC) AA ## CC
 # define UNIQNN(CC) VAR(VAR, VV)
@@ -2128,10 +2129,48 @@ static void testMillerRabin()
 	printf("miller_rabin took %f seconds to execute \n", time_taken);
 }
 
+static void testBezout()
+{
+	__int128 p, q;
+	__int128 e, phi, d, n, eul;
+
+	p = 5;
+	q = 7;
+	n = p * q;
+	phi = (p-1) * (q-1);
+	e = 19;
+	bezout(e, phi, &d, &n);
+	printf("%d\n", (int)d);
+	assert(d * e % phi == 1);
+
+	p = 19;
+	q = 17;
+	n = p * q;
+	phi = (p-1) * (q-1);
+	e = 13;
+	bezout(phi, e, &n, &d);
+	assert(d * e % phi == 1);
+	printf("%d\n", (int)d);
+
+
+	t_rsa_priv_key k;
+	generate_2_primes_for_key(&k);
+
+	q = 3382316696995820459;
+	p = 6811049656461089219;
+
+	phi = (p-1) * (q-1);
+	e = 65537;
+	bezout(phi, e, &n, &d);
+	assert(d * e % phi == 1);
+	printf("%d\n", (int)d);
+
+}
+
 static void testAll()
 {
 	testMillerRabin();
-
+	testBezout();
 
 
 	/////////////////////////////////////////
