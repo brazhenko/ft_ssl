@@ -9,7 +9,7 @@
 #include <math.h>
 
 /*
-** n - number to test for primality
+** n - number to test for primarity
 ** k - precision
 **
 ** ret in [0, 100]% 0=number is not prime, 100=number is prime
@@ -50,7 +50,6 @@ uint64_t 	fast_mod_pow(uint64_t base, uint64_t pw, uint64_t mod)
 	result = result2;
 	return result;
 }
-
 
 uint64_t 	mod_pow(uint64_t n, uint64_t pw, uint64_t mod)
 {

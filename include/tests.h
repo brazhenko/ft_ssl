@@ -2139,8 +2139,8 @@ static void testBezout()
 	n = p * q;
 	phi = (p-1) * (q-1);
 	e = 19;
-	bezout(e, phi, &d, &n);
-	printf("%d\n", (int)d);
+	bezout(e, -phi, &d, &n);
+	printf("%d %d\n", (int)d, (int)n);
 	assert(d * e % phi == 1);
 
 	p = 19;

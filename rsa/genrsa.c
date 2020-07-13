@@ -59,87 +59,38 @@ void	generate_2_primes_for_key(t_rsa_priv_key *k)
 	while (q == p)
 		q = generate_1_prime();
 	k->q = q;
-	k->p = p;
+		k->p = p;
 	printf("debug primes p: %llu, q: %llu\n", p, q);
 }
-
-
-//def bezout(a, b):
-//'''An implementation of extended Euclidean algorithm.
-//Returns integer x, y and gcd(a, b) for Bezout equation:
-//ax + by = gcd(a, b).
-//'''
-//x, xx, y, yy = 1, 0, 0, 1
-//while b:
-//q = a // b
-//a, b = b, a % b
-//		x, xx = xx, x - xx*q
-//y, yy = yy, y - yy*q
-//return (x, y, a)
 
 /*
  * An implementation of extended Euclidean algorithm for RSA.
  * Returns integer x, y and gcd(a, b) for Bezout equation:
- * ax + by = gcd(a, b), gcd(a, b) must be 1;
+ * ax + by = gcd(a, b), gcd(a, b) is 1 for rsa.
  */
 
 void	bezout(__int128 a, __int128 b, __int128 *xout, __int128 *yout)
 {
-	__int128 q=0,
-	x=1, xx=0, y=0, yy=1;
+	__int128 q,
+	x=1, xx=0,
+	y=0, yy=1;
 	__int128 tmp;
 
 	while (b)
 	{
 		q = a / b;
-
-//			printf("%d %d %d %d %d %d %d\n", (int)q, (int)a, (int)b, (int)x, (int)xx, (int)y, (int)yy);
-
 		tmp = a;
 		a = b;
 		b = tmp % b;
-//			printf("%d %d %d %d %d %d %d\n", (int)q, (int)a, (int)b, (int)x, (int)xx, (int)y, (int)yy);
 		tmp = x;
 		x = xx;
 		xx = tmp - xx*q;
-			//printf("%d %d %d %d %d %d %d\n", (int)q, (int)a, (int)b, (int)x, (int)xx, (int)y, (int)yy);
 		tmp = y;
 		y = yy;
 		yy = tmp - yy * q;
-
-//			printf("%d %d %d %d %d %d %d\n", (int)q, (int)a, (int)b, (int)x, (int)xx, (int)y, (int)yy);
-
 	}
-	{
-		*xout = x;
-		*yout = y;
-	}
-
-//	while (a && b)
-//	{
-//		if (a>=b)
-//		{
-//			a = a - b;
-//			p = p - r;
-//			q = q - s;
-//		}
-//		else
-//		{
-//			b = b - a;
-//			r = r - p;
-//			s = s - q;
-//		}
-//	}
-//	if (a)
-//	{
-//		*xout = p;
-//		*yout = q;
-//	}
-//	else
-//	{
-//		*xout = r;
-//		*yout = s;
-//	}
+	*xout = x;
+	*yout = y;
 }
 
 
