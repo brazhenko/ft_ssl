@@ -2129,48 +2129,37 @@ static void testMillerRabin()
 	printf("miller_rabin took %f seconds to execute \n", time_taken);
 }
 
-static void testBezout()
+__int128 mod_inverse(__int128 a, __int128 m);
+
+static void testInvMod()
 {
-	__int128 p, q;
-	__int128 e, phi, d, n, eul;
+	t_rsa_priv_key	k;
 
-	p = 5;
-	q = 7;
-	n = p * q;
-	phi = (p-1) * (q-1);
-	e = 19;
-	bezout(e, -phi, &d, &n);
-	printf("%d %d\n", (int)d, (int)n);
-	assert(d * e % phi == 1);
+	for (int testCount = 0; testCount < 10l; testCount++)
+	{
+		memset(&k, 0, sizeof(k));
+		k.e = DEFAULT_PUBLIC_EXP;
+		generate_2_primes_for_key(&k);
+		__int128 phi = (k.q-1) * (k.p - 1);
+		__int128 d = mod_inverse(k.e, phi);
+		__int128 dcpy = d;
 
-	p = 19;
-	q = 17;
-	n = p * q;
-	phi = (p-1) * (q-1);
-	e = 13;
-	bezout(phi, e, &n, &d);
-	assert(d * e % phi == 1);
-	printf("%d\n", (int)d);
+		for (__int128 i = 1; i < k.e; i++)
+		{
+			dcpy += d;
+			dcpy %= phi;
+		}
+		assert(dcpy == 1);
+	}
 
 
-	t_rsa_priv_key k;
-	generate_2_primes_for_key(&k);
-
-	q = 3382316696995820459;
-	p = 6811049656461089219;
-
-	phi = (p-1) * (q-1);
-	e = 65537;
-	bezout(phi, e, &n, &d);
-	assert(d * e % phi == 1);
-	printf("%d\n", (int)d);
-
+	printf("\033[0;32minvMod tests ok\033[0m\n");
 }
 
 static void testAll()
 {
 	testMillerRabin();
-	testBezout();
+	testInvMod();
 
 
 	/////////////////////////////////////////

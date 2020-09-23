@@ -1,10 +1,10 @@
 #include <cxxabi.h>
 #include "rsa.h"
-#include "base64.h"
-#include "utilities.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "base64.h"
+#include "utilities.h"
 
 static uint64_t generate_1()
 {
@@ -93,42 +93,136 @@ void	bezout(__int128 a, __int128 b, __int128 *xout, __int128 *yout)
 	*yout = y;
 }
 
+void xgcd(__int128 *result, __int128 a, __int128 b)
+{
+	__int128 aa[2] = {1, 0}, bb[2] = {0, 1}, q;
+	while (1)
+	{
+		q = a / b;
+		a = a % b;
+		aa[0] = aa[0] - q * aa[1];
+		bb[0] = bb[0] - q * bb[1];
+		if (a == 0)
+		{
+			result[0] = b;
+			result[1] = aa[1];
+			result[2] = bb[1];
+			return;
+		}
+		q = b / a;
+		b = b % a;
+		aa[1] = aa[1] - q * aa[0];
+		bb[1] = bb[1] - q * bb[0];
+		if (b == 0)
+		{
+			result[0] = a;
+			result[1] = aa[0];
+			result[2] = bb[0];
+			return;
+		}
+	}
+}
+
+void xgcd1(long *result, long a, long b){
+	long aa[2]={1,0}, bb[2]={0,1}, q;
+	while(1) {
+		q = a / b; a = a % b;
+		aa[0] = aa[0] - q*aa[1];  bb[0] = bb[0] - q*bb[1];
+		if (a == 0) {
+			result[0] = b; result[1] = aa[1]; result[2] = bb[1];
+			return;
+		};
+		q = b / a; b = b % a;
+		aa[1] = aa[1] - q*aa[0];  bb[1] = bb[1] - q*bb[0];
+		if (b == 0) {
+			result[0] = a; result[1] = aa[0]; result[2] = bb[0];
+			return;
+		};
+	};
+}
+
+int mod (int a, int b){
+	return a %b;
+}
+
+int *extendedEuclid (int a, int b){
+	int *dxy = (int *)malloc(sizeof(int) *3);
+
+	if (b ==0){
+		dxy[0] =a; dxy[1] =1; dxy[2] =0;
+
+		return dxy;
+	}
+	else{
+		int t, t2;
+		dxy = extendedEuclid(b, mod(a, b));
+		t =dxy[1];
+		t2 =dxy[2];
+		dxy[1] =dxy[2];
+		dxy[2] = t - a/b *t2;
+
+		return dxy;
+	}
+}
+
+// Iterative C++ program to find modular
+// inverse using extended Euclid algorithm
+#include <stdio.h>
+
+// Returns modulo inverse of a with respect
+// to m using extended Euclid Algorithm
+// Assumption: a and m are coprimes, i.e.,
+// gcd(a, m) = 1
+__int128 mod_inverse(__int128 a, __int128 m)
+{
+	__int128 m0 = m;
+	__int128 y = 0, x = 1;
+
+	if (m == 1)
+		return 0;
+
+	while (a > 1)
+	{
+		// q is quotient
+		__int128 q = a / m;
+		__int128 t = m;
+
+		// m is remainder now, process same as
+		// Euclid's algo
+		m = a % m, a = t;
+		t = y;
+
+		// Update y and x
+		y = x - q * y;
+		x = t;
+	}
+
+	// Make x positive
+	if (x < 0)
+		x += m0;
+
+	return x;
+}
 
 /*
-**	 generates 64 private key
+**	 generates 64-bit private key
 */
 
 void	genrsa(int ac, char **av)
 {
-	__int128 euler_func;
 	t_rsa_priv_key	k;
+	__int128	euler_func;
 
 	memset(&k, 0, sizeof(k));
+	k.e = DEFAULT_PUBLIC_EXP;
 	generate_2_primes_for_key(&k);
-	k.modulus_n = k.p * k.q;
-	k.public_exponent_e = DEFAULT_PUBLIC_EXP;
+	k.n = k.p * k.q;
 	euler_func = (k.p - 1) * (k.q - 1);
+	k.n = k.p * k.q;
+	k.d = mod_inverse(k.e, euler_func);
+	k.dp = k.d % k.p;
+	k.dq = k.d % k.q;
+	k.qinv = mod_inverse(k.q, k.p);
 
-
-
-
+	rsa_private_pem_out(NULL, NULL);
 }
-
-//https://crypto.stackexchange.com/questions/21102/what-is-the-ssl-private-key-file-format
-
-// 30
-// 3e // bytecount!
-
-// 02 01b Type[00] // RSA 2 primes
-// 02 09b N[00c91e44827012371d]
-// 02 03b E[010001]
-// 02 08b D[6745377fa9c621b1]
-// 02 05b P[00eb4c25fb]
-// 02 05b Q[00dad043c7]
-// 02 05b D mod (P-1) [00af938fd7]
-// 02 04b D mod (Q-1) [0544c27d]
-// 02 04b §[46b87a0e]
-
-
-
-// 30 24 30 0d 06092a864886f70d01010105000313003010 0209 [00d635fd3f98395ab5] 0203 [010001]

@@ -117,7 +117,7 @@ int			miller_rabin_test(uint64_t n, int k)
 		return (0);
 	}
 
-    return 100 - (int)((1./fast_mod_pow(2, k, INT_MAX)*100));
+    return 100 - (int)((1./fast_mod_pow(2, k, INT_MAX) * 100));
 }
 
 int			miller_rabin_test_fd(uint64_t n, int k, int fd)
@@ -172,6 +172,7 @@ bool		is_prime(uint64_t num)
 	const int 	fd = open("/dev/urandom", O_RDONLY);
 	const int 	round_count = (int)ceil(log2(num));
 	bool		ret;
+
 	if (fd < 0)
 	{
 		perror("cannot open random device");
