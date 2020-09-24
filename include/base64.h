@@ -18,6 +18,7 @@
 #include <stddef.h>
 #include <fcntl.h>
 #include <zconf.h>
+#include <stdint.h>
 
 static const char g_base64_arr[] = {
 	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -76,6 +77,11 @@ static const char g_base64_dec_arr[] = {
 size_t		encode_base64_block(unsigned char *buf,
 		char *output_buf,
 		ssize_t rd);
+void			encode_base64_block_with_padding(
+		uint8_t *buf,
+		char *output_buf,
+		ssize_t rd
+);
 
 void		base64_encode(t_encode_context *ctx);
 void		base64_decode(t_encode_context *ctx);

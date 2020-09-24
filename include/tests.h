@@ -9,10 +9,13 @@
 #include <time.h>
 #include "utilities.h"
 #include "rsa.h"
+#include "base64.h"
 
 # define VAR(AA, CC) AA ## CC
 # define UNIQNN(CC) VAR(VAR, VV)
 # define UNIQNAME UNIQNN(__COUNTER__)
+void hardCompositeTest();
+void hardCompositeTest2();
 
 static void hardPrimeTest()
 {
@@ -2081,38 +2084,26 @@ static void hardPrimeTest()
 
 }
 
-void hardCompositeTest();
-void hardCompositeTest2();
-
 static void testMillerRabin()
 {
 	// Calculate the time taken by fun()
 	clock_t t = clock();
-
 	assert(fast_mod_pow(4, 13, 497) == 445);
 	assert(mod_pow(4, 13, 497) == 445);
-
 	assert(fast_mod_pow(595, 703, 991) == 342);
 	assert(mod_pow(595, 703, 991) == 342);
-
 	//
 	assert(fast_mod_pow(31251, 124, 541) == 303);
 	assert(mod_pow(31251, 124, 541) == 303);
-
 	assert(fast_mod_pow(37251, 121234, 541) == 377);
 	assert(mod_pow(37251, 121234, 541) == 377);
-
 	assert(fast_mod_pow(712515, 43116, 7153421) == 4000360);
 	assert(mod_pow(712515, 43116, 7153421) == 4000360);
-
 	assert(fast_mod_pow(712515, 5415114545, 6235411) == 1399418);
 	// to low
 	// assert(mod_pow(712515, 5415114545, 6235411) == 1399418);
-
 	assert(fast_mod_pow(4294967295, 5415114545, 6235411) == 490901);
-
 	assert(fast_mod_pow(17179869183, 5415114545, 1717986918) == 1144732233);
-
 	assert(miller_rabin_test(2, 10) > 90);
 	assert(miller_rabin_test(3, 10) > 90);
 	assert(miller_rabin_test(1, 10) == 0);
@@ -2146,23 +2137,108 @@ static void testInvMod()
 
 		for (__int128 i = 1; i < k.e; i++)
 		{
-			dcpy += d;
+			dcpy %= phi;
+			dcpy += (d % phi);
 			dcpy %= phi;
 		}
+		if (dcpy != 1)
+			printf("%d\n", dcpy);
+
 		assert(dcpy == 1);
 	}
 
-
 	printf("\033[0;32minvMod tests ok\033[0m\n");
+}
+
+static void testPrintRsaPrivKey()
+{
+	t_rsa_priv_key	k2;
+	unsigned char memory[1024];
+	char arr[1024];
+	int total_size;
+
+	{
+		// test1
+		memset(arr, 0, sizeof(arr));
+		memset(memory, 0, sizeof(memory));
+
+		k2.n = 0x00ea2a3fa55a32c9fb;
+		k2.e = 0x010001;
+		k2.d = 0x03b91c3deb010121;
+		k2.p = 0x00fcfd7a89;
+		k2.q = 0x00ecf36f63;
+		k2.dp = 0x00e70d6171;
+		k2.dq = 0x01b5cc13;
+		k2.qinv = 0x00e6f8cae1;
+
+		total_size = rsa_private_pem_out(&k2, memory);
+		encode_base64_block_with_padding(memory, arr, total_size);
+		assert(strcmp(arr, "MD8CAQACCQDqKj+lWjLJ+wIDAQABAggDuRw96wEBIQIFAPz9eokCBQDs829jAgUA5w1hcQIEAbXMEwIFAOb4yuE=") == 0);
+	}
+	{
+		// test2
+		memset(arr, 0, sizeof(arr));
+		memset(memory, 0, sizeof(memory));
+
+		k2.n = 0x009f8f7b9ab24684e3;
+		k2.e = 0x010001;
+		k2.d = 0x0c36572768f93141;
+		k2.p = 0x00d0f34dd7;
+		k2.q = 0x00c37d27d5;
+		k2.dp = 0x10ca1c0d;
+		k2.dq = 0x077ef815;
+		k2.qinv = 0x64c1346d;
+		total_size = rsa_private_pem_out(&k2, memory);
+		encode_base64_block_with_padding(memory, arr, total_size);
+		assert(strcmp(arr, "MD0CAQACCQCfj3uaskaE4wIDAQABAggMNlcnaPkxQQIFANDzTdcCBQDDfSfVAgQQyhwNAgQHfvgVAgRkwTRt") == 0);
+	}
+	{
+		// test3
+		memset(arr, 0, sizeof(arr));
+		memset(memory, 0, sizeof(memory));
+
+		k2.n = 0x00f43f8f91d4884aa9;
+		k2.e = 0x010001;
+		k2.d = 0x5b91c0c6d5ffda01;
+		k2.p = 0x00fca94021;
+		k2.q = 0x00f779d989;
+		k2.dp = 0x5da2dc01;
+		k2.dq = 0x4f2a9ea9;
+		k2.qinv = 0x7bd218e3;
+
+		total_size = rsa_private_pem_out(&k2, memory);
+		encode_base64_block_with_padding(memory, arr, total_size);
+		assert(strcmp(arr, "MD0CAQACCQD0P4+R1IhKqQIDAQABAghbkcDG1f/aAQIFAPypQCECBQD3edmJAgRdotwBAgRPKp6pAgR70hjj") == 0);
+	}
+	{
+		// test4
+		memset(arr, 0, sizeof(arr));
+		memset(memory, 0, sizeof(memory));
+
+		k2.n = 0x00f40a050826bb1de9;
+		k2.e = 0x010001;
+		k2.d = 0x04bf69279cb77a5d;
+		k2.p = 0x00fc18ea2f;
+		k2.q = 0x00f7d12b67;
+		k2.dp = 0xe77bb13d;
+		k2.dq = 0xc1874c09;
+		k2.qinv = 0x4a025588;
+
+		total_size = rsa_private_pem_out(&k2, memory);
+		encode_base64_block_with_padding(memory, arr, total_size);
+		assert(strcmp(arr, "MD8CAQACCQD0CgUIJrsd6QIDAQABAggEv2knnLd6XQIFAPwY6i8CBQD30StnAgUA53uxPQIFAMGHTAkCBEoCVYg=") == 0);
+	}
+	printf("\033[0;32m"
+		"testPrintRsaPrivKey ok"
+  		"\033[0m\n");
 }
 
 static void testAll()
 {
 	testMillerRabin();
 	testInvMod();
+	testPrintRsaPrivKey();
 
-
-	/////////////////////////////////////////
 	printf("\033[0;32mall tests ok\033[0m\n");
 }
 

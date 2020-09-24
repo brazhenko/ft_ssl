@@ -38,7 +38,7 @@ static uint64_t	generate_1_prime()
 	prime = 1;
 	while (!is_prime(prime))
 	{
-		if (read(fd, &prime, sizeof(prime)) != sizeof(prime))
+		if (read(fd, &prime, 4) != 4) // HARDCODE
 		{
 			perror(__FUNCTION__);
 			exit(EXIT_FAILURE);
@@ -60,7 +60,6 @@ void	generate_2_primes_for_key(t_rsa_priv_key *k)
 		q = generate_1_prime();
 	k->q = q;
 		k->p = p;
-	printf("debug primes p: %llu, q: %llu\n", p, q);
 }
 
 /*
@@ -165,10 +164,6 @@ int *extendedEuclid (int a, int b){
 	}
 }
 
-// Iterative C++ program to find modular
-// inverse using extended Euclid algorithm
-#include <stdio.h>
-
 // Returns modulo inverse of a with respect
 // to m using extended Euclid Algorithm
 // Assumption: a and m are coprimes, i.e.,
@@ -208,21 +203,28 @@ __int128 mod_inverse(__int128 a, __int128 m)
 **	 generates 64-bit private key
 */
 
+
 void	genrsa(int ac, char **av)
 {
 	t_rsa_priv_key	k;
 	__int128	euler_func;
+	unsigned char memory[1024] = {0};
+	char out[1024] = {0};
+	int total_size;
 
 	memset(&k, 0, sizeof(k));
 	k.e = DEFAULT_PUBLIC_EXP;
 	generate_2_primes_for_key(&k);
 	k.n = k.p * k.q;
 	euler_func = (k.p - 1) * (k.q - 1);
-	k.n = k.p * k.q;
 	k.d = mod_inverse(k.e, euler_func);
 	k.dp = k.d % k.p;
 	k.dq = k.d % k.q;
 	k.qinv = mod_inverse(k.q, k.p);
 
-	rsa_private_pem_out(NULL, NULL);
+	total_size = rsa_private_pem_out(&k, memory);
+	encode_base64_block_with_padding(memory, out, total_size);
+	puts(PRIVATE_KEY_HEADER);
+	puts(out);
+	puts(PRIVATE_KEY_BOT);
 }
