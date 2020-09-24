@@ -3,27 +3,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <genrsa_context.h>
 #include "base64.h"
 #include "utilities.h"
-
-static uint64_t generate_1()
-{
-	const int	fd = open("/dev/urandom", O_RDONLY);
-	uint64_t	ret;
-
-	if (fd < 0)
-	{
-		perror(__FUNCTION__);
-		exit(EXIT_FAILURE);
-	}
-	if (read(fd, &ret, sizeof(ret)) != sizeof(ret))
-	{
-		perror(__FUNCTION__);
-		exit(EXIT_FAILURE);
-	}
-	close(fd);
-	return ret;
-}
 
 static uint64_t	generate_1_prime()
 {
@@ -43,9 +25,9 @@ static uint64_t	generate_1_prime()
 			perror(__FUNCTION__);
 			exit(EXIT_FAILURE);
 		}
-		write(1, ".", 1);
+		write(2, ".", 1);
 	}
-	write(1, "+\n", 2);
+	write(2, "+\n", 2);
 	close(fd);
 	return prime;
 }
@@ -122,47 +104,6 @@ void xgcd(__int128 *result, __int128 a, __int128 b)
 	}
 }
 
-void xgcd1(long *result, long a, long b){
-	long aa[2]={1,0}, bb[2]={0,1}, q;
-	while(1) {
-		q = a / b; a = a % b;
-		aa[0] = aa[0] - q*aa[1];  bb[0] = bb[0] - q*bb[1];
-		if (a == 0) {
-			result[0] = b; result[1] = aa[1]; result[2] = bb[1];
-			return;
-		};
-		q = b / a; b = b % a;
-		aa[1] = aa[1] - q*aa[0];  bb[1] = bb[1] - q*bb[0];
-		if (b == 0) {
-			result[0] = a; result[1] = aa[0]; result[2] = bb[0];
-			return;
-		};
-	};
-}
-
-int mod (int a, int b){
-	return a %b;
-}
-
-int *extendedEuclid (int a, int b){
-	int *dxy = (int *)malloc(sizeof(int) *3);
-
-	if (b ==0){
-		dxy[0] =a; dxy[1] =1; dxy[2] =0;
-
-		return dxy;
-	}
-	else{
-		int t, t2;
-		dxy = extendedEuclid(b, mod(a, b));
-		t =dxy[1];
-		t2 =dxy[2];
-		dxy[1] =dxy[2];
-		dxy[2] = t - a/b *t2;
-
-		return dxy;
-	}
-}
 
 // Returns modulo inverse of a with respect
 // to m using extended Euclid Algorithm
@@ -175,27 +116,22 @@ __int128 mod_inverse(__int128 a, __int128 m)
 
 	if (m == 1)
 		return 0;
-
 	while (a > 1)
 	{
 		// q is quotient
 		__int128 q = a / m;
 		__int128 t = m;
-
 		// m is remainder now, process same as
 		// Euclid's algo
 		m = a % m, a = t;
 		t = y;
-
 		// Update y and x
 		y = x - q * y;
 		x = t;
 	}
-
 	// Make x positive
 	if (x < 0)
 		x += m0;
-
 	return x;
 }
 
@@ -203,9 +139,29 @@ __int128 mod_inverse(__int128 a, __int128 m)
 **	 generates 64-bit private key
 */
 
+void	print_priv_key_formatted(const t_genrsa_context *ctx,
+		char *base64_encoded_key)
+{
+	const unsigned len = strlen(base64_encoded_key);
+	char out[1024];
+	unsigned i;
+
+	memset(out, 0, sizeof(out));
+	strcat(out, PRIVATE_KEY_HEADER);
+	i=0;
+	while (i < len)
+	{
+		strncat(out, base64_encoded_key + i, 64);
+		strcat(out, "\n");
+		i += 64;
+	}
+	strcat(out, PRIVATE_KEY_BOT);
+	write(ctx->output_fd, out, strlen(out));
+}
 
 void	genrsa(int ac, char **av)
 {
+	const t_genrsa_context	*ctx = parse_gen_rsa_argv(ac, av);
 	t_rsa_priv_key	k;
 	__int128	euler_func;
 	unsigned char memory[1024] = {0};
@@ -221,10 +177,28 @@ void	genrsa(int ac, char **av)
 	k.dp = k.d % k.p;
 	k.dq = k.d % k.q;
 	k.qinv = mod_inverse(k.q, k.p);
-
+	nstrprinterror(1, "e is 65537 (0x10001)\n");
 	total_size = rsa_private_pem_out(&k, memory);
 	encode_base64_block_with_padding(memory, out, total_size);
-	puts(PRIVATE_KEY_HEADER);
-	puts(out);
-	puts(PRIVATE_KEY_BOT);
+	print_priv_key_formatted(ctx, out);
+	delete_gen_rsa_ctx((t_genrsa_context*)ctx);
+
+	//////////////// generating public key by private key for tests.
+	int			output_fd = open("key.pub", O_CREAT | O_WRONLY | O_TRUNC, 0666);
+
+	t_rsa_pub_key pk;
+	memset(&pk, 0, sizeof(pk));
+	pk.e = k.e;
+	pk.n = k.n;
+	unsigned char arr3[1024] = {0};
+	total_size = rsa_public_pem_out(&pk, arr3);
+
+	memset(out, 0, sizeof(out));
+	encode_base64_block_with_padding(arr3, out, total_size);
+
+	write(output_fd, PUBLIC_KEY_HEADER, sizeof(PUBLIC_KEY_HEADER) - 1);
+	write(output_fd, out, strlen(out));
+	write(output_fd, "\n", 1);
+	write(output_fd, PUBLIC_KEY_BOT, sizeof(PUBLIC_KEY_BOT) - 1);
+
 }

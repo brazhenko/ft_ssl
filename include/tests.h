@@ -2141,8 +2141,6 @@ static void testInvMod()
 			dcpy += (d % phi);
 			dcpy %= phi;
 		}
-		if (dcpy != 1)
-			printf("%d\n", dcpy);
 
 		assert(dcpy == 1);
 	}
@@ -2231,6 +2229,67 @@ static void testPrintRsaPrivKey()
 	printf("\033[0;32m"
 		"testPrintRsaPrivKey ok"
   		"\033[0m\n");
+}
+
+static void testPrintRsaPubKey()
+{
+	t_rsa_pub_key pk;
+	memset(&pk, 0, sizeof(pk));
+	pk.e = 65537;
+	{
+		pk.n = 0x00dcad1264df2fdfb9;
+		unsigned char arr3[1024] = {0};
+		int total_size = rsa_public_pem_out(&pk, arr3);
+		char out[1024] = {0};
+		memset(out, 0, sizeof(out));
+		encode_base64_block_with_padding(arr3, out, total_size);
+		assert(strcmp(out, "MCQwDQYJKoZIhvcNAQEBBQADEwAwEAIJANytEmTfL9+5AgMBAAE=") == 0);
+	}
+
+	{
+		pk.n = 0x00aa3b5eb7c4e606d7;
+		unsigned char arr3[1024] = {0};
+		int total_size = rsa_public_pem_out(&pk, arr3);
+		char out[1024] = {0};
+		memset(out, 0, sizeof(out));
+		encode_base64_block_with_padding(arr3, out, total_size);
+		assert(strcmp(out, "MCQwDQYJKoZIhvcNAQEBBQADEwAwEAIJAKo7XrfE5gbXAgMBAAE=") == 0);
+	}
+
+	{
+		pk.n = 0xb76cdbf5935e6433;
+		unsigned char arr3[1024] = {0};
+		int total_size = rsa_public_pem_out(&pk, arr3);
+		char out[1024] = {0};
+		memset(out, 0, sizeof(out));
+		encode_base64_block_with_padding(arr3, out, total_size);
+		assert(strcmp(out, "MCQwDQYJKoZIhvcNAQEBBQADEwAwEAIJALds2/WTXmQzAgMBAAE=") == 0);
+	}
+
+	{
+		pk.n = 0xa5feb19a9c922e2b;
+		unsigned char arr3[1024] = {0};
+		int total_size = rsa_public_pem_out(&pk, arr3);
+		char out[1024] = {0};
+		memset(out, 0, sizeof(out));
+		encode_base64_block_with_padding(arr3, out, total_size);
+		assert(strcmp(out, "MCQwDQYJKoZIhvcNAQEBBQADEwAwEAIJAKX+sZqcki4rAgMBAAE=") == 0);
+	}
+
+	{
+		pk.n = 0xa8dd79bb8866a1a5;
+		unsigned char arr3[1024] = {0};
+		int total_size = rsa_public_pem_out(&pk, arr3);
+		char out[1024] = {0};
+		memset(out, 0, sizeof(out));
+		encode_base64_block_with_padding(arr3, out, total_size);
+		assert(strcmp(out, "MCQwDQYJKoZIhvcNAQEBBQADEwAwEAIJAKjdebuIZqGlAgMBAAE=") == 0);
+	}
+
+	printf("\033[0;32m"
+		   "testPrintPubPrivKey ok"
+		   "\033[0m\n");
+
 }
 
 static void testAll()

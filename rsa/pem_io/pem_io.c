@@ -10,60 +10,9 @@
 // original
 // 303f 020100 020900ea2a3fa55a32c9fb 0203010001 020803b91c3deb010121 020500fcfd7a89 020500ecf36f63 020500e70d6171 020401b5cc13 020500e6f8cae1
 
-
-// 30
-//
-// 3f - amount of bytes
-//
-// 01
-// 00
-
-// == N
-// 02
-// 09
-// 00 ea 2a 3f a5 5a 32 c9 fb
-
-// == E
-// 02
-// 03
-// 010001
-
-// == D
-// 02
-// 08
-// 03b91c3deb010121
-
-// == P
-// 02
-// 05
-// 00fcfd7a89
-
-// == Q
-// 02
-// 05
-// 00ecf36f63
-
-// == DP
-// 02
-// 05
-// 00e70d6171
-
-// == DQ
-// 02
-// 04
-// 01b5cc13
-
-// QINV
-// 02
-// 05
-// 00e6f8cae1
-
-
-
 /*
  * returns size of output byte string;
  */
-
 
 size_t	int128_to_asn(__int128 in, unsigned char *buf_out)
 {
@@ -105,56 +54,61 @@ long append_int128_to_buff(unsigned char *dest, __int128 in)
 	return ret;
 }
 
-int 	rsa_private_pem_out(const t_rsa_priv_key *in, unsigned char *memory)
+int 	rsa_private_pem_out(const t_rsa_priv_key *in, unsigned char *out)
 {
 	unsigned char total_size;
 
 	total_size = 0;
-	memory[0] = 0x30;
-	memory[2] = 0x02;
-	memory[3] = 0x01;
-	memory[4] = 0x00;
+	out[0] = 0x30;
+	out[2] = 0x02;
+	out[3] = 0x01;
+	out[4] = 0x00;
 	total_size += 5;
-	total_size += append_int128_to_buff(&memory[0] + total_size, in->n);
-	total_size += append_int128_to_buff(&memory[0] + total_size, in->e);
-	total_size += append_int128_to_buff(&memory[0] + total_size, in->d);
-	total_size += append_int128_to_buff(&memory[0] + total_size, in->p);
-	total_size += append_int128_to_buff(&memory[0] + total_size, in->q);
-	total_size += append_int128_to_buff(&memory[0] + total_size, in->dp);
-	total_size += append_int128_to_buff(&memory[0] + total_size, in->dq);
-	total_size += append_int128_to_buff(&memory[0] + total_size, in->qinv);
-	memory[1] = total_size - 2;
+	total_size += append_int128_to_buff(&out[0] + total_size, in->n);
+	total_size += append_int128_to_buff(&out[0] + total_size, in->e);
+	total_size += append_int128_to_buff(&out[0] + total_size, in->d);
+	total_size += append_int128_to_buff(&out[0] + total_size, in->p);
+	total_size += append_int128_to_buff(&out[0] + total_size, in->q);
+	total_size += append_int128_to_buff(&out[0] + total_size, in->dp);
+	total_size += append_int128_to_buff(&out[0] + total_size, in->dq);
+	total_size += append_int128_to_buff(&out[0] + total_size, in->qinv);
+	out[1] = total_size - 2;
 	return total_size;
 }
 
-//30
-//3e
-//020100
-//02090
-//
-//09f39bab9005b5599
-//02030100010208656a11a0ec49b9f9020500b0f264ab020500e65c86cb02042721af410205009dd613220204334a9948
-//=========================
-//30
-//24
-//300d
-//
-//06
-//09
-//2a864886f70d010101
-//
-//05
-//00
-//
-//0313003010
-//
-//02
-//09
-//009f39bab9005b5599 // N
-//
-//02
-//03
-//010001				// E
+// 3024300d06092a864886f70d01010105000313003010020900a617108445f357750203010001
+// 3024300d06092a864886f70d01010105000313003010020900a617108445f357750203010001
+
+// https://stackoverflow.com/questions/55803033/rsa-public-key-bit-string-format
+
+int 	rsa_public_pem_out(t_rsa_pub_key *in, unsigned char *out)
+{
+	const char arr[] = "\x30\x0d\x06\x09\x2a\x86\x48\x86"
+					   "\xf7\x0d\x01\x01\x01\x05\x00\x03";
+	unsigned char total_size;
+	unsigned char pub_key_size;
+	unsigned char tmp;
+
+	total_size = 0;
+	pub_key_size = 0;
+
+	out[0] = 0x30;
+	memcpy(&out[0] + 2, arr, sizeof(arr));
+	total_size += (sizeof(arr) + 2 - 1);
+	total_size += 4;
+	tmp = append_int128_to_buff(&out[0] + total_size, in->n);
+	total_size += tmp;
+	pub_key_size += tmp;
+	tmp = append_int128_to_buff(&out[0] + total_size, in->e);
+	total_size += tmp;
+	pub_key_size += tmp;
+
+	out[1] = total_size - 2;
+	out[18] = pub_key_size + 3;
+	out[20] = 0x30;
+	out[21] = pub_key_size;
+	return (total_size);
+}
 
 int 	rsa_private_pem_in(t_rsa_priv_key *out, const char *infile)
 {
