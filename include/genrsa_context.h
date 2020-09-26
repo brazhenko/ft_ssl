@@ -19,4 +19,5 @@ void 				delete_gen_rsa_ctx(t_genrsa_context *ctx);
 t_genrsa_context	*genrsa_state_i(int argc, char **argv, t_genrsa_context *c);
 t_genrsa_context	*genrsa_state_o(int argc, char **argv, t_genrsa_context *c);
 t_genrsa_context	*parse_gen_rsa_argv(int argc, char **argv);
+
 #endif //FT_SSL_GENRSA_CONTEXT_H

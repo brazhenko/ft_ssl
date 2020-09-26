@@ -82,6 +82,11 @@ void			encode_base64_block_with_padding(
 		char *output_buf,
 		ssize_t rd
 );
+void			base64_decode_block(
+		uint8_t *buf,
+		char *out,
+		ssize_t rd
+);
 
 void		base64_encode(t_encode_context *ctx);
 void		base64_decode(t_encode_context *ctx);

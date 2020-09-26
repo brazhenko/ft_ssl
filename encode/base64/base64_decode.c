@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 05:57:01 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/02/03 13:52:18 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/25 21:24:09 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@ void				dec(uint8_t *buf, char *out, char *tmp, size_t *arr)
 ** arr[3]: arr[0] - white_space offset, arr[1] - temporary num, arr[2] - i
 */
 
-static void			base64_decode_block(
+void			base64_decode_block(
 		uint8_t *buf,
 		char *out,
-		ssize_t rd,
-		t_encode_context *ctx
+		ssize_t rd
 )
 {
 	char		tmp[4];
@@ -75,7 +74,7 @@ static void			base64_decode_block(
 			arr[0]++;
 		else
 		{
-			nstrprinterror(1, "Invalid character in input stream.\n");
+			nstrprinterror(1, "Invalid character base64 input stream.\n");
 			exit(EXIT_FAILURE);
 		}
 		arr[2]++;
@@ -92,7 +91,7 @@ void				base64_decode(t_encode_context *ctx)
 		(rd = read(ctx->input_fd, input_buf, BASE64_DECODE_READ_LEN)) > 0)
 	{
 		memset(output_buf, 0, sizeof(output_buf));
-		base64_decode_block(&input_buf[0], &output_buf[0], rd, ctx);
+		base64_decode_block(&input_buf[0], &output_buf[0], rd);
 		write(ctx->output_fd, output_buf, strlen(output_buf));
 	}
 }

@@ -33,7 +33,7 @@ int			command_executor(int ac, char *av[])
 	else if (strcmp(av[1], "rsautl") == 0)
 	    ;
 	else if (strcmp(av[1], "rsa") == 0)
-        ;
+		rsa(ac - 2, av + 2);
 	else
 		wrong_command_exit(av[0], av[1]);
 	return (EXIT_SUCCESS);

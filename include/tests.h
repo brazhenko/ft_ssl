@@ -2169,7 +2169,7 @@ static void testPrintRsaPrivKey()
 		k2.dq = 0x01b5cc13;
 		k2.qinv = 0x00e6f8cae1;
 
-		total_size = rsa_private_pem_out(&k2, memory);
+		total_size = rsa_private_der_out(&k2, memory);
 		encode_base64_block_with_padding(memory, arr, total_size);
 		assert(strcmp(arr, "MD8CAQACCQDqKj+lWjLJ+wIDAQABAggDuRw96wEBIQIFAPz9eokCBQDs829jAgUA5w1hcQIEAbXMEwIFAOb4yuE=") == 0);
 	}
@@ -2186,7 +2186,7 @@ static void testPrintRsaPrivKey()
 		k2.dp = 0x10ca1c0d;
 		k2.dq = 0x077ef815;
 		k2.qinv = 0x64c1346d;
-		total_size = rsa_private_pem_out(&k2, memory);
+		total_size = rsa_private_der_out(&k2, memory);
 		encode_base64_block_with_padding(memory, arr, total_size);
 		assert(strcmp(arr, "MD0CAQACCQCfj3uaskaE4wIDAQABAggMNlcnaPkxQQIFANDzTdcCBQDDfSfVAgQQyhwNAgQHfvgVAgRkwTRt") == 0);
 	}
@@ -2204,7 +2204,7 @@ static void testPrintRsaPrivKey()
 		k2.dq = 0x4f2a9ea9;
 		k2.qinv = 0x7bd218e3;
 
-		total_size = rsa_private_pem_out(&k2, memory);
+		total_size = rsa_private_der_out(&k2, memory);
 		encode_base64_block_with_padding(memory, arr, total_size);
 		assert(strcmp(arr, "MD0CAQACCQD0P4+R1IhKqQIDAQABAghbkcDG1f/aAQIFAPypQCECBQD3edmJAgRdotwBAgRPKp6pAgR70hjj") == 0);
 	}
@@ -2222,7 +2222,7 @@ static void testPrintRsaPrivKey()
 		k2.dq = 0xc1874c09;
 		k2.qinv = 0x4a025588;
 
-		total_size = rsa_private_pem_out(&k2, memory);
+		total_size = rsa_private_der_out(&k2, memory);
 		encode_base64_block_with_padding(memory, arr, total_size);
 		assert(strcmp(arr, "MD8CAQACCQD0CgUIJrsd6QIDAQABAggEv2knnLd6XQIFAPwY6i8CBQD30StnAgUA53uxPQIFAMGHTAkCBEoCVYg=") == 0);
 	}

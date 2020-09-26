@@ -139,7 +139,7 @@ __int128 mod_inverse(__int128 a, __int128 m)
 **	 generates 64-bit private key
 */
 
-void	print_priv_key_formatted(const t_genrsa_context *ctx,
+void	print_priv_key_formatted(int output_fd,
 		char *base64_encoded_key)
 {
 	const unsigned len = strlen(base64_encoded_key);
@@ -156,7 +156,7 @@ void	print_priv_key_formatted(const t_genrsa_context *ctx,
 		i += 64;
 	}
 	strcat(out, PRIVATE_KEY_BOT);
-	write(ctx->output_fd, out, strlen(out));
+	write(output_fd, out, strlen(out));
 }
 
 void	genrsa(int ac, char **av)
@@ -178,9 +178,9 @@ void	genrsa(int ac, char **av)
 	k.dq = k.d % k.q;
 	k.qinv = mod_inverse(k.q, k.p);
 	nstrprinterror(1, "e is 65537 (0x10001)\n");
-	total_size = rsa_private_pem_out(&k, memory);
+	total_size = rsa_private_der_out(&k, memory);
 	encode_base64_block_with_padding(memory, out, total_size);
-	print_priv_key_formatted(ctx, out);
+	print_priv_key_formatted(ctx->output_fd, out);
 	delete_gen_rsa_ctx((t_genrsa_context*)ctx);
 
 	//////////////// generating public key by private key for tests.
