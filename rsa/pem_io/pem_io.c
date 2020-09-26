@@ -135,11 +135,12 @@ int 	rsa_public_der_out_fd(t_rsa_context *ctx, t_rsa_pub_key *in)
 // https://stackoverflow.com/questions/55803033/rsa-public-key-bit-string-format
 
 
+const char hardcode_header[] = "\x30\x0d\x06\x09\x2a\x86\x48\x86"
+							   "\xf7\x0d\x01\x01\x01\x05\x00\x03";
 
 int 	rsa_public_pem_out(t_rsa_pub_key *in, unsigned char *out)
 {
-	const char arr[] = "\x30\x0d\x06\x09\x2a\x86\x48\x86"
-					   "\xf7\x0d\x01\x01\x01\x05\x00\x03";
+
 	unsigned char total_size;
 	unsigned char pub_key_size;
 	unsigned char tmp;
@@ -148,8 +149,8 @@ int 	rsa_public_pem_out(t_rsa_pub_key *in, unsigned char *out)
 	pub_key_size = 0;
 
 	out[0] = 0x30;
-	memcpy(&out[0] + 2, arr, sizeof(arr));
-	total_size += (sizeof(arr) + 2 - 1);
+	memcpy(&out[0] + 2, hardcode_header, sizeof(hardcode_header));
+	total_size += (sizeof(hardcode_header) + 2 - 1);
 	total_size += 4;
 	tmp = append_int128_to_buff(&out[0] + total_size, in->n);
 	total_size += tmp;
@@ -192,7 +193,7 @@ int		parse_asn_from_pem(int fd, unsigned char *out)
 		read_count += tmp;
 	if (tmp < 0)
 		return (-1);
-	if (read_count < strlen(PRIVATE_KEY_HEADER) + strlen(PUBLIC_KEY_HEADER))
+	if (read_count < strlen(PRIVATE_KEY_HEADER) + strlen(PRIVATE_KEY_BOT))
 		return (-1);
 	if (strncmp(buffer, PRIVATE_KEY_HEADER, strlen(PRIVATE_KEY_HEADER)) != 0)
 		return (-1);
@@ -205,7 +206,6 @@ int		parse_asn_from_pem(int fd, unsigned char *out)
 	base64_decode_block((uint8_t*)buffer2, (char*)out, govno);
 	return 0;
 }
-
 
 int 	asn_private_pem_in(const unsigned char *arr, t_rsa_priv_key *out)
 {
@@ -249,8 +249,81 @@ int 	parse_pem_from_fd(int fd, t_rsa_priv_key *out)
 {
 	unsigned char bytes[1024] = {0};
 
-
 	parse_asn_from_pem(fd, bytes);
 	asn_private_pem_in(bytes, out);
+	return (0);
+}
+
+int 	parse_pub_der_from_pem_fd(int fd, unsigned char *out)
+{
+	int		read_count;
+	int 	tmp;
+	char 	buffer[2048];
+	char 	buffer2[2048];
+
+	read_count = 0;
+	memset(buffer, 0, sizeof(buffer));
+	while ((tmp = read(fd, &buffer[0] + read_count, 100)) > 0)
+		read_count += tmp;
+	if (tmp < 0)
+		return (-1);
+	if (read_count < strlen(PUBLIC_KEY_HEADER) + strlen(PUBLIC_KEY_BOT))
+		return (-1);
+	if (strncmp(buffer, PUBLIC_KEY_HEADER, strlen(PUBLIC_KEY_HEADER)) != 0)
+		return (-1);
+	if (strncmp(&buffer[0] + read_count - strlen(PUBLIC_KEY_BOT), PUBLIC_KEY_BOT, strlen(PUBLIC_KEY_BOT)) != 0)
+		return (-1);
+	memset(buffer2, 0, sizeof(buffer2));
+	unsigned govno = read_count - strlen(PUBLIC_KEY_HEADER) - strlen(PUBLIC_KEY_BOT);
+	memcpy(buffer2, &buffer[0] + strlen(PUBLIC_KEY_HEADER), govno);
+	memset(buffer, 0, sizeof(buffer));
+	base64_decode_block((uint8_t*)buffer2, (char*)out, govno);
+	return 0;
+}
+
+int 	parse_pub_from_pem(int fd, t_rsa_pub_key *out)
+{
+
+	unsigned char buf[1024] = {0};
+	parse_pub_der_from_pem_fd(fd, buf);
+	const unsigned char size = buf[1];
+
+	if (size == 0)
+		return (-1);
+	if (buf[0] != 0x30)
+		return (-1);
+	if (memcmp(buf + 2, hardcode_header, 16) != 0)
+		return (-1);
+	int i = 18 + 4;
+	i += parse_int128_from_asn(buf, i, &out->n);
+	i += parse_int128_from_asn(buf, i, &out->e);
+
+	return (0);
+}
+
+int 	parse_pub_from_der(int fd, t_rsa_pub_key *out)
+{
+	int		read_count;
+	int 	tmp;
+	unsigned char 	buffer[2048];
+
+	read_count = 0;
+	memset(buffer, 0, sizeof(buffer));
+	while ((tmp = read(fd, &buffer[0] + read_count, 100)) > 0)
+		read_count += tmp;
+
+	const unsigned char size = buffer[1];
+
+	if (size == 0)
+		return (-1);
+	if (buffer[0] != 0x30)
+		return (-1);
+	if (memcmp(buffer + 2, hardcode_header, 16) != 0)
+		return (-1);
+	int i = 18 + 4;
+	i += parse_int128_from_asn(buffer, i, &out->n);
+	i += parse_int128_from_asn(buffer, i, &out->e);
+
+
 	return (0);
 }

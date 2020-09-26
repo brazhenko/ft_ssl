@@ -45,7 +45,15 @@ int 	parse_pem_from_fd(int fd, t_rsa_priv_key *out);
 //		modulus? на выход key->n
 //		pubout и не -noout? на выход публичный иначе приватный
 
+// Отрефакторить key_io!
+// Пофиксить размерность ключа, возможно просто подбором, лол
+// Написать полные тесты на genrsa, rsa
+// расширенный алгос евклида расшарить
+// МТФ
 
+
+int 	parse_pub_from_der(int fd, t_rsa_pub_key *out);
+int 	parse_pub_from_pem(int fd, t_rsa_pub_key *out);
 
 void parse_key(t_rsa_context *ctx,
 		t_rsa_pub_key *pub_out,
@@ -54,15 +62,14 @@ void parse_key(t_rsa_context *ctx,
 	if (ctx->mode & RSA_CTX_MODE_PUBIN)
 	{
 		if (strcmp(ctx->inform, "PEM") == 0)
-			;
+			parse_pub_from_pem(ctx->input_fd, pub_out);
 		else if (strcmp(ctx->inform, "DER") == 0)
-			;
+			parse_pub_from_der(ctx->input_fd, pub_out);
 		else
 		{
 			nstrprinterror(1, "Unknown -inform param\n");
 			exit(1);
 		}
-		// read_pub(ctx, pub_out);
 	}
 	else
 	{
@@ -259,6 +266,7 @@ void	print_text_pub_key(t_rsa_context *ctx, t_rsa_pub_key *k)
 	append_text_int_with_new_line(to_print, k->n);
 	strcat(to_print, STRING11);
 	append_text_int_with_new_line(to_print, k->e);
+	write(ctx->output_fd, to_print, strlen(to_print));
 }
 
 void	print_text_priv_key(t_rsa_context *ctx, t_rsa_priv_key *k)
@@ -315,6 +323,8 @@ void	rsa(int ac, char **av)
 
 
 	parse_key(ctx, &pub_key, &priv_key);
+	if (ctx->mode & RSA_CTX_MODE_PUBIN)
+		ctx->mode |= RSA_CTX_MODE_PUBOUT;
 	generate_out_key(ctx, &pub_key, &priv_key);
 	process_output(ctx, &pub_key, &priv_key);
 }
