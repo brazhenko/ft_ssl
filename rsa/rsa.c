@@ -25,31 +25,13 @@
 # define STRING12	"RSA Public-Key: (64 bit)\n"
 # define STRING13	"Modulus: "
 
-
-// Какой ключ читаем?
-
-// 		Публичный
-//		text? на выход ключ в текстовом формате
-//		modulus? на выход key->n
-//		нет -noout? На выход публичный иначе ничего
-
-
-
-
-//		Приватный
-//		text? на выход ключ в текстовом формате
-//		modulus? на выход key->n
-//		pubout и не -noout? на выход публичный иначе приватный
-
-// Отрефакторить key_io!
+// Отрефакторить key_io!											V
 // Пофиксить размерность ключа, возможно просто подбором, лол		V
-// Написать полные тесты на genrsa, rsa
+// Написать полные тесты на genrsa, rsa								V
 // расширенный алгос евклида расшарить
 // МТФ
+// надо проверки возвратов говнометодов сделать и выход по eггor
 
-//30 3e 020100 020900add0e81054979ebf
-// 0203010001
-// 0208 o021bc5a4dff2aa99020500db5d9533020500cad7f84502040e8529450204140f31850205009b0454ea
 
 
 void parse_key(t_rsa_context *ctx,
@@ -123,7 +105,6 @@ void int128tohex(__int128 in, char *out, const char *alphabet)
 	}
 }
 
-
 void 	print_modulus(t_rsa_context *ctx, __int128 modulus)
 {
 	char 	out[128];
@@ -148,7 +129,6 @@ void 	print_priv_key(t_rsa_context *ctx, t_rsa_priv_key *k)
 	}
 }
 
-
 void 	print_pub_key(t_rsa_context *ctx, const t_rsa_pub_key *k)
 {
 	if (strcmp(ctx->outform, "DER") == 0)
@@ -161,7 +141,6 @@ void 	print_pub_key(t_rsa_context *ctx, const t_rsa_pub_key *k)
 		exit(1);
 	}
 }
-
 
 void int128toa(__int128 in, char *out)
 {
@@ -191,7 +170,6 @@ void int128toa(__int128 in, char *out)
 	}
 
 }
-
 
 static void append_text_int_with_new_line(char *out, __int128 num)
 {
@@ -244,9 +222,6 @@ static void append_text_int_with_new_line(char *out, __int128 num)
 	strcat(arr, ")\n");
 	strcat(out, arr);
 }
-
-
-
 
 void	print_text_pub_key(t_rsa_context *ctx, t_rsa_pub_key *k)
 {
@@ -313,7 +288,6 @@ void	rsa(int ac, char **av)
 	memset(&pub_key, 0, sizeof(pub_key));
 	ctx = init_rsa_ctx();
 	ctx = parse_rsa_argv(ac, av, ctx);
-
 
 	parse_key(ctx, &pub_key, &priv_key);
 	if (ctx->mode & RSA_CTX_MODE_PUBIN)

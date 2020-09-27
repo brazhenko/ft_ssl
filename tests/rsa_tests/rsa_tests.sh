@@ -143,4 +143,4 @@ do
   fi
 done
 
-find . -depth 1 -type f -not -name '*.sh'
+find . -depth 1 -type f -not -name '*.sh' -delete
