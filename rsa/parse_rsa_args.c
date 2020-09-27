@@ -93,7 +93,7 @@ t_rsa_context	*parse_rsa_argv(int argc, char **argv, t_rsa_context *ctx)
 			ctx->mode |= RSA_CTX_MODE_PUBIN;
 		else if (strcmp(*argv, "-pubout") == 0)
 			ctx->mode |= RSA_CTX_MODE_PUBOUT;
-		else if (strcmp(*argv, "noout-") == 0)
+		else if (strcmp(*argv, "-noout") == 0)
 			ctx->mode |= RSA_CTX_MODE_NOOUT;
 		else if (strcmp(*argv, "-check") == 0)
 			ctx->mode |= RSA_CTX_MODE_CHECK;

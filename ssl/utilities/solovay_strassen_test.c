@@ -32,9 +32,9 @@ uint64_t	interval(uint64_t rand, uint64_t l, uint64_t r)
 
 uint64_t 	fast_mod_pow(uint64_t base, uint64_t pw, uint64_t mod)
 {
-	__int128	base2;
-	__int128	mod2;
-	__int128	result2;
+	unsigned __int128	base2;
+	unsigned __int128	mod2;
+	unsigned __int128	result2;
 	uint64_t	result;
 
 	base2 = base;
@@ -53,14 +53,14 @@ uint64_t 	fast_mod_pow(uint64_t base, uint64_t pw, uint64_t mod)
 
 uint64_t 	mod_pow(uint64_t n, uint64_t pw, uint64_t mod)
 {
-	__int128	tmp;
-	__int128	n2;
-	__int128	mod2;
+	unsigned __int128	tmp;
+	unsigned __int128	n2;
+	unsigned __int128	mod2;
 	uint64_t	ret;
 
-	tmp = (__int128)1;
-	n2 = (__int128)n;
-	mod2 = (__int128)mod;
+	tmp = (unsigned  __int128)1;
+	n2 = (unsigned  __int128)n;
+	mod2 = (unsigned  __int128)mod;
 	while (pw)
 	{
 		tmp *= n2;

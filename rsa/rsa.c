@@ -32,8 +32,6 @@
 // МТФ
 // надо проверки возвратов говнометодов сделать и выход по eггor
 
-
-
 void parse_key(t_rsa_context *ctx,
 		t_rsa_pub_key *pub_out,
 		t_rsa_priv_key *priv_out)
@@ -168,7 +166,6 @@ void int128toa(__int128 in, char *out)
 		out_copy++;
 		out--;
 	}
-
 }
 
 static void append_text_int_with_new_line(char *out, __int128 num)
@@ -280,9 +277,9 @@ void	process_output(t_rsa_context *ctx,
 
 void	rsa(int ac, char **av)
 {
-	t_rsa_context *ctx;
-	t_rsa_priv_key priv_key;
-	t_rsa_pub_key pub_key;
+	t_rsa_context	*ctx;
+	t_rsa_priv_key	priv_key;
+	t_rsa_pub_key	pub_key;
 
 	memset(&priv_key, 0, sizeof(priv_key));
 	memset(&pub_key, 0, sizeof(pub_key));

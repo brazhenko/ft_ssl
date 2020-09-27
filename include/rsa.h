@@ -47,7 +47,6 @@ void	genrsa(int ac, char **av);
 void	generate_2_primes_for_key(t_rsa_priv_key *k);
 
 void	rsa(int ac, char **av);
-
-
+void 	rsautl(int ac, char **av);
 
 #endif //FT_SSL_RSA_H

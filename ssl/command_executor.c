@@ -22,16 +22,14 @@ int			command_executor(int ac, char *av[])
 		hash_executor(ac - 2, av + 2, &sha256);
 	else if (strcmp(av[1], "base64") == 0)
 		encode_executor(ac - 2, av + 2, &base64);
-	else if (strcmp(av[1], "des") == 0)
+	else if (strcmp(av[1], "des") == 0 || strcmp(av[1], "des-cbc") == 0)
 		cipher_executor(ac - 2, av + 2, &des_cbc);
 	else if (strcmp(av[1], "des-ecb") == 0)
 		cipher_executor(ac - 2, av + 2, &des_ecb);
-	else if (strcmp(av[1], "des-cbc") == 0)
-		cipher_executor(ac - 2, av + 2, &des_cbc);
 	else if (strcmp(av[1], "genrsa") == 0)
 	    genrsa(ac - 2, av + 2);
 	else if (strcmp(av[1], "rsautl") == 0)
-	    ;
+		rsautl(ac - 2, av + 2);
 	else if (strcmp(av[1], "rsa") == 0)
 		rsa(ac - 2, av + 2);
 	else
