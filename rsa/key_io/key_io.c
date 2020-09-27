@@ -324,6 +324,5 @@ int 	parse_pub_from_der(int fd, t_rsa_pub_key *out)
 	i += parse_int128_from_asn(buffer, i, &out->n);
 	i += parse_int128_from_asn(buffer, i, &out->e);
 
-
 	return (0);
 }
