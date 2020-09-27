@@ -51,10 +51,9 @@ typedef struct	s_rsa_pub_key
 
 void	genrsa(int ac, char **av);
 void	generate_2_primes_for_key(t_rsa_priv_key *k);
-int 	rsa_private_der_out(const t_rsa_priv_key *in, unsigned char *out);
-int 	rsa_public_pem_out(t_rsa_pub_key *in, unsigned char *out);
 
 void	rsa(int ac, char **av);
+
 
 
 #endif //FT_SSL_RSA_H

@@ -2231,10 +2231,13 @@ static void testPrintRsaPrivKey()
   		"\033[0m\n");
 }
 
+int 	rsa_public_pem_out(const t_rsa_pub_key *in, unsigned char *out);
+
 static void testPrintRsaPubKey()
 {
 	t_rsa_pub_key pk;
 	memset(&pk, 0, sizeof(pk));
+
 	pk.e = 65537;
 	{
 		pk.n = 0x00dcad1264df2fdfb9;

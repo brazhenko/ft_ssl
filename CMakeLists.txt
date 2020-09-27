@@ -112,7 +112,7 @@ SET(UTILITIES_SRC
 SET(BIGINT_SRC
 		multiprecision_lib/multiprecision.h multiprecision_lib/multiprecision1.c)
 
-SET(RSA_SRC include/rsa.h rsa/genrsa.c rsa/pem_io/pem_io.c rsa/parse_gen_rsa_args.c include/genrsa_context.h rsa/parse_rsa_args.c include/rsa_context.h rsa/rsa.c)
+SET(RSA_SRC include/rsa.h rsa/genrsa.c rsa/key_io/key_io.c rsa/parse_gen_rsa_args.c include/genrsa_context.h rsa/parse_rsa_args.c include/rsa_context.h rsa/rsa.c include/key_io.h)
 
 SET(TEST
 		include/tests.h tests/tests.c)

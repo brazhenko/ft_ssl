@@ -9,11 +9,7 @@
 #include "rsa.h"
 #include "utilities.h"
 #include <unistd.h>
-
-int		parse_asn_from_pem(int fd, unsigned char *out);
-int 	parse_asn_from_fd(int fd, t_rsa_priv_key *out);
-int 	asn_private_pem_in(t_rsa_priv_key *out, const unsigned char *arr);
-int 	parse_pem_from_fd(int fd, t_rsa_priv_key *out);
+#include "key_io.h"
 
 # define STRING1	"RSA Private-Key: (64 bit)\n"
 # define STRING2	"modulus: "
@@ -56,9 +52,6 @@ int 	parse_pem_from_fd(int fd, t_rsa_priv_key *out);
 // 0208 o021bc5a4dff2aa99020500db5d9533020500cad7f84502040e8529450204140f31850205009b0454ea
 
 
-int 	parse_pub_from_der(int fd, t_rsa_pub_key *out);
-int 	parse_pub_from_pem(int fd, t_rsa_pub_key *out);
-
 void parse_key(t_rsa_context *ctx,
 		t_rsa_pub_key *pub_out,
 		t_rsa_priv_key *priv_out)
@@ -66,9 +59,9 @@ void parse_key(t_rsa_context *ctx,
 	if (ctx->mode & RSA_CTX_MODE_PUBIN)
 	{
 		if (strcmp(ctx->inform, "PEM") == 0)
-			parse_pub_from_pem(ctx->input_fd, pub_out);
+			rsa_parse_pub_pem(ctx->input_fd, pub_out);
 		else if (strcmp(ctx->inform, "DER") == 0)
-			parse_pub_from_der(ctx->input_fd, pub_out);
+			rsa_parse_pub_der(ctx->input_fd, pub_out);
 		else
 		{
 			nstrprinterror(1, "Unknown -inform param\n");
@@ -78,9 +71,9 @@ void parse_key(t_rsa_context *ctx,
 	else
 	{
 		if (strcmp(ctx->inform, "PEM") == 0)
-			parse_pem_from_fd(ctx->input_fd, priv_out);
+			rsa_parse_priv_pem(ctx->input_fd, priv_out);
 		else if (strcmp(ctx->inform, "DER") == 0)
-			parse_asn_from_fd(ctx->input_fd, priv_out);
+			rsa_parse_priv_der(ctx->input_fd, priv_out);
 		else
 		{
 			nstrprinterror(1, "Unknown -inform param\n");
@@ -130,6 +123,7 @@ void int128tohex(__int128 in, char *out, const char *alphabet)
 	}
 }
 
+
 void 	print_modulus(t_rsa_context *ctx, __int128 modulus)
 {
 	char 	out[128];
@@ -141,15 +135,12 @@ void 	print_modulus(t_rsa_context *ctx, __int128 modulus)
 	write(ctx->output_fd, out, strlen(out));
 }
 
-int 	rsa_private_pem_out(t_rsa_context *ctx, const t_rsa_priv_key *in);
-int 	rsa_private_der_out_fd(t_rsa_context *ctx, const t_rsa_priv_key *in);
-
 void 	print_priv_key(t_rsa_context *ctx, t_rsa_priv_key *k)
 {
 	if (strcmp(ctx->outform, "DER") == 0)
-		rsa_private_der_out_fd(ctx, k);
+		rsa_put_priv_der(ctx->output_fd, k);
 	else if (strcmp(ctx->outform, "PEM") == 0)
-		rsa_private_pem_out(ctx, k);
+		rsa_put_priv_pem(ctx->output_fd, k);
 	else
 	{
 		nstrprinterror(1, "Unknown outform, exit\n");
@@ -157,15 +148,13 @@ void 	print_priv_key(t_rsa_context *ctx, t_rsa_priv_key *k)
 	}
 }
 
-int 	rsa_public_pem_out_fd(t_rsa_context *ctx, t_rsa_pub_key *in);
-int 	rsa_public_der_out_fd(t_rsa_context *ctx, t_rsa_pub_key *in);
 
-void 	print_pub_key(t_rsa_context *ctx, t_rsa_pub_key *k)
+void 	print_pub_key(t_rsa_context *ctx, const t_rsa_pub_key *k)
 {
 	if (strcmp(ctx->outform, "DER") == 0)
-		rsa_public_der_out_fd(ctx, k);
+		rsa_put_pub_der(ctx->output_fd, k);
 	else if (strcmp(ctx->outform, "PEM") == 0)
-		rsa_public_pem_out_fd(ctx, k);
+		rsa_put_pub_pem(ctx->output_fd, k);
 	else
 	{
 		nstrprinterror(1, "Unknown outform, exit\n");
