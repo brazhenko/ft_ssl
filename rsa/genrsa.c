@@ -18,7 +18,32 @@ static uint64_t	generate_1_prime()
 		exit(EXIT_FAILURE);
 	}
 	prime = 1;
-	while (!is_prime(prime))
+	while (!is_prime(prime) || !(prime >> 31U))
+	{
+		if (read(fd, &prime, 4) != 4) // HARDCODE
+		{
+			perror(__FUNCTION__);
+			exit(EXIT_FAILURE);
+		}
+		write(2, ".", 1);
+	}
+	write(2, "+\n", 2);
+	close(fd);
+	return prime;
+}
+
+static uint64_t	generate_2nd_prime(uint64_t first_prime)
+{
+	const int	fd = open("/dev/urandom", O_RDONLY);
+	uint64_t	prime;
+
+	if (fd < 0)
+	{
+		perror(__FUNCTION__);
+		exit(EXIT_FAILURE);
+	}
+	prime = 1;
+	while (!is_prime(prime) || !(prime >> 31U) || !((first_prime * prime) >> 63U))
 	{
 		if (read(fd, &prime, 4) != 4) // HARDCODE
 		{
@@ -37,9 +62,9 @@ void	generate_2_primes_for_key(t_rsa_priv_key *k)
 	const uint64_t	p = generate_1_prime();
 	uint64_t		q;
 
-	q = generate_1_prime();
+	q = generate_2nd_prime(p);
 	while (q == p)
-		q = generate_1_prime();
+		q = generate_2nd_prime(p);
 	k->q = q;
 		k->p = p;
 }

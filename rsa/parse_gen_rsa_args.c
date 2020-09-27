@@ -17,7 +17,7 @@ int					set_genrsa_output_file(t_genrsa_context *ctx,
 
 	memset(ctx->output_file, '\0', PATH_MAX);
 	strcpy(ctx->output_file, output_file_name);
-	output_fd = open(output_file_name, O_CREAT | O_WRONLY, 0666);
+	output_fd = open(output_file_name, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	ctx->output_fd = output_fd;
 	if (output_fd < 0)
 	{
