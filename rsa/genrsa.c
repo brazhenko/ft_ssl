@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <genrsa_context.h>
+#include <key_io.h>
 #include "base64.h"
 #include "utilities.h"
 
@@ -164,34 +165,11 @@ __int128 mod_inverse(__int128 a, __int128 m)
 **	 generates 64-bit private key
 */
 
-void	print_priv_key_formatted(int output_fd,
-		char *base64_encoded_key)
-{
-	const unsigned len = strlen(base64_encoded_key);
-	char out[1024];
-	unsigned i;
-
-	memset(out, 0, sizeof(out));
-	strcat(out, PRIVATE_KEY_HEADER);
-	i=0;
-	while (i < len)
-	{
-		strncat(out, base64_encoded_key + i, 64);
-		strcat(out, "\n");
-		i += 64;
-	}
-	strcat(out, PRIVATE_KEY_BOT);
-	write(output_fd, out, strlen(out));
-}
-
 void	genrsa(int ac, char **av)
 {
 	const t_genrsa_context	*ctx = parse_gen_rsa_argv(ac, av);
 	t_rsa_priv_key	k;
 	__int128	euler_func;
-	unsigned char memory[1024] = {0};
-	char out[1024] = {0};
-	int total_size;
 
 	memset(&k, 0, sizeof(k));
 	k.e = DEFAULT_PUBLIC_EXP;
@@ -203,27 +181,6 @@ void	genrsa(int ac, char **av)
 	k.dq = k.d % k.q;
 	k.qinv = mod_inverse(k.q, k.p);
 	nstrprinterror(1, "e is 65537 (0x10001)\n");
-	total_size = rsa_private_der_out(&k, memory);
-	encode_base64_block_with_padding(memory, out, total_size);
-	print_priv_key_formatted(ctx->output_fd, out);
+	rsa_put_priv_pem(ctx->output_fd, &k);
 	delete_gen_rsa_ctx((t_genrsa_context*)ctx);
-
-	//////////////// generating public key by private key for tests.
-	int			output_fd = open("key.pub", O_CREAT | O_WRONLY | O_TRUNC, 0666);
-
-	t_rsa_pub_key pk;
-	memset(&pk, 0, sizeof(pk));
-	pk.e = k.e;
-	pk.n = k.n;
-	unsigned char arr3[1024] = {0};
-	total_size = rsa_public_pem_out(&pk, arr3);
-
-	memset(out, 0, sizeof(out));
-	encode_base64_block_with_padding(arr3, out, total_size);
-
-	write(output_fd, PUBLIC_KEY_HEADER, sizeof(PUBLIC_KEY_HEADER) - 1);
-	write(output_fd, out, strlen(out));
-	write(output_fd, "\n", 1);
-	write(output_fd, PUBLIC_KEY_BOT, sizeof(PUBLIC_KEY_BOT) - 1);
-
 }

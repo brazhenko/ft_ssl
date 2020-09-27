@@ -107,16 +107,31 @@ SET(UTILITIES_SRC
 		ssl/utilities/xmalloc.c
 		ssl/utilities/print_uint32_bits.c
 		ssl/utilities/print_uint64_bits.c
-		ssl/utilities/mem_xor.c ssl/utilities/print_hex_memory.c ssl/utilities/solovay_strassen_test.c ssl/utilities/smax.c)
+		ssl/utilities/mem_xor.c
+		ssl/utilities/print_hex_memory.c
+		ssl/utilities/solovay_strassen_test.c
+		ssl/utilities/smax.c)
 
 SET(BIGINT_SRC
-		multiprecision_lib/multiprecision.h multiprecision_lib/multiprecision1.c)
+		multiprecision_lib/multiprecision.h
+		multiprecision_lib/multiprecision1.c)
 
-SET(RSA_SRC include/rsa.h rsa/genrsa.c rsa/key_io/key_io.c rsa/parse_gen_rsa_args.c include/genrsa_context.h rsa/parse_rsa_args.c include/rsa_context.h rsa/rsa.c include/key_io.h)
+SET(RSA_SRC
+		include/rsa.h
+		rsa/genrsa.c
+		rsa/key_io/key_io.c
+		rsa/parse_gen_rsa_args.c
+		include/genrsa_context.h
+		rsa/parse_rsa_args.c
+		include/rsa_context.h
+		rsa/rsa.c
+		include/key_io.h
+		rsa/key_io/output_routines.c
+		rsa/key_io/input_routines.c rsa/key_io/routines1.c rsa/key_io/routines2.c rsa/key_io/internal_key_io.h)
 
 SET(TEST
-		include/tests.h tests/tests.c)
-
+		include/tests.h
+		tests/tests.c)
 
 add_executable(
 		${PROJECT_NAME}
@@ -128,6 +143,5 @@ add_executable(
 		${UTILITIES_SRC}
 		${BIGINT_SRC}
 		${RSA_SRC}
-		${TEST}
-)
+		${TEST})
 

@@ -24,7 +24,7 @@ typedef struct	s_rsa_context
 }				t_rsa_context;
 
 t_rsa_context	*init_rsa_ctx();
-void 			delete_gen_rsa_ctx(t_rsa_context *ctx);
+void 			delete_rsa_ctx(const t_rsa_context *ctx);
 
 t_rsa_context	*rsa_state_in(int argc, char **argv, t_rsa_context *ctx);
 t_rsa_context	*rsa_state_out(int argc, char **argv, t_rsa_context *ctx);

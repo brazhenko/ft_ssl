@@ -23,10 +23,9 @@ t_rsa_context	*init_rsa_ctx()
 	return (ctx);
 }
 
-void 			delete_rsa_ctx(t_rsa_context *ctx)
+void 			delete_rsa_ctx(const t_rsa_context *ctx)
 {
-	memset(ctx, 0, sizeof(*ctx));
-	free(ctx);
+	free((void*)ctx);
 }
 
 t_rsa_context	*rsa_state_in(int argc, char **argv, t_rsa_context *ctx)

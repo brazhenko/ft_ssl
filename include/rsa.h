@@ -5,12 +5,6 @@
 #ifndef FT_SSL_RSA_H
 #define FT_SSL_RSA_H
 
-# define PRIVATE_KEY_HEADER	"-----BEGIN RSA PRIVATE KEY-----\n"
-# define PRIVATE_KEY_BOT	"-----END RSA PRIVATE KEY-----\n"
-
-# define PUBLIC_KEY_HEADER	"-----BEGIN PUBLIC KEY-----\n"
-# define PUBLIC_KEY_BOT		"-----END PUBLIC KEY-----\n"
-
 # define DEFAULT_PUBLIC_EXP	65537
 
 /*
