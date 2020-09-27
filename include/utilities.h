@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 23:03:21 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/07/12 18:13:20 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/27 21:52:22 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ size_t		min1(size_t l, size_t r);
 int			miller_rabin_test(uint64_t n, int k);
 bool		is_prime(uint64_t num);
 uint64_t 	mod_pow(uint64_t n, uint64_t pw, uint64_t mod);
-uint64_t 	fast_mod_pow(uint64_t base, uint64_t pw, uint64_t mod);
+uint64_t 	fast_mod_pow(unsigned __int128 base, unsigned __int128  pw, unsigned __int128 mod);
 void		bezout(__int128 a, __int128 b, __int128 *xout, __int128 *yout);
+void 		fatal(const char *s);
 
 #endif

@@ -110,7 +110,7 @@ SET(UTILITIES_SRC
 		ssl/utilities/mem_xor.c
 		ssl/utilities/print_hex_memory.c
 		ssl/utilities/solovay_strassen_test.c
-		ssl/utilities/smax.c)
+		ssl/utilities/smax.c ssl/utilities/fatal.c)
 
 SET(BIGINT_SRC
 		multiprecision_lib/multiprecision.h

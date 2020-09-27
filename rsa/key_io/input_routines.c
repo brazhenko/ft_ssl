@@ -25,9 +25,14 @@ int 	rsa_parse_priv_der(int input_fd, t_rsa_priv_key *out)
 int 	rsa_parse_priv_pem(int input_fd, t_rsa_priv_key *out)
 {
 	unsigned char bytes[1024] = {0};
+	int ret;
 
-	parse_asn_from_pem(input_fd, bytes);
-	asn_private_pem_in(bytes, out);
+	ret = parse_asn_from_pem(input_fd, bytes);
+	if (ret)
+		return (1);
+	ret = asn_private_pem_in(bytes, out);
+	if (ret)
+		return (1);
 	return (0);
 }
 

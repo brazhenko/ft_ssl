@@ -30,7 +30,7 @@ uint64_t	interval(uint64_t rand, uint64_t l, uint64_t r)
 	return ret;
 }
 
-uint64_t 	fast_mod_pow(uint64_t base, uint64_t pw, uint64_t mod)
+uint64_t 	fast_mod_pow(unsigned __int128 base, unsigned __int128 pw, unsigned __int128 mod)
 {
 	unsigned __int128	base2;
 	unsigned __int128	mod2;

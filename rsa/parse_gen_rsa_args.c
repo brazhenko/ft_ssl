@@ -53,7 +53,7 @@ t_genrsa_context	*init_gen_rsa_ctx()
 void 				delete_gen_rsa_ctx(const t_genrsa_context *ctx)
 {
 	close(ctx->output_fd);
-	free(ctx);
+	free((void*)ctx);
 }
 
 t_genrsa_context	*genrsa_state_o(int argc, char **argv, t_genrsa_context *ctx)

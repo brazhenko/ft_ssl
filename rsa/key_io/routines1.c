@@ -39,9 +39,9 @@ int 	asn_private_pem_in(const unsigned char *arr, t_rsa_priv_key *out)
 	unsigned char i;
 
 	if (arr[0] != 0x30)
-		return (-1);
+		return (1);
 	if (!(arr[1]))
-		return (-1);
+		return (1);
 	i = 5;
 	i += parse_int128_from_asn(arr, i, &out->n);
 	i += parse_int128_from_asn(arr, i, &out->e);

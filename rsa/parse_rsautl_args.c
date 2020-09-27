@@ -33,19 +33,27 @@ void				rsautl_unexpected_token_exit(const char *token)
 	exit(EXIT_FAILURE);
 }
 
-t_rsautl_context	*parse_rsa_utl_state_inkey(int ac, char **av, t_rsautl_context *ctx)
-{
-
-	return parse_rsautl_argv(ac - 1, av + 1, ctx);
-}
-
-t_rsautl_context	*parse_rsa_utl_state_out(int argc, char **argv, t_rsautl_context * ctx)
+t_rsautl_context	*parse_rsa_utl_state_inkey(int ac, char **argv, t_rsautl_context *ctx)
 {
 	int		input_fd;
 
 	input_fd = open(*argv, O_RDONLY);
-	ctx->input_fd = input_fd;
+	ctx->inkey_fd = input_fd;
 	if (input_fd < 0)
+	{
+		nstrprinterror(5, "Unable to open \'", *argv,
+				"\': ", strerror(errno), "\n");
+		exit(1);
+	}
+	return parse_rsautl_argv(ac - 1, argv + 1, ctx);
+}
+
+t_rsautl_context	*parse_rsa_utl_state_out(int argc, char **argv, t_rsautl_context * ctx)
+{
+	const int output_fd = open(*argv, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+
+	ctx->output_fd = output_fd;
+	if (output_fd < 0)
 	{
 		nstrprinterror(5, "Unable to open \'", *argv,
 				"\': ", strerror(errno), "\n");
@@ -56,10 +64,11 @@ t_rsautl_context	*parse_rsa_utl_state_out(int argc, char **argv, t_rsautl_contex
 
 t_rsautl_context	*parse_rsa_utl_state_in(int argc, char **argv, t_rsautl_context * ctx)
 {
-	const int output_fd = open(*argv, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	int		input_fd;
 
-	ctx->output_fd = output_fd;
-	if (output_fd < 0)
+	input_fd = open(*argv, O_RDONLY);
+	ctx->input_fd = input_fd;
+	if (input_fd < 0)
 	{
 		nstrprinterror(5, "Unable to open \'", *argv,
 				"\': ", strerror(errno), "\n");
