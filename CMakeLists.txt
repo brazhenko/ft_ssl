@@ -126,7 +126,7 @@ SET(RSA_SRC
 		rsa/rsa/rsa.c
 		include/key_io.h
 		rsa/key_io/output_routines.c
-		rsa/key_io/input_routines.c rsa/key_io/routines1.c rsa/key_io/routines2.c rsa/key_io/internal_key_io.h rsa/rsautl/rsautl.c include/rsautl_context.h "rsa/rsautl ctx/parse_rsautl_args.c" rsa/rsa/rsa2.c)
+		rsa/key_io/input_routines.c rsa/key_io/routines1.c rsa/key_io/routines2.c rsa/key_io/internal_key_io.h rsa/rsautl/rsautl.c include/rsautl_context.h "rsa/rsautl ctx/parse_rsautl_args.c" rsa/rsa/rsa2.c rsa/rsa_breaker/rsa_breaker.c)
 
 SET(TEST
 		include/tests.h

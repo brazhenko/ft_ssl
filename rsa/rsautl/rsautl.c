@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:36:47 by a17641238         #+#    #+#             */
-/*   Updated: 2020/09/28 15:36:47 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/28 21:33:02 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,55 +20,81 @@
 
 union encryptor
 {
-	unsigned __int128	numero;
-	unsigned char 		arr[16];
+	uint64_t			numero;
+	unsigned char 		arr[8];
 };
 
-void 	rsautl_decrypt(t_rsautl_context *ctx)
+static int 	len_till_pad(const unsigned char *inp)
 {
-	t_rsa_priv_key 	priv_key;
+	int i = 6;
+
+	while (i > -1 && inp[i] == 0xff)
+		i--;
+	return (i + 1);
+}
+
+void 	take_and_decrypt(t_rsautl_context *ctx,
+							__int128 privexp,
+							__int128 modulo)
+{
 	int 			tmp;
 	union encryptor enc;
+	uint64_t plain;
 
 	enc.numero = 0;
-	memset(&priv_key, 0, sizeof(priv_key));
-	__int128 privexp;
-	__int128 modulo;
-
-	if (ctx->mode & RSAUTL_CTX_PUBIN)
-		fatal("Need private key for this.");
-	else
-	{
-		if (rsa_parse_priv_pem(ctx->inkey_fd, &priv_key) == 1)
-			fatal("Error with input private key.");
-		privexp = priv_key.d;
-		modulo = priv_key.n;
-	}
 	while ((tmp = read(ctx->input_fd, enc.arr, 8)) > 0)
 	{
-		uint64_t plain = fast_mod_pow(enc.numero, privexp, modulo);
-		if (write(ctx->output_fd, &plain, 7) != 7)
+		if (tmp != 8)
+			fatal("File was corrupted");
+		enc.numero = fast_mod_pow(enc.numero, privexp, modulo);
+		if (write(ctx->output_fd, enc.arr, len_till_pad(enc.arr)) != len_till_pad(enc.arr))
 			fatal("Error on writing to file");
 		enc.numero = 0;
 	}
 	if (tmp < 0)
 		fatal("Error with out file");
+}
 
+void 	rsautl_decrypt(t_rsautl_context *ctx)
+{
+	t_rsa_priv_key 	priv_key;
+
+	memset(&priv_key, 0, sizeof(priv_key));
+	if (ctx->mode & RSAUTL_CTX_PUBIN)
+		fatal("Need private key for this.");
+	if (rsa_parse_priv_pem(ctx->inkey_fd, &priv_key) == 1)
+		fatal("Error with input private key.");
+	take_and_decrypt(ctx, priv_key.d, priv_key.n);
+}
+
+void 	encrypt_end_put(t_rsautl_context *ctx, __int128 pubexp, __int128 modulo)
+{
+	uint64_t		cryptogramm;
+	int 			tmp;
+	union encryptor enc;
+	enc.numero = 0;
+
+	while ((tmp = read(ctx->input_fd, enc.arr, 7)) > 0)
+	{
+		memset(&enc.arr[0] + tmp, 0xff, 7 - tmp);
+		cryptogramm = fast_mod_pow(enc.numero, pubexp, modulo);
+		if (write(ctx->output_fd, &cryptogramm, sizeof(cryptogramm)) != sizeof(cryptogramm))
+			fatal("Error on writing to file");
+		enc.numero = 0;
+	}
+	if (tmp < 0)
+		fatal("Error with out file");
 }
 
 void 	rsautl_encrypt(t_rsautl_context *ctx)
 {
 	t_rsa_priv_key 	priv_key;
 	t_rsa_pub_key 	pub_key;
-	int 			tmp;
-	union encryptor enc;
 
-	enc.numero = 0;
 	memset(&priv_key, 0, sizeof(priv_key));
 	memset(&pub_key, 0, sizeof(pub_key));
 	__int128 pubexp;
 	__int128 modulo;
-
 	if (ctx->mode & RSAUTL_CTX_PUBIN)
 	{
 		if (rsa_parse_pub_pem(ctx->inkey_fd, &pub_key) == 1)
@@ -83,18 +109,7 @@ void 	rsautl_encrypt(t_rsautl_context *ctx)
 		pubexp = priv_key.e;
 		modulo = priv_key.n;
 	}
-	while ((tmp = read(ctx->input_fd, enc.arr, 7)) > 0)
-	{
-		uint64_t cryptogramm = fast_mod_pow(enc.numero, pubexp, modulo);
-		printf("cryptogram: %llu\n", cryptogramm);
-		if (write(ctx->output_fd, &cryptogramm, sizeof(cryptogramm)) != sizeof(cryptogramm))
-			fatal("Error on writing to file");
-		enc.numero = 0;
-	}
-	if (tmp < 0)
-		fatal("Error with out file");
-
-
+	encrypt_end_put(ctx, pubexp, modulo);
 }
 
 void	rsautl(int ac, char **av)

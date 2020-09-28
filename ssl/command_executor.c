@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 20:39:11 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/07/12 11:58:28 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/28 17:17:58 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int			command_executor(int ac, char *av[])
 		rsautl(ac - 2, av + 2);
 	else if (strcmp(av[1], "rsa") == 0)
 		rsa(ac - 2, av + 2);
+	else if (strcmp(av[1], "rsa_breaker") == 0)
+		rsa_breaker(ac - 2, av + 2);
 	else
 		wrong_command_exit(av[0], av[1]);
 	return (EXIT_SUCCESS);
