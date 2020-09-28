@@ -75,7 +75,6 @@ int 	parse_int128_from_asn(const unsigned char *buf, size_t idx, __int128 *out)
 		return (-1);
 	for (int i = 0; i < buf[idx + 1]; i++)
 		cvt.data2[buf[idx + 1] - i - 1] = buf[idx + 2 + i];
-
 	*out = cvt.data;
 	return (buf[idx + 1] + 2);
 }

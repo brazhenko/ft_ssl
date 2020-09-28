@@ -37,20 +37,44 @@ int		parse_asn_from_pem(int fd, unsigned char *out)
 int 	asn_private_pem_in(const unsigned char *arr, t_rsa_priv_key *out)
 {
 	unsigned char i;
+	int 		err;
 
 	if (arr[0] != 0x30)
 		return (1);
 	if (!(arr[1]))
 		return (1);
 	i = 5;
-	i += parse_int128_from_asn(arr, i, &out->n);
-	i += parse_int128_from_asn(arr, i, &out->e);
-	i += parse_int128_from_asn(arr, i, &out->d);
-	i += parse_int128_from_asn(arr, i, &out->p);
-	i += parse_int128_from_asn(arr, i, &out->q);
-	i += parse_int128_from_asn(arr, i, &out->dp);
-	i += parse_int128_from_asn(arr, i, &out->dq);
-	i += parse_int128_from_asn(arr, i, &out->qinv);
+	err = parse_int128_from_asn(arr, i, &out->n);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->e);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->d);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->p);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->q);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->dp);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->dq);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->qinv);
+	if (err == -1)
+		return (1);
 	return (0);
 }
 

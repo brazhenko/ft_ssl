@@ -4,7 +4,6 @@
 
 #include <rsa.h>
 #include <string.h>
-#include <fcntl.h>
 #include <unistd.h>
 #include "internal_key_io.h"
 
@@ -41,6 +40,7 @@ int 	rsa_parse_pub_der(int fd, t_rsa_pub_key *out)
 	int		read_count;
 	int 	tmp;
 	unsigned char 	buffer[2048];
+	int ret;
 
 	read_count = 0;
 	memset(buffer, 0, sizeof(buffer));
@@ -56,9 +56,13 @@ int 	rsa_parse_pub_der(int fd, t_rsa_pub_key *out)
 	if (memcmp(buffer + 2, hardcode_header, 16) != 0)
 		return (-1);
 	int i = 18 + 4;
-	i += parse_int128_from_asn(buffer, i, &out->n);
-	i += parse_int128_from_asn(buffer, i, &out->e);
-
+	ret = parse_int128_from_asn(buffer, i, &out->n);
+	if (ret == -1)
+		return (1);
+	i += ret;
+	ret = parse_int128_from_asn(buffer, i, &out->e);
+	if (ret == -1)
+		return (1);
 	return (0);
 }
 
@@ -68,6 +72,7 @@ int 	rsa_parse_pub_pem(int fd, t_rsa_pub_key *out)
 	unsigned char buf[1024] = {0};
 	parse_pub_der_from_pem_fd(fd, buf);
 	const unsigned char size = buf[1];
+	int 	ret;
 
 	if (size == 0)
 		return (1);
@@ -76,8 +81,12 @@ int 	rsa_parse_pub_pem(int fd, t_rsa_pub_key *out)
 	if (memcmp(buf + 2, hardcode_header, 16) != 0)
 		return (1);
 	int i = 18 + 4;
-	i += parse_int128_from_asn(buf, i, &out->n);
-	i += parse_int128_from_asn(buf, i, &out->e);
-
+	ret = parse_int128_from_asn(buf, i, &out->n);
+	if (ret == -1)
+		return (1);
+	i += ret;
+	ret = parse_int128_from_asn(buf, i, &out->e);
+	if (ret == -1)
+		return (1);
 	return (0);
 }
