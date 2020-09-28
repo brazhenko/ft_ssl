@@ -14,9 +14,9 @@ NC='\033[0m' # No Color
 echo -e "${BLUE}genrsa tests${NC}"
 for VAR in {0..10}
 do
-	./$bin genrsa -o priv.pem 2>/dev/null
-	./$bin rsa -in priv.pem -pubout -out key.pub 2>/dev/null
-	openssl rsa -in priv.pem -pubout -out orig.pub 2>/dev/null
+	./$bin genrsa -o priv.pem > /dev/null 2>&1
+	./$bin rsa -in priv.pem -pubout -out key.pub > /dev/null 2>&1
+	openssl rsa -in priv.pem -pubout -out orig.pub > /dev/null 2>&1
 	DIFF=$(diff orig.pub key.pub)
 	if [ "$DIFF" == "" ]
   then
@@ -142,5 +142,27 @@ do
       echo -e "${RED}Failed!${NC}"
   fi
 done
+
+################################################################################
+# rsa encrypt/decrypt tests
+################################################################################
+echo -e "${BLUE}rsa encrypt/decrypt tests${NC}"
+for entry in "test_files"/*
+do
+  ./$bin genrsa -o main.key > /dev/null 2>&1
+  ./$bin rsa -pubout -out main.pub -in main.key > /dev/null 2>&1
+  ./$bin rsautl -encrypt -in "$entry" -out crypto.txt -pubin -inkey main.pub > /dev/null 2>&1
+  ./$bin  rsautl -decrypt -inkey main.key -in crypto.txt -out answer > /dev/null 2>&1
+
+  #echo  "$entry "
+  DIFF=$(diff "$entry" answer)
+  if [ "$DIFF" == "" ]
+  then
+      echo -e "${GREEN}Passed!${NC}"
+  else
+      echo -e "${RED}Failed!${NC}"
+  fi
+done
+
 
 find . -depth 1 -type f -not -name '*.sh' -delete
