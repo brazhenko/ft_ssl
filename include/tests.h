@@ -2120,8 +2120,6 @@ static void testMillerRabin()
 	printf("miller_rabin took %f seconds to execute \n", time_taken);
 }
 
-__int128 mod_inverse(__int128 a, __int128 m);
-
 static void testInvMod()
 {
 	t_rsa_priv_key	k;
@@ -2147,6 +2145,7 @@ static void testInvMod()
 
 	printf("\033[0;32minvMod tests ok\033[0m\n");
 }
+
 
 static void testAll()
 {

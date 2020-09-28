@@ -7,6 +7,9 @@
 
 # include <sys/syslimits.h>
 
+// https://www.openssl.org/docs/man1.0.2/man1/openssl-rsa.html
+// -passin pass https://www.openssl.org/docs/man1.0.2/man1/openssl.html
+
 # define RSA_CTX_MODE_MODULUS	0x1U
 # define RSA_CTX_MODE_PUBIN		0x2U
 # define RSA_CTX_MODE_PUBOUT	0x4U
@@ -24,7 +27,7 @@ typedef struct	s_rsa_context
 }				t_rsa_context;
 
 t_rsa_context	*init_rsa_ctx();
-void 			delete_rsa_ctx(const t_rsa_context *ctx);
+void 			delete_rsa_ctx(t_rsa_context *ctx);
 
 t_rsa_context	*rsa_state_in(int argc, char **argv, t_rsa_context *ctx);
 t_rsa_context	*rsa_state_out(int argc, char **argv, t_rsa_context *ctx);
@@ -32,21 +35,6 @@ t_rsa_context	*rsa_state_out(int argc, char **argv, t_rsa_context *ctx);
 
 t_rsa_context	*parse_rsa_argv(int argc, char **argv, t_rsa_context *ctx);
 
-// https://www.openssl.org/docs/man1.0.2/man1/openssl-rsa.html
-// -passin pass https://www.openssl.org/docs/man1.0.2/man1/openssl.html
 
-// 		[-inform PEM]
-// 		[-outform PEM]
-//		[-in file]
-// [-passin arg]
-// 		[-out file]
-// [-passout arg]
-// [-des]
-// 		[-text]				prints out the various public or private key components in plain text in addition to the encoded version.
-// 		[-noout]				this option prevents output of the encoded version of the key.
-// 		[-modulus]			this option prints out the value of the modulus of the key.
-// 		[-check]
-// 		[-pubin]
-// 		[-pubout]
 
 #endif //FT_SSL_RSA_CONTEXT_H

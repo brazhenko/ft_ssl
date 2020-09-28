@@ -110,7 +110,7 @@ SET(UTILITIES_SRC
 		ssl/utilities/mem_xor.c
 		ssl/utilities/print_hex_memory.c
 		ssl/utilities/solovay_strassen_test.c
-		ssl/utilities/smax.c ssl/utilities/fatal.c)
+		ssl/utilities/smax.c ssl/utilities/fatal.c ssl/utilities/int128convs.c)
 
 SET(BIGINT_SRC
 		multiprecision_lib/multiprecision.h
@@ -118,20 +118,19 @@ SET(BIGINT_SRC
 
 SET(RSA_SRC
 		include/rsa.h
-		rsa/genrsa.c
-		rsa/key_io/key_io.c
-		rsa/parse_gen_rsa_args.c
+		rsa/genrsa/genrsa.c
+		rsa/genrsa_ctx/parse_gen_rsa_args.c
 		include/genrsa_context.h
-		rsa/parse_rsa_args.c
+		rsa/rsa_ctx/parse_rsa_args.c
 		include/rsa_context.h
-		rsa/rsa.c
+		rsa/rsa/rsa.c
 		include/key_io.h
 		rsa/key_io/output_routines.c
-		rsa/key_io/input_routines.c rsa/key_io/routines1.c rsa/key_io/routines2.c rsa/key_io/internal_key_io.h rsa/rsautl.c include/rsautl_context.h rsa/parse_rsautl_args.c)
+		rsa/key_io/input_routines.c rsa/key_io/routines1.c rsa/key_io/routines2.c rsa/key_io/internal_key_io.h rsa/rsautl/rsautl.c include/rsautl_context.h "rsa/rsautl ctx/parse_rsautl_args.c" rsa/rsa/rsa2.c)
 
 SET(TEST
 		include/tests.h
-		tests/tests.c)
+		tests/tests.c ssl/utilities/mod_inverse.c rsa/genrsa_ctx/genrsa_ctx2.c rsa/rsa_ctx/rsa_ctx2.c)
 
 add_executable(
 		${PROJECT_NAME}

@@ -15,7 +15,7 @@
 
 int			main(int ac, char **av, char **en)
 {
-	//testAll();
+	testAll();
 
 	(void)en;
 	if (ac == 1)
