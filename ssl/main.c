@@ -6,18 +6,14 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 20:36:14 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/09/28 18:09:56 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/29 19:44:07 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ssl.h"
-#include "tests.h"
 
-int			main(int ac, char **av, char **en)
+int			main(int ac, char **av)
 {
-	// testAll();
-
-	(void)en;
 	if (ac == 1)
 	{
 		nstrprinterror(3, "usage: ", av[0],

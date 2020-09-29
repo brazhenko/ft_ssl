@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:22:44 by a17641238         #+#    #+#             */
-/*   Updated: 2020/09/28 17:31:54 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/29 20:25:20 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,28 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <printf.h>
-
-uint64_t 	primes[16];
+#include <math.h>
+#include <string.h>
 
 void 		find_divisors(uint64_t modulus)
 {
-	uint64_t 	t;
+	uint64_t		t;
+	const uint64_t	board = modulus / 2;
+	char			out[64];
 
-	t = 1;
-	while (t < modulus)
+	t = 2;
+	nstrprint(1, "\aCracking...\n");
+	while (t < board)
 	{
 		if (modulus % t == 0)
 		{
-			printf("divisor: %llu\n", t);
+			memset(out, 0, sizeof(out));
+			int128toa((__int128)t, out);
+			nstrprint(3, "Divisor: ", out, "\n");
 		}
 		t++;
 	}
+	nstrprint(1, "Done...\n");
 }
 
 void 		rsa_breaker(int ac, char **av)

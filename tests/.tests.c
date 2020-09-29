@@ -2,7 +2,7 @@
 // Created by 17641238 on 11.07.2020.
 //
 
-#include "tests.h"
+#include ".tests.h"
 
 void hardCompositeTest2()
 {

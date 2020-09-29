@@ -126,11 +126,11 @@ SET(RSA_SRC
 		rsa/rsa/rsa.c
 		include/key_io.h
 		rsa/key_io/output_routines.c
-		rsa/key_io/input_routines.c rsa/key_io/routines1.c rsa/key_io/routines2.c rsa/key_io/internal_key_io.h rsa/rsautl/rsautl.c include/rsautl_context.h "rsa/rsautl ctx/parse_rsautl_args.c" rsa/rsa/rsa2.c rsa/rsa_breaker/rsa_breaker.c)
+		rsa/key_io/input_routines.c rsa/key_io/routines1.c rsa/key_io/routines2.c rsa/key_io/internal_key_io.h rsa/rsautl/rsautl.c include/rsautl_context.h "rsa/rsautl_ctx/parse_rsautl_args.c" rsa/rsa/rsa2.c rsa/rsa_breaker/rsa_breaker.c rsa/rsautl_ctx/parse_rsautl2.c rsa/rsautl_ctx/parse_rsautl_internal.h rsa/rsautl/rsa_utl_routines.c rsa/rsautl/internal_rsautl.h rsa/rsa_ctx/internal_rsa_ctx.h rsa/rsa/internal_rsa.h)
 
 SET(TEST
-		include/tests.h
-		tests/tests.c ssl/utilities/mod_inverse.c rsa/genrsa_ctx/genrsa_ctx2.c rsa/rsa_ctx/rsa_ctx2.c)
+		include/.tests.h
+		tests/.tests.c ssl/utilities/mod_inverse.c rsa/genrsa_ctx/genrsa_ctx2.c rsa/rsa_ctx/rsa_ctx2.c rsa/genrsa_ctx/internal_genrsa_ctx.h)
 
 add_executable(
 		${PROJECT_NAME}

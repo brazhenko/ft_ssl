@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 23:03:21 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/09/28 17:01:51 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/29 15:18:02 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdint.h>
 # include <stddef.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
 static const char		g_hex_arr[] = {
 	'0', '1', '2', '3',
@@ -23,6 +23,8 @@ static const char		g_hex_arr[] = {
 	'8', '9', 'a', 'b',
 	'c', 'd', 'e', 'f'
 };
+
+typedef unsigned __int128 t_ui128;
 
 char		*nstrjoin(int n, ...);
 int			nstrprint(int n, ...);
@@ -39,12 +41,11 @@ int			miller_rabin_test(uint64_t n, int k);
 bool		is_prime(uint64_t num);
 uint64_t 	mod_pow(uint64_t n, uint64_t pw, uint64_t mod);
 uint64_t 	fast_mod_pow(unsigned __int128 base, unsigned __int128  pw, unsigned __int128 mod);
-void		bezout(__int128 a, __int128 b, __int128 *xout, __int128 *yout);
 void 		fatal(const char *s);
 __int128	mod_inverse(__int128 a, __int128 m);
 void		int128toa(unsigned __int128 in, char *out);
 void		int128tohex(unsigned __int128 in, char *out, const char *alphabet);
 
-
-
 #endif
+
+

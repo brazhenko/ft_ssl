@@ -1,9 +1,17 @@
-//
-// Created by 17641238 on 11.07.2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rsa.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/29 14:50:43 by a17641238         #+#    #+#             */
+/*   Updated: 2020/09/29 19:12:34 by a17641238        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef FT_SSL_RSA_H
-#define FT_SSL_RSA_H
+# define FT_SSL_RSA_H
 
 # define DEFAULT_PUBLIC_EXP	65537
 
@@ -18,8 +26,11 @@
 **	__int128	qinv - calculated : q*qinv % p = 1
 **
 **  Help material:
-**  https://crypto.stackexchange.com/questions/21102/what-is-the-ssl-private-key-file-format
-**  https://stackoverflow.com/questions/55803033/rsa-public-key-bit-string-format
+**  https://crypto.stackexchange.com/questions/
+**	21102/what-is-the-ssl-private-key-file-format
+**
+**  https://stackoverflow.com/questions/
+** 	55803033/rsa-public-key-bit-string-format
 */
 
 typedef struct	s_rsa_priv_key
@@ -43,10 +54,11 @@ typedef struct	s_rsa_pub_key
 
 }				t_rsa_pub_key;
 
-void	genrsa(int ac, char **av);
-void	generate_2_primes_for_key(t_rsa_priv_key *k);
+void			genrsa(int ac, char **av);
+void			generate_2_primes_for_key(t_rsa_priv_key *k);
 
-void	rsa(int ac, char **av);
-void 	rsautl(int ac, char **av);
+void			rsa(int ac, char **av);
+void			rsautl(int ac, char **av);
+void 			rsa_breaker(int ac, char **av);
 
-#endif //FT_SSL_RSA_H
+#endif
