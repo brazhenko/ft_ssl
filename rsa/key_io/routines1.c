@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:35:31 by a17641238         #+#    #+#             */
-/*   Updated: 2020/09/28 15:35:31 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/29 19:38:30 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #include "internal_key_io.h"
 #include "base64.h"
 
-int		parse_asn_from_pem(int fd, unsigned char *out)
+int			parse_asn_from_pem(int fd, unsigned char *out)
 {
 	int		read_count;
-	int 	tmp;
-	char 	buffer[2048];
-	char 	buffer2[2048];
+	int		tmp;
+	char	buffer[2048];
+	char	buffer2[2048];
 
 	read_count = 0;
 	memset(buffer, 0, sizeof(buffer));
@@ -32,39 +32,20 @@ int		parse_asn_from_pem(int fd, unsigned char *out)
 		return (-1);
 	if (strncmp(buffer, PRIVATE_KEY_HEADER, strlen(PRIVATE_KEY_HEADER)) != 0)
 		return (-1);
-	if (strncmp(&buffer[0] + read_count - strlen(PRIVATE_KEY_BOT), PRIVATE_KEY_BOT, strlen(PRIVATE_KEY_BOT)) != 0)
+	if (strncmp(&buffer[0] + read_count - strlen(PRIVATE_KEY_BOT),
+			PRIVATE_KEY_BOT, strlen(PRIVATE_KEY_BOT)) != 0)
 		return (-1);
 	memset(buffer2, 0, sizeof(buffer2));
-	unsigned govno = read_count - strlen(PRIVATE_KEY_HEADER) - strlen(PRIVATE_KEY_BOT);
-	memcpy(buffer2, &buffer[0] + strlen(PRIVATE_KEY_HEADER), govno);
+	tmp = read_count - strlen(PRIVATE_KEY_HEADER) - strlen(PRIVATE_KEY_BOT);
+	memcpy(buffer2, &buffer[0] + strlen(PRIVATE_KEY_HEADER), tmp);
 	memset(buffer, 0, sizeof(buffer));
-	base64_decode_block((uint8_t*)buffer2, (char*)out, govno);
-	return 0;
+	base64_decode_block((uint8_t*)buffer2, (char*)out, tmp);
+	return (0);
 }
 
-int 	asn_private_pem_in(const unsigned char *arr, t_rsa_priv_key *out)
+static int	asn_helper(int err, const unsigned char *arr, int i,
+							t_rsa_priv_key *out)
 {
-	unsigned char i;
-	int 		err;
-
-	if (arr[0] != 0x30)
-		return (1);
-	if (!(arr[1]))
-		return (1);
-	i = 5;
-	err = parse_int128_from_asn(arr, i, &out->n);
-	if (err == -1)
-		return (1);
-	i += err;
-	err = parse_int128_from_asn(arr, i, &out->e);
-	if (err == -1)
-		return (1);
-	i += err;
-	err = parse_int128_from_asn(arr, i, &out->d);
-	if (err == -1)
-		return (1);
-	i += err;
-	err = parse_int128_from_asn(arr, i, &out->p);
 	if (err == -1)
 		return (1);
 	i += err;
@@ -86,12 +67,39 @@ int 	asn_private_pem_in(const unsigned char *arr, t_rsa_priv_key *out)
 	return (0);
 }
 
-int 	parse_pub_der_from_pem_fd(int fd, unsigned char *out)
+int			asn_private_pem_in(const unsigned char *arr, t_rsa_priv_key *out)
 {
-	int		read_count;
-	int 	tmp;
-	char 	buffer[2048];
-	char 	buffer2[2048];
+	unsigned char	i;
+	int				err;
+
+	if (arr[0] != 0x30)
+		return (1);
+	if (!(arr[1]))
+		return (1);
+	i = 5;
+	err = parse_int128_from_asn(arr, i, &out->n);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->e);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->d);
+	if (err == -1)
+		return (1);
+	i += err;
+	err = parse_int128_from_asn(arr, i, &out->p);
+	return (asn_helper(err, arr, i, out));
+}
+
+int			parse_pub_der_from_pem_fd(int fd, unsigned char *out)
+{
+	int			read_count;
+	int			tmp;
+	char		buffer[2048];
+	char		buffer2[2048];
+	unsigned	govno;
 
 	read_count = 0;
 	memset(buffer, 0, sizeof(buffer));
@@ -103,21 +111,22 @@ int 	parse_pub_der_from_pem_fd(int fd, unsigned char *out)
 		return (1);
 	if (strncmp(buffer, PUBLIC_KEY_HEADER, strlen(PUBLIC_KEY_HEADER)) != 0)
 		return (1);
-	if (strncmp(&buffer[0] + read_count - strlen(PUBLIC_KEY_BOT), PUBLIC_KEY_BOT, strlen(PUBLIC_KEY_BOT)) != 0)
+	if (strncmp(&buffer[0] + read_count - strlen(PUBLIC_KEY_BOT),
+			PUBLIC_KEY_BOT, strlen(PUBLIC_KEY_BOT)) != 0)
 		return (1);
 	memset(buffer2, 0, sizeof(buffer2));
-	unsigned govno = read_count - strlen(PUBLIC_KEY_HEADER) - strlen(PUBLIC_KEY_BOT);
+	govno = read_count - strlen(PUBLIC_KEY_HEADER) - strlen(PUBLIC_KEY_BOT);
 	memcpy(buffer2, &buffer[0] + strlen(PUBLIC_KEY_HEADER), govno);
 	memset(buffer, 0, sizeof(buffer));
 	base64_decode_block((uint8_t*)buffer2, (char*)out, govno);
-	return 0;
+	return (0);
 }
 
-size_t	int128_to_asn(__int128 in, unsigned char *buf_out)
+size_t		int128_to_asn(__int128 in, unsigned char *buf_out)
 {
-	union converter cvt;
-	unsigned char *buf_out_copy_to_begin;
-	char byte_count;
+	union u_convert		cvt;
+	unsigned char		*buf_out_copy_to_begin;
+	char				byte_count;
 
 	buf_out_copy_to_begin = buf_out;
 	cvt.data = in;

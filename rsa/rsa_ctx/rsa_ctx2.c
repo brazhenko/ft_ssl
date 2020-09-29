@@ -59,7 +59,6 @@ t_rsa_context	*rsa_state_inform(int argc, char **argv, t_rsa_context *ctx)
 	return (parse_rsa_argv(argc - 1, argv + 1, ctx));
 }
 
-
 t_rsa_context	*rsa_state_outform(int argc, char **argv, t_rsa_context *ctx)
 {
 	memset(ctx->outform, 0, sizeof(ctx->outform));

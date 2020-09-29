@@ -6,53 +6,33 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:36:42 by a17641238         #+#    #+#             */
-/*   Updated: 2020/09/28 17:05:31 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/29 19:24:06 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-#include <stdlib.h>
-#include <assert.h>
 #include "rsa_context.h"
 #include "rsa.h"
 #include "utilities.h"
 #include <unistd.h>
 #include "key_io.h"
+#include "internal_rsa.h"
 
-# define STRING1	"RSA Private-Key: (64 bit)\n"
-# define STRING2	"modulus: "
-# define STRING3	"publicExponent: "
-# define STRING4	"privateExponent: "
-# define STRING5	"prime1: "
-# define STRING6	"prime2: "
-# define STRING7	"exponent1: "
-# define STRING8	"exponent2: "
-# define STRING9	"coefficient: "
-# define STRING10	"Modulus="
-# define STRING11	"Exponent: "
-# define STRING12	"RSA Public-Key: (64 bit)\n"
-# define STRING13	"Modulus: "
+#define STRING1	"RSA Private-Key: (64 bit)\n"
+#define STRING2	"modulus: "
+#define STRING3	"publicExponent: "
+#define STRING4	"privateExponent: "
+#define STRING5	"prime1: "
+#define STRING6	"prime2: "
+#define STRING7	"exponent1: "
+#define STRING8	"exponent2: "
+#define STRING9	"coefficient: "
+#define STRING10	"Modulus="
+#define STRING11	"Exponent: "
+#define STRING12	"RSA Public-Key: (64 bit)\n"
+#define STRING13	"Modulus: "
 
-void 	parse_key(t_rsa_context *ctx,
-		t_rsa_pub_key *pub_out,
-		t_rsa_priv_key *priv_out);
-void 	print_priv_key(t_rsa_context *ctx, t_rsa_priv_key *k);
-void 	print_pub_key(t_rsa_context *ctx, const t_rsa_pub_key *k);
-void	append_text_int_with_new_line(char *out, __int128 num);
-void	process_output(t_rsa_context *ctx,
-		t_rsa_pub_key *pub_out,
-		t_rsa_priv_key *priv_out);
-
-
-// Отрефакторить key_io!											V
-// Пофиксить размерность ключа, возможно просто подбором, лол		V
-// Написать полные тесты на genrsa, rsa								V
-// расширенный алгос евклида расшарить
-// МТФ
-// надо проверки возвратов говнометодов сделать и выход по eггor	V
-
-
-void generate_out_key(t_rsa_context *ctx,
+void	generate_out_key(t_rsa_context *ctx,
 		t_rsa_pub_key *pub_out,
 		t_rsa_priv_key *priv_out)
 {
@@ -63,9 +43,9 @@ void generate_out_key(t_rsa_context *ctx,
 	}
 }
 
-void 	print_modulus(t_rsa_context *ctx, __int128 modulus)
+void	print_modulus(t_rsa_context *ctx, __int128 modulus)
 {
-	char 	out[128];
+	char	out[128];
 
 	memset(out, 0, sizeof(out));
 	strcat(out, STRING10);
@@ -74,15 +54,12 @@ void 	print_modulus(t_rsa_context *ctx, __int128 modulus)
 	write(ctx->output_fd, out, strlen(out));
 }
 
-
-
 void	print_text_pub_key(t_rsa_context *ctx, t_rsa_pub_key *k)
 {
-	char 	to_print[2048];
+	char	to_print[2048];
 
 	memset(to_print, 0, sizeof(to_print));
 	strcat(to_print, STRING12);
-
 	strcat(to_print, STRING13);
 	append_text_int_with_new_line(to_print, k->n);
 	strcat(to_print, STRING11);
@@ -92,7 +69,7 @@ void	print_text_pub_key(t_rsa_context *ctx, t_rsa_pub_key *k)
 
 void	print_text_priv_key(t_rsa_context *ctx, t_rsa_priv_key *k)
 {
-	char 	to_print[2048];
+	char	to_print[2048];
 
 	memset(to_print, 0, sizeof(to_print));
 	strcat(to_print, STRING1);
@@ -115,7 +92,6 @@ void	print_text_priv_key(t_rsa_context *ctx, t_rsa_priv_key *k)
 	write(ctx->output_fd, to_print, strlen(to_print));
 }
 
-
 void	rsa(int ac, char **av)
 {
 	t_rsa_context	*ctx;
@@ -126,7 +102,6 @@ void	rsa(int ac, char **av)
 	memset(&pub_key, 0, sizeof(pub_key));
 	ctx = init_rsa_ctx();
 	ctx = parse_rsa_argv(ac, av, ctx);
-
 	parse_key(ctx, &pub_key, &priv_key);
 	if (ctx->mode & RSA_CTX_MODE_PUBIN)
 		ctx->mode |= RSA_CTX_MODE_PUBOUT;

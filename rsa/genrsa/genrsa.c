@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:36:10 by a17641238         #+#    #+#             */
-/*   Updated: 2020/09/28 16:13:16 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/29 15:46:28 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "base64.h"
 #include "utilities.h"
 
-static uint64_t	generate_1st_prime()
+static uint64_t	generate_1st_prime(void)
 {
 	const int	fd = open("/dev/urandom", O_RDONLY);
 	uint64_t	prime;
@@ -28,13 +28,13 @@ static uint64_t	generate_1st_prime()
 	prime = 1;
 	while (!is_prime(prime) || !(prime >> 31U))
 	{
-		if (read(fd, &prime, 4) != 4) // HARDCODE
+		if (read(fd, &prime, 4) != 4)
 			fatal("generate_2nd_prime, cannot read from random device");
 		write(2, ".", 1);
 	}
 	write(2, "+\n", 2);
 	close(fd);
-	return prime;
+	return (prime);
 }
 
 static uint64_t	generate_2nd_prime(uint64_t first_prime)
@@ -45,18 +45,19 @@ static uint64_t	generate_2nd_prime(uint64_t first_prime)
 	if (fd < 0)
 		fatal("generate_2nd_prime, cannot open random decice");
 	prime = 1;
-	while (!is_prime(prime) || !(prime >> 31U) || !((first_prime * prime) >> 63U))
+	while (!is_prime(prime) || !(prime >> 31U)
+			|| !((first_prime * prime) >> 63U))
 	{
-		if (read(fd, &prime, 4) != 4) // HARDCODE
+		if (read(fd, &prime, 4) != 4)
 			fatal("generate_2nd_prime, cannot read from random device");
 		write(2, ".", 1);
 	}
 	write(2, "+\n", 2);
 	close(fd);
-	return prime;
+	return (prime);
 }
 
-void	generate_2_primes_for_key(t_rsa_priv_key *k)
+void			generate_2_primes_for_key(t_rsa_priv_key *k)
 {
 	const uint64_t	p = generate_1st_prime();
 	uint64_t		q;
@@ -72,7 +73,7 @@ void	generate_2_primes_for_key(t_rsa_priv_key *k)
 **	 generates 64-bit private key
 */
 
-void	genrsa(int ac, char **av)
+void			genrsa(int ac, char **av)
 {
 	t_genrsa_context	*ctx;
 	t_rsa_priv_key		k;

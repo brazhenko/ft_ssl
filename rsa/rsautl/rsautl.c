@@ -6,40 +6,24 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:36:47 by a17641238         #+#    #+#             */
-/*   Updated: 2020/09/28 21:33:02 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/29 19:13:11 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <utilities.h>
-#include <printf.h>
 #include <rsa.h>
 #include <string.h>
 #include "rsautl_context.h"
 #include "key_io.h"
 #include <unistd.h>
+#include "internal_rsautl.h"
 
-union encryptor
-{
-	uint64_t			numero;
-	unsigned char 		arr[8];
-};
-
-static int 	len_till_pad(const unsigned char *inp)
-{
-	int i = 6;
-
-	while (i > -1 && inp[i] == 0xff)
-		i--;
-	return (i + 1);
-}
-
-void 	take_and_decrypt(t_rsautl_context *ctx,
+void		take_and_decrypt(t_rsautl_context *ctx,
 							__int128 privexp,
 							__int128 modulo)
 {
-	int 			tmp;
-	union encryptor enc;
-	uint64_t plain;
+	int					tmp;
+	union u_encryptor	enc;
 
 	enc.numero = 0;
 	while ((tmp = read(ctx->input_fd, enc.arr, 8)) > 0)
@@ -47,7 +31,8 @@ void 	take_and_decrypt(t_rsautl_context *ctx,
 		if (tmp != 8)
 			fatal("File was corrupted");
 		enc.numero = fast_mod_pow(enc.numero, privexp, modulo);
-		if (write(ctx->output_fd, enc.arr, len_till_pad(enc.arr)) != len_till_pad(enc.arr))
+		if (write(ctx->output_fd, enc.arr, len_till_pad(enc.arr))
+					!= len_till_pad(enc.arr))
 			fatal("Error on writing to file");
 		enc.numero = 0;
 	}
@@ -55,9 +40,9 @@ void 	take_and_decrypt(t_rsautl_context *ctx,
 		fatal("Error with out file");
 }
 
-void 	rsautl_decrypt(t_rsautl_context *ctx)
+void		rsautl_decrypt(t_rsautl_context *ctx)
 {
-	t_rsa_priv_key 	priv_key;
+	t_rsa_priv_key		priv_key;
 
 	memset(&priv_key, 0, sizeof(priv_key));
 	if (ctx->mode & RSAUTL_CTX_PUBIN)
@@ -67,18 +52,20 @@ void 	rsautl_decrypt(t_rsautl_context *ctx)
 	take_and_decrypt(ctx, priv_key.d, priv_key.n);
 }
 
-void 	encrypt_end_put(t_rsautl_context *ctx, __int128 pubexp, __int128 modulo)
+void		encrypt_end_put(t_rsautl_context *ctx,
+					__int128 pubexp, __int128 modulo)
 {
-	uint64_t		cryptogramm;
-	int 			tmp;
-	union encryptor enc;
-	enc.numero = 0;
+	uint64_t			cryptogramm;
+	int					tmp;
+	union u_encryptor	enc;
 
+	enc.numero = 0;
 	while ((tmp = read(ctx->input_fd, enc.arr, 7)) > 0)
 	{
 		memset(&enc.arr[0] + tmp, 0xff, 7 - tmp);
 		cryptogramm = fast_mod_pow(enc.numero, pubexp, modulo);
-		if (write(ctx->output_fd, &cryptogramm, sizeof(cryptogramm)) != sizeof(cryptogramm))
+		if (write(ctx->output_fd, &cryptogramm, sizeof(cryptogramm))
+					!= sizeof(cryptogramm))
 			fatal("Error on writing to file");
 		enc.numero = 0;
 	}
@@ -86,15 +73,15 @@ void 	encrypt_end_put(t_rsautl_context *ctx, __int128 pubexp, __int128 modulo)
 		fatal("Error with out file");
 }
 
-void 	rsautl_encrypt(t_rsautl_context *ctx)
+void		rsautl_encrypt(t_rsautl_context *ctx)
 {
-	t_rsa_priv_key 	priv_key;
-	t_rsa_pub_key 	pub_key;
+	t_rsa_priv_key	priv_key;
+	t_rsa_pub_key	pub_key;
+	__int128		pubexp;
+	__int128		modulo;
 
 	memset(&priv_key, 0, sizeof(priv_key));
 	memset(&pub_key, 0, sizeof(pub_key));
-	__int128 pubexp;
-	__int128 modulo;
 	if (ctx->mode & RSAUTL_CTX_PUBIN)
 	{
 		if (rsa_parse_pub_pem(ctx->inkey_fd, &pub_key) == 1)
@@ -112,13 +99,12 @@ void 	rsautl_encrypt(t_rsautl_context *ctx)
 	encrypt_end_put(ctx, pubexp, modulo);
 }
 
-void	rsautl(int ac, char **av)
+void		rsautl(int ac, char **av)
 {
 	t_rsautl_context		*ctx;
 
 	ctx = init_rsautl_ctx();
 	ctx = parse_rsautl_argv(ac, av, ctx);
-
 	if (ctx->mode & RSAUTL_CTX_DECRYPT)
 		rsautl_decrypt(ctx);
 	else
