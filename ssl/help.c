@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:27:28 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/10/29 22:27:29 by lreznak-         ###   ########.fr       */
+/*   Updated: 2020/07/10 18:35:02 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,26 @@ void		print_usage(void)
 
 void		print_ft_ssl_help(void)
 {
-	nstrprinterror(17,
-			"Standard commands:\n",
-			"\n",
-			"Message Digest commands:\n",
-			"md5\n",
-			"sha256\n",
-			"sha384 - under development\n",
-			"sha512 - under development\n",
-			"Whirlpool - under development\n",
-			"\n",
-			"Encoding commands:\n",
-			"base64\n",
-			"\n",
-			"Cipher commands:\n",
-			"des (alias for des-cbc) - under development\n",
-			"des-ecb\n",
-			"des-cbc - under development\n",
+	nstrprinterror(1,
+			"Standard commands:\n"
+			"genrsa\n"
+            "rsa\n"
+            "rsautl\n"
+			"\n"
+			"Message Digest commands:\n"
+			"md5\n"
+			"sha256\n"
+			"sha384 - under development\n"
+			"sha512 - under development\n"
+			"Whirlpool - under development\n"
+			"\n"
+			"Encoding commands:\n"
+			"base64\n"
+			"\n"
+			"Cipher commands:\n"
+			"des (alias for des-cbc)\n"
+			"des-ecb\n"
+			"des-cbc\n"
 			"\n");
 }
 

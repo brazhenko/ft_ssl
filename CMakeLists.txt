@@ -5,6 +5,8 @@ set(CMAKE_C_STANDARD 99)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 set(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Wextra -Werror")
 set(GCC_COVERAGE_LINK_FLAGS    "-Wall -Wextra -Werror")
+set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
+set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
 
 include_directories("include")
 
@@ -105,7 +107,30 @@ SET(UTILITIES_SRC
 		ssl/utilities/xmalloc.c
 		ssl/utilities/print_uint32_bits.c
 		ssl/utilities/print_uint64_bits.c
-		ssl/utilities/mem_xor.c ssl/utilities/print_hex_memory.c)
+		ssl/utilities/mem_xor.c
+		ssl/utilities/print_hex_memory.c
+		ssl/utilities/solovay_strassen_test.c
+		ssl/utilities/smax.c ssl/utilities/fatal.c ssl/utilities/int128convs.c)
+
+SET(BIGINT_SRC
+		multiprecision_lib/multiprecision.h
+		multiprecision_lib/multiprecision1.c)
+
+SET(RSA_SRC
+		include/rsa.h
+		rsa/genrsa/genrsa.c
+		rsa/genrsa_ctx/parse_gen_rsa_args.c
+		include/genrsa_context.h
+		rsa/rsa_ctx/parse_rsa_args.c
+		include/rsa_context.h
+		rsa/rsa/rsa.c
+		include/key_io.h
+		rsa/key_io/output_routines.c
+		rsa/key_io/input_routines.c rsa/key_io/routines1.c rsa/key_io/routines2.c rsa/key_io/internal_key_io.h rsa/rsautl/rsautl.c include/rsautl_context.h "rsa/rsautl_ctx/parse_rsautl_args.c" rsa/rsa/rsa2.c rsa/rsa_breaker/rsa_breaker.c rsa/rsautl_ctx/parse_rsautl2.c rsa/rsautl_ctx/parse_rsautl_internal.h rsa/rsautl/rsa_utl_routines.c rsa/rsautl/internal_rsautl.h rsa/rsa_ctx/internal_rsa_ctx.h rsa/rsa/internal_rsa.h)
+
+SET(TEST
+		include/.tests.h
+		tests/.tests.c ssl/utilities/mod_inverse.c rsa/genrsa_ctx/genrsa_ctx2.c rsa/rsa_ctx/rsa_ctx2.c rsa/genrsa_ctx/internal_genrsa_ctx.h)
 
 add_executable(
 		${PROJECT_NAME}
@@ -115,5 +140,7 @@ add_executable(
 		${BASE64_SRC}
 		${DES_SRC}
 		${UTILITIES_SRC}
-)
+		${BIGINT_SRC}
+		${RSA_SRC}
+		${TEST})
 
