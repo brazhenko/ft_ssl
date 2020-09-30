@@ -58,7 +58,7 @@ int				set_cipher_init_vector(t_cipher_context *ctx, char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		bin = g_hex2bin[arg[i]];
+		bin = g_hex2bin[(int)arg[i]];
 		if (bin || arg[i] == '0')
 		{
 			ctx->vector_ini[i / 2] |= (bin << (4u * (1u - i % 2u)));

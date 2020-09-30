@@ -28,6 +28,7 @@ static void	corrupted_last_block_exit(void)
 
 size_t		des_cut_padding(t_cipher_context *ctx, t_lpdesblock block)
 {
+	(void)ctx;
 	if (memcmp(((unsigned char *)block) + 7, "\1", 1) == 0)
 		return (7);
 	else if (memcmp(((unsigned char *)block) + 6, "\2\2", 2) == 0)

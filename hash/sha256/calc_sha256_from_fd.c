@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 23:10:45 by lreznak-          #+#    #+#             */
-/*   Updated: 2019/10/28 23:10:46 by lreznak-         ###   ########.fr       */
+/*   Updated: 2020/09/30 15:05:05 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int		reset_get_block_from_fd(size_t *iter, size_t *len,
 static void		move_iter(char **ret_block,
 				char *buffer, size_t *iter, ssize_t rd)
 {
-	if (*iter < rd)
+	if ((ssize_t)*iter < rd)
 	{
 		*ret_block = &buffer[*iter];
 		*iter = *iter + 64;
@@ -47,12 +47,12 @@ static void		move_iter(char **ret_block,
 static int		get_block_from_fd(int fd, char **block, int flag_p)
 {
 	static char		buffer[BUFLEN + 64];
-	static size_t	iter = 0;
+	static ssize_t	it = 0;
 	static size_t	len = 0;
 	static ssize_t	rd = 0;
 	static int		padded = 0;
 
-	if (iter == rd)
+	if (it == rd)
 	{
 		bzero(buffer, BUFLEN + 64);
 		if ((rd = read(fd, buffer, BUFLEN)) == -1)
@@ -60,16 +60,16 @@ static int		get_block_from_fd(int fd, char **block, int flag_p)
 		if (flag_p)
 			write(1, buffer, rd);
 		len += rd;
-		iter = 0;
+		it = 0;
 		if (rd == 0 && padded == 1)
-			return (reset_get_block_from_fd(&iter, &len, &rd, &padded));
+			return (reset_get_block_from_fd((size_t*)&it, &len, &rd, &padded));
 		if (rd < BUFLEN)
 		{
 			rd += calculate_sha256_buf_padding(buffer, len);
 			padded = 1;
 		}
 	}
-	move_iter(block, (char *)&buffer, &iter, rd);
+	move_iter(block, (char *)&buffer, (size_t*)&it, rd);
 	return (1);
 }
 

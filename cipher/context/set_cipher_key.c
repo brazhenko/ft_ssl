@@ -60,7 +60,7 @@ void			set_cipher_key(t_cipher_context *ctx, char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		bin = g_hex2bin[arg[i]];
+		bin = g_hex2bin[(int)arg[i]];
 		if (bin || arg[i] == '0')
 		{
 			ctx->key[i / 2] |= (bin << (4u * (1u - i % 2u)));

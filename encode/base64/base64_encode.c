@@ -17,7 +17,7 @@ size_t		encode_base64_block(unsigned char *buf,
 							char *output_buf,
 							ssize_t rd)
 {
-	size_t		i;
+	ssize_t		i;
 
 	i = 0;
 	while (i < rd)

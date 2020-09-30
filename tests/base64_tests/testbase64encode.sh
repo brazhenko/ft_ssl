@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bin="../../cmake-build-debug/ft_ssl"
+#bin="../../cmake-build-debug/ft_ssl"
 
 if [ "" == "$bin" ]
   then
