@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <utilities.h>
 
-void 		fatal(const char *s)
+void		fatal(const char *s)
 {
 	nstrprinterror(2, s, "\n");
 	exit(1);

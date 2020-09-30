@@ -39,7 +39,7 @@ size_t		encode_base64_block(unsigned char *buf,
 	return (i);
 }
 
-void			encode_base64_block_with_padding(
+void		encode_base64_block_with_padding(
 		uint8_t *buf,
 		char *output_buf,
 		ssize_t rd
@@ -64,7 +64,7 @@ void			encode_base64_block_with_padding(
 	}
 }
 
-void				base64_encode(t_encode_context *ctx)
+void		base64_encode(t_encode_context *ctx)
 {
 	ssize_t			rd;
 	uint8_t			buf[BASE64_ENCODE_READ_LEN];

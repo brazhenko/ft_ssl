@@ -23,8 +23,8 @@ void	*xmalloc(size_t size)
 		return (ret);
 	}
 	write(2,
-        "malloc() error\n"
-        "exit\n",
-        20);
+		"malloc() error\n"
+		"exit\n",
+		20);
 	exit(1);
 }

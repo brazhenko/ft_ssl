@@ -6,12 +6,13 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:46:25 by a17641238         #+#    #+#             */
-/*   Updated: 2020/09/28 15:46:25 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/30 13:36:30 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utilities.h"
 
-void int128toa(unsigned __int128 in, char *out)
+void	int128toa(t_uint128 in, char *out)
 {
 	char *out_copy;
 	char c;
@@ -35,7 +36,7 @@ void int128toa(unsigned __int128 in, char *out)
 	}
 }
 
-void int128tohex(unsigned __int128 in, char *out, const char *alphabet)
+void	int128tohex(t_uint128 in, char *out, const char *alphabet)
 {
 	char *out_copy;
 	char c;

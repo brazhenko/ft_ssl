@@ -130,7 +130,7 @@ SET(RSA_SRC
 
 SET(TEST
 		include/.tests.h
-		tests/.tests.c ssl/utilities/mod_inverse.c rsa/genrsa_ctx/genrsa_ctx2.c rsa/rsa_ctx/rsa_ctx2.c rsa/genrsa_ctx/internal_genrsa_ctx.h)
+		ssl/utilities/mod_inverse.c rsa/genrsa_ctx/genrsa_ctx2.c rsa/rsa_ctx/rsa_ctx2.c rsa/genrsa_ctx/internal_genrsa_ctx.h)
 
 add_executable(
 		${PROJECT_NAME}
