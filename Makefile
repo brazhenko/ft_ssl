@@ -8,8 +8,8 @@ OBJ_DIR = build
 
 C_COMPILER = clang
 C_STANDART = -std=c99
-C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
-C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
+C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) 
+C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) 
 
 # **************************************************************************** #
 # FT_SSL TARGET DESCRIPTION
@@ -18,9 +18,9 @@ FT_SSL_NAME = ft_ssl
 FT_SSL_PATH = ssl
 FT_SSL_FILE = ./ft_ssl
 FT_SSL_SRCS = command_executor.c hash_executor.c help.c main.c parse_hash_flags.c encode_executor.c wrong_command_exit.c
-FT_SSL_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(FT_SSL_SRCS))
-FT_SSL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(FT_SSL_SRCS))
-FT_SSL_LIBS = -l ssl_utils -L . -l cipher -L . -l cipher_ctx -L . -l cipher_des -L . -l cipher_pbkdf -L . -l encode -L . -l base64 -L . -l encode_ctx -L . -l md5 -L . -l sha256 -L . -l rsautl -L . -l rsautl_ctx -L . -l key_io -L . -l genrsa -L . -l genrsa_ctx -L . -l rsa -L . -l rsa_ctx -L . -l rsa_breaker -L .
+FT_SSL_OBJS = $(patsubs#    Updated: 2020/09/30 15:05:05 by a17641238        ###   ########.fr        #
+$(FT_SSL_SRCS))
+FT_SSL_LIBS = -l ssl_utils -L . -l cipher -L . -l cipher_ctx -L . -l cipher_des -L . -l cipher_pbkdf -L . -l encode -L . -l base64 -L . -l encode_ctx -L . -l md5 -L . -l sha256 -L . -l rsautl -L . -l rsa -L . -l genrsa -L . -l genrsa_ctx -L . -l rsa_ctx -L .
 FT_SSL_INCS = -I include
 
 # **************************************************************************** #
@@ -156,28 +156,16 @@ RSAUTL_LIBS =
 RSAUTL_INCS = -I include
 
 # **************************************************************************** #
-# RSAUTL_CTX TARGET DESCRIPTION
+# RSA TARGET DESCRIPTION
 
-RSAUTL_CTX_NAME = rsautl_ctx
-RSAUTL_CTX_PATH = rsa/rsautl_ctx
-RSAUTL_CTX_FILE = ./librsautl_ctx.a
-RSAUTL_CTX_SRCS = parse_rsautl2.c parse_rsautl_args.c
-RSAUTL_CTX_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(RSAUTL_CTX_SRCS))
-RSAUTL_CTX_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(RSAUTL_CTX_SRCS))
-RSAUTL_CTX_LIBS = 
-RSAUTL_CTX_INCS = -I include
-
-# **************************************************************************** #
-# KEY_IO TARGET DESCRIPTION
-
-KEY_IO_NAME = key_io
-KEY_IO_PATH = rsa/key_io
-KEY_IO_FILE = ./libkey_io.a
-KEY_IO_SRCS = input_routines.c output_routines.c routines1.c routines2.c
-KEY_IO_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(KEY_IO_SRCS))
-KEY_IO_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(KEY_IO_SRCS))
-KEY_IO_LIBS = 
-KEY_IO_INCS = -I include
+RSA_NAME = rsa
+RSA_PATH = rsa/key_io
+RSA_FILE = ./librsa.a
+RSA_SRCS = input_routines.c output_routines.c routines1.c routines2.c
+RSA_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(RSA_SRCS))
+RSA_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(RSA_SRCS))
+RSA_LIBS = 
+RSA_INCS = -I include
 
 # **************************************************************************** #
 # GENRSA TARGET DESCRIPTION
@@ -197,23 +185,11 @@ GENRSA_INCS = -I include
 GENRSA_CTX_NAME = genrsa_ctx
 GENRSA_CTX_PATH = rsa/genrsa_ctx
 GENRSA_CTX_FILE = ./libgenrsa_ctx.a
-GENRSA_CTX_SRCS = genrsa_ctx2.c parse_gen_rsa_args.c
+GENRSA_CTX_SRCS = genrsa_ctx2.c parse_gen_rsa_args2.c
 GENRSA_CTX_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(GENRSA_CTX_SRCS))
 GENRSA_CTX_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(GENRSA_CTX_SRCS))
 GENRSA_CTX_LIBS = 
 GENRSA_CTX_INCS = -I include
-
-# **************************************************************************** #
-# RSA TARGET DESCRIPTION
-
-RSA_NAME = rsa
-RSA_PATH = rsa/rsa
-RSA_FILE = ./librsa.a
-RSA_SRCS = rsa.c rsa2.c
-RSA_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(RSA_SRCS))
-RSA_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(RSA_SRCS))
-RSA_LIBS = 
-RSA_INCS = -I include
 
 # **************************************************************************** #
 # RSA_CTX TARGET DESCRIPTION
@@ -228,34 +204,22 @@ RSA_CTX_LIBS =
 RSA_CTX_INCS = -I include
 
 # **************************************************************************** #
-# RSA_BREAKER TARGET DESCRIPTION
-
-RSA_BREAKER_NAME = rsa_breaker
-RSA_BREAKER_PATH = rsa/rsa_breaker
-RSA_BREAKER_FILE = ./librsa_breaker.a
-RSA_BREAKER_SRCS = rsa_breaker.c
-RSA_BREAKER_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(RSA_BREAKER_SRCS))
-RSA_BREAKER_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(RSA_BREAKER_SRCS))
-RSA_BREAKER_LIBS = 
-RSA_BREAKER_INCS = -I include
-
-# **************************************************************************** #
 # GENERIC RULES
 
 .PHONY: all re clean fclean
 .DEFAULT_GOAL = all
 
-all: $(SSL_UTILS_FILE) $(CIPHER_FILE) $(CIPHER_CTX_FILE) $(CIPHER_DES_FILE) $(CIPHER_PBKDF_FILE) $(ENCODE_FILE) $(BASE64_FILE) $(ENCODE_CTX_FILE) $(MD5_FILE) $(SHA256_FILE) $(RSAUTL_FILE) $(RSAUTL_CTX_FILE) $(KEY_IO_FILE) $(GENRSA_FILE) $(GENRSA_CTX_FILE) $(RSA_FILE) $(RSA_CTX_FILE) $(RSA_BREAKER_FILE) $(FT_SSL_FILE)
+all: $(SSL_UTILS_FILE) $(CIPHER_FILE) $(CIPHER_CTX_FILE) $(CIPHER_DES_FILE) $(CIPHER_PBKDF_FILE) $(ENCODE_FILE) $(BASE64_FILE) $(ENCODE_CTX_FILE) $(MD5_FILE) $(SHA256_FILE) $(RSAUTL_FILE) $(RSA_FILE) $(GENRSA_FILE) $(GENRSA_CTX_FILE) $(RSA_CTX_FILE) $(FT_SSL_FILE)
 
 clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -rf $(SSL_UTILS_FILE) $(CIPHER_FILE) $(CIPHER_CTX_FILE) $(CIPHER_DES_FILE) $(CIPHER_PBKDF_FILE) $(ENCODE_FILE) $(BASE64_FILE) $(ENCODE_CTX_FILE) $(MD5_FILE) $(SHA256_FILE) $(RSAUTL_FILE) $(RSAUTL_CTX_FILE) $(KEY_IO_FILE) $(GENRSA_FILE) $(GENRSA_CTX_FILE) $(RSA_FILE) $(RSA_CTX_FILE) $(RSA_BREAKER_FILE) $(FT_SSL_FILE)
+	@rm -rf $(SSL_UTILS_FILE) $(CIPHER_FILE) $(CIPHER_CTX_FILE) $(CIPHER_DES_FILE) $(CIPHER_PBKDF_FILE) $(ENCODE_FILE) $(BASE64_FILE) $(ENCODE_CTX_FILE) $(MD5_FILE) $(SHA256_FILE) $(RSAUTL_FILE) $(RSA_FILE) $(GENRSA_FILE) $(GENRSA_CTX_FILE) $(RSA_CTX_FILE) $(FT_SSL_FILE)
 
 re: fclean all
 
-$(FT_SSL_FILE): $(SSL_UTILS_FILE) $(CIPHER_FILE) $(CIPHER_CTX_FILE) $(CIPHER_DES_FILE) $(CIPHER_PBKDF_FILE) $(ENCODE_FILE) $(BASE64_FILE) $(ENCODE_CTX_FILE) $(MD5_FILE) $(SHA256_FILE) $(RSAUTL_FILE) $(RSAUTL_CTX_FILE) $(KEY_IO_FILE) $(GENRSA_FILE) $(GENRSA_CTX_FILE) $(RSA_FILE) $(RSA_CTX_FILE) $(RSA_BREAKER_FILE) $(FT_SSL_OBJS)
+$(FT_SSL_FILE): $(SSL_UTILS_FILE) $(CIPHER_FILE) $(CIPHER_CTX_FILE) $(CIPHER_DES_FILE) $(CIPHER_PBKDF_FILE) $(ENCODE_FILE) $(BASE64_FILE) $(ENCODE_CTX_FILE) $(MD5_FILE) $(SHA256_FILE) $(RSAUTL_FILE) $(RSA_FILE) $(GENRSA_FILE) $(GENRSA_CTX_FILE) $(RSA_CTX_FILE) $(FT_SSL_OBJS)
 	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(FT_SSL_FILE) $(FT_SSL_OBJS)  $(FT_SSL_LIBS)
 	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
 
@@ -374,25 +338,15 @@ $(OBJ_DIR)/%.c.o: $(RSAUTL_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(RSAUTL_INCS) -o $@ -c $< -MMD
 
-$(RSAUTL_CTX_FILE): $(RSAUTL_CTX_OBJS)
-	@ar rc $(RSAUTL_CTX_FILE) $(RSAUTL_CTX_OBJS)
-	@ranlib $(RSAUTL_CTX_FILE)
+$(RSA_FILE): $(RSA_OBJS)
+	@ar rc $(RSA_FILE) $(RSA_OBJS)
+	@ranlib $(RSA_FILE)
 	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
 
-$(OBJ_DIR)/%.c.o: $(RSAUTL_CTX_PATH)/%.c
+$(OBJ_DIR)/%.c.o: $(RSA_PATH)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
-	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(RSAUTL_CTX_INCS) -o $@ -c $< -MMD
-
-$(KEY_IO_FILE): $(KEY_IO_OBJS)
-	@ar rc $(KEY_IO_FILE) $(KEY_IO_OBJS)
-	@ranlib $(KEY_IO_FILE)
-	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
-
-$(OBJ_DIR)/%.c.o: $(KEY_IO_PATH)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
-	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(KEY_IO_INCS) -o $@ -c $< -MMD
+	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(RSA_INCS) -o $@ -c $< -MMD
 
 $(GENRSA_FILE): $(GENRSA_OBJS)
 	@ar rc $(GENRSA_FILE) $(GENRSA_OBJS)
@@ -414,16 +368,6 @@ $(OBJ_DIR)/%.c.o: $(GENRSA_CTX_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(GENRSA_CTX_INCS) -o $@ -c $< -MMD
 
-$(RSA_FILE): $(RSA_OBJS)
-	@ar rc $(RSA_FILE) $(RSA_OBJS)
-	@ranlib $(RSA_FILE)
-	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
-
-$(OBJ_DIR)/%.c.o: $(RSA_PATH)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
-	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(RSA_INCS) -o $@ -c $< -MMD
-
 $(RSA_CTX_FILE): $(RSA_CTX_OBJS)
 	@ar rc $(RSA_CTX_FILE) $(RSA_CTX_OBJS)
 	@ranlib $(RSA_CTX_FILE)
@@ -434,14 +378,4 @@ $(OBJ_DIR)/%.c.o: $(RSA_CTX_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(RSA_CTX_INCS) -o $@ -c $< -MMD
 
-$(RSA_BREAKER_FILE): $(RSA_BREAKER_OBJS)
-	@ar rc $(RSA_BREAKER_FILE) $(RSA_BREAKER_OBJS)
-	@ranlib $(RSA_BREAKER_FILE)
-	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
-
-$(OBJ_DIR)/%.c.o: $(RSA_BREAKER_PATH)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
-	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(RSA_BREAKER_INCS) -o $@ -c $< -MMD
-
--include $(FT_SSL_DEPS) $(SSL_UTILS_DEPS) $(CIPHER_DEPS) $(CIPHER_CTX_DEPS) $(CIPHER_DES_DEPS) $(CIPHER_PBKDF_DEPS) $(ENCODE_DEPS) $(BASE64_DEPS) $(ENCODE_CTX_DEPS) $(MD5_DEPS) $(SHA256_DEPS) $(RSAUTL_DEPS) $(RSAUTL_CTX_DEPS) $(KEY_IO_DEPS) $(GENRSA_DEPS) $(GENRSA_CTX_DEPS) $(RSA_DEPS) $(RSA_CTX_DEPS) $(RSA_BREAKER_DEPS)
+-include $(FT_SSL_DEPS) $(SSL_UTILS_DEPS) $(CIPHER_DEPS) $(CIPHER_CTX_DEPS) $(CIPHER_DES_DEPS) $(CIPHER_PBKDF_DEPS) $(ENCODE_DEPS) $(BASE64_DEPS) $(ENCODE_CTX_DEPS) $(MD5_DEPS) $(SHA256_DEPS) $(RSAUTL_DEPS) $(RSA_DEPS) $(GENRSA_DEPS) $(GENRSA_CTX_DEPS) $(RSA_CTX_DEPS)

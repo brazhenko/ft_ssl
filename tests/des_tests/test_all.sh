@@ -1,4 +1,7 @@
 #!/bin/bash
+
+export bin="$1"
+
 ./des_ecb_encrypt_test.sh
 ./des_ecb_decrypt_test.sh
 ./you_shall_not_pass_test.sh

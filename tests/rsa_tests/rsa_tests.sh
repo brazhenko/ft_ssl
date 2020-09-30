@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bin="../../ft_ssl"
+bin="$1"
 
 # Colors
 RED='\033[0;31m'
