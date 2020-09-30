@@ -54,7 +54,7 @@ void				dec(uint8_t *buf, char *out, char *tmp, size_t *arr)
 ** arr[3]: arr[0] - white_space offset, arr[1] - temporary num, arr[2] - i
 */
 
-void			base64_decode_block(
+void				base64_decode_block(
 		uint8_t *buf,
 		char *out,
 		ssize_t rd

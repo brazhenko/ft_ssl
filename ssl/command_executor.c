@@ -27,7 +27,7 @@ int			command_executor(int ac, char *av[])
 	else if (strcmp(av[1], "des-ecb") == 0)
 		cipher_executor(ac - 2, av + 2, &des_ecb);
 	else if (strcmp(av[1], "genrsa") == 0)
-	    genrsa(ac - 2, av + 2);
+		genrsa(ac - 2, av + 2);
 	else if (strcmp(av[1], "rsautl") == 0)
 		rsautl(ac - 2, av + 2);
 	else if (strcmp(av[1], "rsa") == 0)

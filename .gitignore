@@ -67,6 +67,7 @@ Temporary Items
 cmake-build-debug/
 ft_ssl
 
+
 # Test Files
 TorBrowser-8.5.4-osx64_ru.dmg
 tests/TimeBenchmarkFiles/1GB

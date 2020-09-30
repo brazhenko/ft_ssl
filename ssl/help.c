@@ -24,8 +24,8 @@ void		print_ft_ssl_help(void)
 	nstrprinterror(1,
 			"Standard commands:\n"
 			"genrsa\n"
-            "rsa\n"
-            "rsautl\n"
+			"rsa\n"
+			"rsautl\n"
 			"\n"
 			"Message Digest commands:\n"
 			"md5\n"
