@@ -66,6 +66,8 @@ Temporary Items
 *.hex
 cmake-build-debug/
 ft_ssl
+makefile_gen_py/
+package/
 
 
 # Test Files
