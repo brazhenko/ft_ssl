@@ -62,7 +62,7 @@ void			set_cipher_pass_salt(t_cipher_context *ctx, char *arg)
 	{
 		if (i == CIPHER_SALT_BYTE_LEN * 2)
 			cipher_hex_salt_too_long_exit();
-		bin = g_hex2bin[arg[i]];
+		bin = g_hex2bin[(int)arg[i]];
 		if (bin || arg[i] == '0')
 		{
 			ctx->salt[i / 2] |= (bin << (4u * (1u - i % 2u)));

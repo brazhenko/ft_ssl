@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bin="../../cmake-build-debug/ft_ssl"
+bin="../../ft_ssl"
 
 # Colors
 RED='\033[0;31m'

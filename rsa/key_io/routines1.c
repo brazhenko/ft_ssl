@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:35:31 by a17641238         #+#    #+#             */
-/*   Updated: 2020/09/29 19:38:30 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/30 14:43:32 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #include <unistd.h>
 #include "internal_key_io.h"
 #include "base64.h"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#pragma GCC diagnostic ignored "-Wchar-subscripts"
 
 int			parse_asn_from_pem(int fd, unsigned char *out)
 {

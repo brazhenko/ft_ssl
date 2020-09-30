@@ -6,7 +6,7 @@
 /*   By: lreznak- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 05:57:01 by lreznak-          #+#    #+#             */
-/*   Updated: 2020/09/25 21:24:09 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/09/30 14:37:32 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void				base64_decode_block(
 )
 {
 	char		tmp[4];
-	size_t		arr[3];
+	ssize_t		arr[3];
 
 	arr[2] = 0;
 	arr[1] = 0;
@@ -69,7 +69,7 @@ void				base64_decode_block(
 	while (arr[2] < rd)
 	{
 		if (isbase64alpha(buf[arr[2]]))
-			dec(buf, out, tmp, arr);
+			dec(buf, out, tmp, (size_t *)arr);
 		else if (isspace(buf[arr[2]]))
 			arr[0]++;
 		else
