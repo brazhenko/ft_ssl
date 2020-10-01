@@ -8,8 +8,8 @@ OBJ_DIR = build
 
 C_COMPILER = clang
 C_STANDART = -std=c99
-C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror -O2
-C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror -O2
+C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
+C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
 
 # **************************************************************************** #
 # FT_SSL TARGET DESCRIPTION
@@ -17,9 +17,8 @@ C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror -O2
 FT_SSL_NAME = ft_ssl
 FT_SSL_PATH = ssl
 FT_SSL_FILE = ./ft_ssl
-FT_SSL_SRCS = command_executor.c hash_executor.c help.c main.c parse_hash_flags.c encode_executor.c wrong_command_exit.c
-FT_SSL_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(FT_SSL_SRCS))
-FT_SSL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(FT_SSL_SRCS))
+FT_SSL_SRCS = command_executor.c hash_executor.c help.c main.c parse_hash_flags.c encode_executor.c wr#    Updated: 2020/10/01 17:07:37 by a17641238        ###   ########.fr        #
+_SSL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(FT_SSL_SRCS))
 FT_SSL_LIBS = -l ssl_utils -L . -l cipher -L . -l cipher_ctx -L . -l cipher_des -L . -l cipher_pbkdf -L . -l encode -L . -l base64 -L . -l encode_ctx -L . -l md5 -L . -l sha256 -L . -l rsautl -L . -l rsautl_ctx -L . -l key_io -L . -l genrsa -L . -l genrsa_ctx -L . -l rsa -L . -l rsa_ctx -L . -l rsa_breaker -L .
 FT_SSL_INCS = -I include
 
