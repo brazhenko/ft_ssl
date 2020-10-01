@@ -29,7 +29,9 @@ cmake . && make
 #### Encoding commands
 * base64
 #### Standard commands
-
+* genrsa
+* rsa
+* rsautl
 ## Contributing
 
 ## License

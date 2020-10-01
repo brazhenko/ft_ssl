@@ -283,7 +283,7 @@ SSL = {
 
 COMPILERS = {
     "c": {
-        "flags": "-Wall -Wextra -Werror",
+        "flags": "-Wall -Wextra -Werror -O2",
         "file_extension": "c",
         "std": "-std=c99",
         "binary": "clang",
