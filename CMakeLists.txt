@@ -112,10 +112,6 @@ SET(UTILITIES_SRC
 		ssl/utilities/solovay_strassen_test.c
 		ssl/utilities/smax.c ssl/utilities/fatal.c ssl/utilities/int128convs.c)
 
-SET(BIGINT_SRC
-		multiprecision_lib/multiprecision.h
-		multiprecision_lib/multiprecision1.c)
-
 SET(RSA_SRC
 		include/rsa.h
 		rsa/genrsa/genrsa.c

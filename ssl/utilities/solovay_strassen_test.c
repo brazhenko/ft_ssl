@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 13:21:31 by a17641238         #+#    #+#             */
-/*   Updated: 2020/09/30 13:34:55 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/10/01 16:38:23 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,38 @@ uint64_t	fast_mod_pow(t_uint128 base, t_uint128 pw, t_uint128 mod)
 	return (result);
 }
 
+int			mlr_help2(int fd, uint64_t t, uint64_t n, uint64_t s)
+{
+	uint64_t	j;
+	uint64_t	x;
+	uint64_t	a;
+
+	if (read(fd, &a, sizeof(a)) != sizeof(a))
+		fatal("cannot read random data");
+	a = interval(a, 2, n - 2);
+	x = fast_mod_pow(a, t, n);
+	if (x == 1 || x == n - 1)
+		return (2);
+	j = 0;
+	while (j + 1 < s)
+	{
+		x = fast_mod_pow(x, 2, n);
+		if (x == 1)
+			return (0);
+		if (x == n - 1)
+			break ;
+		j++;
+	}
+	if (x == n - 1)
+		return (2);
+	return (0);
+}
+
 int			miller_rabin_test_fd(uint64_t n, int k, int fd)
 {
-	uint64_t	a;
 	uint64_t	s;
 	uint64_t	t;
-	uint64_t	x;
+	int			ret;
 
 	if (n == 2 || n == 3)
 		return (100);
@@ -85,23 +111,10 @@ int			miller_rabin_test_fd(uint64_t n, int k, int fd)
 	}
 	while (k--)
 	{
-		if (read(fd, &a, sizeof(a)) != sizeof(a))
-			fatal("cannot read random data");
-		a = interval(a, 2, n - 2);
-		x = fast_mod_pow(a, t, n);
-		if (x == 1 || x == n - 1)
+		ret = mlr_help2(fd, t, n, s);
+		if (ret == 2)
 			continue ;
-		for (uint64_t j = 0; j + 1 < s; j++)
-		{
-			x = fast_mod_pow(x, 2, n);
-			if (x == 1)
-				return (0);
-			if (x == n - 1)
-				break ;
-		}
-		if (x == n - 1)
-			continue ;
-		return (0);
+		return (ret);
 	}
 	return (100 - (int)((1. / fast_mod_pow(2, k, INT_MAX) * 100)));
 }
