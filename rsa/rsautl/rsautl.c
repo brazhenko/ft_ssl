@@ -109,4 +109,5 @@ void		rsautl(int ac, char **av)
 		rsautl_decrypt(ctx);
 	else
 		rsautl_encrypt(ctx);
+	delete_rsautl_ctx(ctx);
 }
